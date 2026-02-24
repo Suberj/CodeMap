@@ -3,52 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeMap | Master Your Degree</title>
-    <link rel="stylesheet" href="global.css">
+    <title>CodeMap - Master the Languages of Your Degree</title>
+    <style>
+        /* Color Palette [cite: 41] */
+        :root {
+            --bg-primary: #161D26;
+            --bg-secondary: #273240;
+            --blue-accent: #52C5F2;
+            --salmon-accent: #F27D72;
+            --off-white: #F6F2E6;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--off-white);
+            font-family: 'Proxima Nova', sans-serif; /* Body font [cite: 44] */
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'DIN 2014', sans-serif; /* Heading font [cite: 44] */
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Persistent Navigation [cite: 40, 49] */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: var(--bg-primary);
+        }
+
+        .logo {
+            color: var(--blue-accent);
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        nav a {
+            color: var(--off-white);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        /* Hero Section [cite: 45, 46] */
+        .hero {
+            padding: 60px 5%;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background-color: var(--salmon-accent);
+            color: var(--bg-primary);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* Continue Lesson Card [cite: 50] */
+        .continue-card {
+            background-color: var(--bg-secondary);
+            border-left: 4px solid var(--blue-accent);
+            margin: 40px 5%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 400px;
+        }
+
+        /* Search Integration [cite: 51] */
+        .search-container {
+            padding: 0 5%;
+            margin-bottom: 40px;
+        }
+
+        .search-bar {
+            background-color: #273240;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        /* Language Grid [cite: 52, 78] */
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 5% 60px;
+        }
+
+        .lang-card {
+            background-color: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .lang-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .lang-card h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .lang-card p {
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <div class="logo" onclick="showSection('homepage')">CODEMAP</div>
+        <div class="logo">CODEMAP</div>
         <nav>
-            <a href="#" onclick="showSection('homepage')">Home</a>
-            <a href="#" onclick="showSection('learn')">Learn</a>
-            <a href="#" onclick="showSection('about')">About</a>
-            <a href="#" onclick="showSection('account')">Account</a>
+            <a href="#">Home</a>
+            <a href="#">Learn</a>
+            <a href="#">About</a>
+            <a href="#">Login</a>
         </nav>
     </header>
 
-    <div id="screen-container">
-        <div id="homepage" class="screen"></div>
-        <div id="learn" class="screen hidden"></div>
-        <div id="account" class="screen hidden"></div>
-        <div id="tutorial" class="screen hidden"></div>
-        <div id="about" class="screen hidden"></div>
+    <section class="hero">
+        <h1>MASTER THE LANGUAGES <br> OF YOUR DEGREE.</h1>
+        <p>CodeMap bridges the gap between classroom theory and practical coding proficiency for RPI students. [cite: 46]</p>
+        <button class="btn-primary">Start Your Journey</button>
+    </section>
+
+    <div class="continue-card">
+        <div>
+            <strong style="color: var(--blue-accent);">CONTINUE: C++ POINTERS</strong><br>
+            <small>Current Lesson: Advanced Data Structures</small>
+        </div>
+        <button style="background:transparent; border:1px solid var(--salmon-accent); color:var(--salmon-accent); padding:5px 15px; cursor:pointer;">RESUME</button>
     </div>
 
-    <script>
-        // Controller to switch between screens
-        function showSection(screenId) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-            document.getElementById(screenId).classList.remove('hidden');
-            window.scrollTo(0,0);
-        }
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search for a tutorial or function...">
+    </div>
 
-        // Simulating the loading of your separate files
-        async function loadScreens() {
-            const screens = ['homepage', 'learn', 'account', 'tutorial', 'about'];
-            for (const screen of screens) {
-                const response = await fetch(`${screen}.html`);
-                const html = await response.text();
-                // Extract only the <main> content to inject into index.html
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const content = doc.querySelector('main');
-                if (content) document.getElementById(screen).innerHTML = content.innerHTML;
-            }
-        }
-        
-        window.onload = loadScreens;
-    </script>
+    <div class="language-grid">
+        <div class="lang-card">
+            <h3>PYTHON</h3>
+            <p>Curated for CS1 and Data Science</p>
+        </div>
+        <div class="lang-card">
+            <h3>C++</h3>
+            <p>Advanced Data Structures support</p>
+        </div>
+        <div class="lang-card">
+            <h3>MATLAB</h3>
+            <p>Engineered for Control Systems</p>
+        </div>
+    </div>
+
 </body>
 </html>

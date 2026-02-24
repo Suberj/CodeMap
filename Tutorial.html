@@ -2,249 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeMap | C++ Linked Lists Tutorial</title>
-    <style>
-        :root {
-            --bg-dark: #161D26;
-            --bg-accent: #273240;
-            --primary-blue: #52C5F2;
-            --primary-salmon: #F27D72;
-            --text-off-white: #F6F2E6;
-            --success-green: #4CAF50;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-off-white);
-            font-family: "proxima-nova", sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        h1, h2, h3, .logo, .btn-submit, .sidebar h3 {
-            font-family: "din-2014", sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        header {
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--bg-accent);
-        }
-
-        .logo { font-size: 1.8rem; color: var(--primary-blue); text-decoration: none; }
-
-        nav a { color: var(--text-off-white); text-decoration: none; margin-left: 2rem; }
-
-        .tutorial-container {
-            display: grid;
-            grid-template-columns: 280px 1fr; /* cite: 461, 467 */
-            min-height: calc(100vh - 80px);
-        }
-
-        /* Side Navigation Bar [cite: 461] */
-        .sidebar {
-            background-color: var(--bg-accent);
-            padding: 2.5rem 1.5rem;
-            border-right: 1px solid #3d4b5e;
-        }
-
-        .sidebar h3 { color: var(--text-off-white); margin-bottom: 2rem; font-size: 1.2rem; }
-
-        .sidebar ul { list-style: none; padding: 0; }
-
-        .sidebar li {
-            padding: 10px 0;
-            color: #888;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .sidebar li.active { color: var(--primary-blue); font-weight: bold; }
-
-        .sidebar li:hover { color: var(--text-off-white); }
-
-        /* Main Content Area */
-        .content { padding: 3rem 10%; }
-
-        .progress-header {
-            display: flex;
-            justify-content: flex-end;
-            gap: 2rem;
-            font-size: 0.8rem;
-            margin-bottom: 2rem;
-        }
-
-        .progress-bar-container {
-            width: 150px;
-            height: 8px;
-            background: #313d4d;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-
-        .progress-fill { height: 100%; background: var(--primary-blue); transition: 0.5s; }
-
-        /* Visualization Box [cite: 260, 453] */
-        .viz-box {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        /* Challenge Section [cite: 463] */
-        .challenge-box {
-            background-color: var(--bg-accent);
-            padding: 2rem;
-            border-radius: 12px;
-            margin-top: 3rem;
-            transition: 0.3s;
-        }
-
-        .code-input {
-            width: 100%;
-            height: 150px;
-            background: #111820;
-            color: #d1d1d1;
-            border: 1px solid #3d4b5e;
-            padding: 1rem;
-            font-family: 'Courier New', monospace;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-            resize: none;
-        }
-
-        .btn-group { display: flex; gap: 1rem; justify-content: flex-end; }
-
-        .btn-reset { background: transparent; border: 1px solid #888; color: #888; padding: 0.6rem 1.5rem; border-radius: 4px; cursor: pointer; }
-
-        .btn-submit {
-            background-color: var(--primary-blue);
-            color: var(--bg-dark);
-            border: none;
-            padding: 0.8rem 2.5rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .feedback-text {
-            display: none;
-            margin-top: 1rem;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        footer { padding: 2rem; text-align: center; color: #666; font-size: 0.8rem; }
-    </style>
+    <title>CodeMap - C++ Tutorial</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <div class="logo">CODEMAP</div>
+        <div class="nav-links"><a href="index.html">Home</a> <a href="learn.html">Learn</a> <a href="about.html">About</a> <a href="index.html">Log Out</a></div>
+    </nav>
 
-    <header>
-        <a href="#" class="logo">CodeMap</a>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Learn</a>
-            <a href="#">About</a>
-            <a href="#">Account</a>
-        </nav>
-    </header>
-
-    <div class="tutorial-container">
-        <aside class="sidebar">
+    <div class="tutorial-layout">
+        <aside class="side-nav">
             <h3>C++ Topics</h3>
+            <h4>Data Structures</h4>
             <ul>
-                <li>Primitive Datatypes</li>
-                <li style="margin-left: 15px;">Characters</li>
-                <li style="margin-left: 15px;">Integer</li>
-                <li class="active">Linked Lists</li>
-                <li>Dynamic Memory</li>
-                <li>Classes</li>
+                <li><a href="#">Vector</a></li>
+                <li class="active"><a href="#">Linked Lists</a></li>
+                <li><a href="#">Dynamic Memory</a></li>
             </ul>
         </aside>
 
         <main class="content">
-            <div class="progress-header">
-                <div>
-                    <span>C++ Tutorial Progress</span>
-                    <div class="progress-bar-container"><div class="progress-fill" style="width: 10%;"></div></div>
-                </div>
-                <div>
-                    <span>Current Lesson Progress</span>
-                    <div class="progress-bar-container"><div class="progress-fill" style="width: 25%;"></div></div>
-                </div>
+            <div class="progress-bars">
+                <label>C++ Tutorial Progress: 10%</label>
+                <div class="bar"><div class="fill" style="width:10%"></div></div>
             </div>
 
-            <h1 style="font-size: 2.8rem; margin: 0;">C++ Linked Lists</h1>
+            <h1>C++ Linked Lists</h1>
+            <p>Linked lists allow storage of multiple elements of the same size... [cite: 130]</p>
             
-            <section style="margin-top: 2rem;">
-                <h2 style="color: var(--primary-blue);">What are Linked Lists?</h2>
-                <p>Linked lists allow storage of multiple elements of the same size just like arrays and vectors. They are designed for fast insertion, sorting, and exchange parts of the elements with another linked list. [cite: 467]</p>
-            </section>
-
-            <div class="viz-box">
-                <p style="color: #888; font-style: italic;">Structure of Singly-Linked Lists</p>
-                
-            </div>
-
-            <section class="challenge-box" id="challengeSection">
-                <h3 style="color: var(--primary-salmon); margin: 0;">Challenge!</h3>
-                <p style="margin-top: 10px;">Print the value of the third node of head, a singly linked list with 5 nodes.</p>
-                
-                <textarea class="code-input" id="codeInput">Node* move = head;
-// Type your answer here!</textarea>
-
-                <div class="btn-group">
-                    <button class="btn-reset" onclick="resetCode()">Reset</button>
-                    <button class="btn-submit" onclick="checkAnswer()">Submit!</button>
+            <div class="challenge-box">
+                <h3>Challenge!</h3>
+                <p>Print the value of the third node of head. [cite: 131]</p>
+                <textarea class="code-editor">Node* head; /* Type your answer here! */</textarea>
+                <div class="actions">
+                    <button class="btn-outline">Reset</button>
+                    <button class="btn-blue">Submit!</button>
                 </div>
-                <div id="feedback" class="feedback-text"></div>
-            </section>
-
-            <section style="margin-top: 4rem; border-top: 1px solid #3d4b5e; padding-top: 2rem;">
-                <h3 style="font-size: 0.9rem; color: #888;">Supplemental Materials</h3>
-                <a href="#" style="color: var(--primary-blue); font-size: 0.9rem; text-decoration: none;">External: Official C++ Documentation [cite: 270]</a>
-            </section>
+            </div>
         </main>
     </div>
-
-    <script>
-        function checkAnswer() {
-            const input = document.getElementById('codeInput').value;
-            const feedback = document.getElementById('feedback');
-            const section = document.getElementById('challengeSection');
-
-            // Simplified logic: Check for key terms as described in [cite: 262, 263]
-            if (input.includes('std::cout') && input.includes('->next->next->val')) {
-                feedback.innerHTML = "CORRECT";
-                feedback.style.color = "var(--success-green)";
-                feedback.style.display = "block";
-                section.style.backgroundColor = "rgba(76, 175, 80, 0.1)"; // Field lights up
-                section.style.opacity = "1";
-            } else {
-                feedback.innerHTML = "INCORRECT - TRY AGAIN";
-                feedback.style.color = "var(--primary-salmon)";
-                feedback.style.display = "block";
-                section.style.backgroundColor = "rgba(0, 0, 0, 0.3)"; // Field dims
-                section.style.opacity = "0.7";
-            }
-        }
-
-        function resetCode() {
-            document.getElementById('codeInput').value = "Node* move = head;\n// Type your answer here!";
-            document.getElementById('feedback').style.display = "none";
-            document.getElementById('challengeSection').style.backgroundColor = "var(--bg-accent)";
-            document.getElementById('challengeSection').style.opacity = "1";
-        }
-    </script>
 </body>
 </html>

@@ -2,41 +2,229 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CodeMap - My Account</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMap | My Account</title>
+    <style>
+        /* Color Palette */
+        :root {
+            --bg-dark: #161D26;
+            --bg-accent: #273240;
+            --primary-blue: #52C5F2;
+            --primary-salmon: #F27D72;
+            --text-off-white: #F6F2E6;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-off-white);
+            /* Primary Body Font: Proxima Nova */
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Headings & Logo: DIN 2014 Bold */
+        h1, h2, h3, .logo, .btn-small {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-accent);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--text-off-white);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+        }
+
+        .container {
+            padding: 3rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            gap: 2rem;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--bg-dark);
+            font-family: "din-2014", sans-serif;
+        }
+
+        /* Progress & Badges Section */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .section-box {
+            background-color: var(--bg-accent);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        h2 {
+            color: var(--primary-salmon);
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+
+        /* Saved Tutorials */
+        .tutorial-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tutorial-item {
+            padding: 1.2rem;
+            border-bottom: 1px solid #3d4b5e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tutorial-item:last-child {
+            border-bottom: none;
+        }
+
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            width: 70px;
+            height: 70px;
+            background-color: #313d4d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-small {
+            background-color: var(--primary-blue);
+            color: var(--bg-dark);
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--bg-accent);
+            color: #888;
+        }
+    </style>
 </head>
 <body>
-    <nav class="top-nav">
-        <div class="logo">CODEMAP</div>
-        <div class="nav-links"><a href="index.html">Home</a> <a href="learn.html">Learn</a> <a href="about.html">About</a> <a href="index.html">Log Out</a></div>
-    </nav>
 
-    <div class="profile-header">
-        <div class="avatar">JS</div>
-        <div class="user-info">
-            <h2>JOSHUA SUBER</h2>
-            <p>Junior Electrical Engineering Student | RPI [cite: 72]</p>
+    <header>
+        <a href="#" class="logo">CodeMap</a>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Learn</a>
+            <a href="#">About</a>
+            <a href="#">Log Out</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="profile-header">
+            <div class="avatar">JS</div>
+            <div>
+                <h1 style="margin:0; font-size: 2.5rem;">Joshua Suber</h1>
+                <p style="color: #bbb; margin: 8px 0 0 0;">Senior Computer/Electrical Engineering Student | RPI</p>
+            </div>
+        </section>
+
+        <div class="dashboard-grid">
+            <div class="section-box">
+                <h2>Saved Tutorials</h2>
+                <ul class="tutorial-list">
+                    <li class="tutorial-item">
+                        <div>
+                            <strong style="font-size: 1.1rem;">C++ Pointers & Memory</strong>
+                            <p style="font-size: 0.85rem; color: #888; margin: 6px 0 0 0;">Last accessed: 2 days ago</p>
+                        </div>
+                        <a href="#" class="btn-small">Resume</a>
+                    </li>
+                    <li class="tutorial-item">
+                        <div>
+                            <strong style="font-size: 1.1rem;">ROS2 Node Integration</strong>
+                            <p style="font-size: 0.85rem; color: #888; margin: 6px 0 0 0;">Practical Robotics Path</p>
+                        </div>
+                        <a href="#" class="btn-small">Resume</a>
+                    </li>
+                    <li class="tutorial-item">
+                        <div>
+                            <strong style="font-size: 1.1rem;">MATLAB State Feedback Models</strong>
+                            <p style="font-size: 0.85rem; color: #888; margin: 6px 0 0 0;">Control Systems Prep</p>
+                        </div>
+                        <a href="#" class="btn-small">Resume</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="section-box">
+                <h2>My Badges</h2>
+                <div class="badge-grid">
+                    <div class="badge" title="Completed Python Basics">🐍</div>
+                    <div class="badge" title="Simulation Master">🎮</div>
+                    <div class="badge" title="Community Contributor">💬</div>
+                    <div class="badge" title="Bug Hunter" style="opacity: 0.3; border-color: #555;">🐛</div>
+                </div>
+                <p style="font-size: 0.85rem; color: #888; margin-top: 2rem; line-height: 1.4;">
+                    Badges foster a collaborative environment and enable you to influence new platform features.
+                </p>
+            </div>
         </div>
-    </div>
+    </main>
 
-    <div class="dashboard-grid">
-        <div class="saved-tutorials">
-            <h3>SAVED TUTORIALS</h3>
-            <div class="list-item">
-                <span>C++ Pointers & Memory</span>
-                <button class="btn-blue-sm">RESUME</button>
-            </div>
-            </div>
+    <footer>
+        <p>&copy; 2026 CodeMap | Bridging the gap between theory and coding proficiency</p>
+    </footer>
 
-        <div class="badges-section">
-            <h3>MY BADGES</h3>
-            <div class="badge-icons">
-                <div class="badge-circle active">🐍</div>
-                <div class="badge-circle active">🎮</div>
-                <div class="badge-circle">💬</div>
-            </div>
-            <p class="small">Badges foster a collaborative environment and enable you to influence new platform features. [cite: 72]</p>
-        </div>
-    </div>
 </body>
 </html>

@@ -3,145 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeMap - Master the Languages of Your Degree</title>
+    <title>CodeMap | Master Your Coursework</title>
     <style>
-        /* Color Palette [cite: 41] */
+        /* Color Palette [cite: 122-126] */
         :root {
-            --bg-primary: #161D26;
-            --bg-secondary: #273240;
-            --blue-accent: #52C5F2;
-            --salmon-accent: #F27D72;
-            --off-white: #F6F2E6;
+            --bg-dark: #161D26;
+            --bg-accent: #273240;
+            --primary-blue: #52C5F2;
+            --primary-salmon: #F27D72;
+            --text-off-white: #F6F2E6;
         }
 
         body {
-            background-color: var(--bg-primary);
-            color: var(--off-white);
-            font-family: 'Proxima Nova', sans-serif; /* Body font [cite: 44] */
+            background-color: var(--bg-dark);
+            color: var(--text-off-white);
+            /* Primary Body Font: Proxima Nova */
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
             margin: 0;
-            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        h1, h2, h3 {
-            font-family: 'DIN 2014', sans-serif; /* Heading font [cite: 44] */
-            font-weight: bold;
+        /* Headings & Logo: DIN 2014 Bold */
+        h1, h2, h3, .logo, .cta-button, .resume-btn {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        /* Persistent Navigation [cite: 40, 49] */
+        /* Functional (Global) Navigation */
         header {
+            padding: 1.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 5%;
-            background-color: var(--bg-primary);
+            background-color: var(--bg-accent);
         }
 
         .logo {
-            color: var(--blue-accent);
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 2px;
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            text-decoration: none;
         }
 
         nav a {
-            color: var(--off-white);
+            color: var(--text-off-white);
             text-decoration: none;
-            margin-left: 20px;
-            font-size: 14px;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        /* Hero Section [cite: 45, 46] */
+        nav a:hover {
+            color: var(--primary-salmon);
+        }
+
+        /* Hero Section - Western scan pattern [cite: 115-116] */
         .hero {
-            padding: 60px 5%;
+            padding: 4rem 5% 2rem 5%;
+            text-align: left; 
             max-width: 800px;
         }
 
         .hero h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            color: var(--text-off-white);
         }
 
         .hero p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0.9;
+            font-size: 1.25rem;
+            color: #ccc;
+            margin-bottom: 2.5rem;
+            max-width: 600px; /* Minimalist text [cite: 119] */
         }
 
-        .btn-primary {
-            background-color: var(--salmon-accent);
-            color: var(--bg-primary);
-            padding: 12px 30px;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
+        /* Continue Lesson Section */
+        .continue-section {
+            padding: 2rem 5%;
+            margin-bottom: 1rem;
         }
 
-        /* Continue Lesson Card [cite: 50] */
         .continue-card {
-            background-color: var(--bg-secondary);
-            border-left: 4px solid var(--blue-accent);
-            margin: 40px 5%;
-            padding: 20px;
+            background: linear-gradient(90deg, var(--bg-accent), #2c3a4d);
+            border-left: 5px solid var(--primary-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 400px;
+            max-width: 600px;
         }
 
-        /* Search Integration [cite: 51] */
-        .search-container {
-            padding: 0 5%;
-            margin-bottom: 40px;
+        .continue-info h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--primary-blue);
         }
 
-        .search-bar {
-            background-color: #273240;
-            border: none;
-            padding: 15px;
-            width: 100%;
-            max-width: 500px;
-            border-radius: 8px;
-            color: white;
+        .continue-info p {
+            margin: 5px 0 0 0;
+            font-size: 0.9rem;
+            color: #bbb;
+            font-family: "proxima-nova", sans-serif;
+            text-transform: none;
+            letter-spacing: normal;
         }
 
-        /* Language Grid [cite: 52, 78] */
-        .language-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 0 5% 60px;
+        .resume-btn {
+            background-color: transparent;
+            color: var(--primary-salmon);
+            border: 2px solid var(--primary-salmon);
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.3s;
         }
 
-        .lang-card {
-            background-color: var(--bg-secondary);
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
+        .resume-btn:hover {
+            background-color: var(--primary-salmon);
+            color: var(--bg-dark);
+        }
+
+        .cta-button {
+            background-color: var(--primary-salmon);
+            color: var(--bg-dark);
+            padding: 1rem 2.2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            display: inline-block;
             transition: transform 0.2s;
         }
 
-        .lang-card:hover {
-            transform: translateY(-5px);
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Search Section [cite: 796] */
+        .search-container {
+            padding: 1rem 5%;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.9rem 1.2rem;
+            border-radius: 25px;
+            border: none;
+            background-color: var(--bg-accent);
+            color: white;
+            font-size: 1rem;
+            font-family: "proxima-nova", sans-serif;
+        }
+
+        /* Language Grid [cite: 325, 835] */
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 3rem 5%;
+        }
+
+        .lang-card {
+            background-color: var(--bg-accent);
+            padding: 2.5rem 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border-bottom: 4px solid transparent;
+            transition: 0.3s;
+            cursor: pointer;
         }
 
         .lang-card h3 {
-            color: white;
-            margin-bottom: 10px;
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
         }
 
         .lang-card p {
-            font-size: 14px;
-            color: #bdc3c7;
+            margin: 0;
+            font-size: 0.95rem;
+            color: #bbb;
+        }
+
+        .lang-card:hover {
+            border-bottom: 4px solid var(--primary-blue);
+            background-color: #313d4d;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 3rem 5%;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--bg-accent);
+            color: #888;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">CODEMAP</div>
+        <a href="#" class="logo">CodeMap</a>
         <nav>
             <a href="#">Home</a>
             <a href="#">Learn</a>
@@ -150,38 +217,46 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <h1>MASTER THE LANGUAGES <br> OF YOUR DEGREE.</h1>
-        <p>CodeMap bridges the gap between classroom theory and practical coding proficiency for RPI students. [cite: 46]</p>
-        <button class="btn-primary">Start Your Journey</button>
-    </section>
+    <main>
+        <section class="hero">
+            <h1>Master the languages of your degree.</h1>
+            <p>CodeMap bridges the gap between classroom theory and practical coding proficiency for RPI students.</p>
+            <a href="#" class="cta-button">Start Your Journey</a>
+        </section>
 
-    <div class="continue-card">
-        <div>
-            <strong style="color: var(--blue-accent);">CONTINUE: C++ POINTERS</strong><br>
-            <small>Current Lesson: Advanced Data Structures</small>
-        </div>
-        <button style="background:transparent; border:1px solid var(--salmon-accent); color:var(--salmon-accent); padding:5px 15px; cursor:pointer;">RESUME</button>
-    </div>
+        <section class="continue-section">
+            <div class="continue-card">
+                <div class="continue-info">
+                    <h2>Continue: C++ Pointers</h2>
+                    <p>Current Lesson: Advanced Data Structures</p>
+                </div>
+                <a href="#" class="resume-btn">Resume</a>
+            </div>
+        </section>
 
-    <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search for a tutorial or function...">
-    </div>
+        <section class="search-container">
+            <input type="text" class="search-box" placeholder="Search for a tutorial or function...">
+        </section>
 
-    <div class="language-grid">
-        <div class="lang-card">
-            <h3>PYTHON</h3>
-            <p>Curated for CS1 and Data Science</p>
-        </div>
-        <div class="lang-card">
-            <h3>C++</h3>
-            <p>Advanced Data Structures support</p>
-        </div>
-        <div class="lang-card">
-            <h3>MATLAB</h3>
-            <p>Engineered for Control Systems</p>
-        </div>
-    </div>
+        <section class="language-grid">
+            <div class="lang-card">
+                <h3>Python</h3>
+                <p>Curated for CS1 and Data Science</p>
+            </div>
+            <div class="lang-card">
+                <h3>C++</h3>
+                <p>Advanced Data Structures support</p>
+            </div>
+            <div class="lang-card">
+                <h3>MATLAB</h3>
+                <p>Engineered for Control Systems</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CodeMap | Designed for Academic Success at RPI</p>
+    </footer>
 
 </body>
 </html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMap | About Us</title>
+    <style>
+        :root {
+            --bg-dark: #161D26;
+            --bg-accent: #273240;
+            --primary-blue: #52C5F2;
+            --primary-salmon: #F27D72;
+            --text-off-white: #F6F2E6;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-off-white);
+            font-family: "proxima-nova", sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-accent);
+        }
+
+        .logo { font-size: 1.8rem; color: var(--primary-blue); text-decoration: none; }
+
+        .container { padding: 4rem 5%; max-width: 1100px; margin: 0 auto; }
+
+        .about-flex {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .about-image {
+            flex: 1;
+            background: var(--bg-accent);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .mission-text { flex: 1.2; }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .member-card {
+            background: var(--bg-accent);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .member-avatar {
+            width: 80px; height: 80px;
+            background: #313d4d;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="Homepage.html" class="logo">CodeMap</a>
+        <nav><a href="Homepage.html">Home</a><a href="Learn.html">Learn</a><a href="About.html">About</a></nav>
+    </header>
+
+    <main class="container">
+        <div class="about-flex">
+            <div class="about-image">
+                
+            </div>
+            <div class="mission-text">
+                <h1>Our Mission</h1>
+                <p>CodeMap bridges the gap between classroom theory and practical coding proficiency for RPI students[cite: 351].</p>
+                <p>Established in 2026, we provide a centralized resource to help students master languages required for their academic coursework[cite: 349, 350].</p>
+            </div>
+        </div>
+
+        <h2>Meet the Team</h2>
+        <div class="team-grid">
+            <div class="member-card">
+                <div class="member-avatar">JS</div>
+                <h3>Josh Suber</h3>
+                <p>Senior CSE/EE at RPI[cite: 480]. Lead Interface Designer.</p>
+            </div>
+            <div class="member-card">
+                <div class="member-avatar">FH</div>
+                <h3>Fifi Hsieh</h3>
+                <p>Senior Computer Science at RPI[cite: 480].</p>
+            </div>
+        </div>
+    </main>
+
+    <footer style="padding: 3rem; text-align: center; color: #666;">
+        <p>&copy; 2026 CodeMap | Engineered for academic success</p>
+    </footer>
+</body>
+</html>

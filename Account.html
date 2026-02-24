@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMap | My Account</title>
+    <style>
+        :root {
+            --bg-dark: #161D26;
+            --bg-accent: #273240;
+            --primary-blue: #52C5F2;
+            --primary-salmon: #F27D72;
+            --text-off-white: #F6F2E6;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-off-white);
+            font-family: "proxima-nova", sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .logo, .btn-small {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-accent);
+        }
+
+        .logo { font-size: 1.8rem; color: var(--primary-blue); text-decoration: none; }
+
+        nav a { color: var(--text-off-white); text-decoration: none; margin-left: 2rem; }
+
+        .container { padding: 3rem 5%; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            gap: 2rem; /* cite: 402 */
+        }
+
+        .avatar {
+            width: 100px; height: 100px;
+            background-color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; color: var(--bg-dark);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* cite: 397 */
+            gap: 2rem;
+        }
+
+        .section-box { background-color: var(--bg-accent); padding: 2rem; border-radius: 12px; }
+
+        h2 { color: var(--primary-salmon); margin-top: 0; font-size: 1.4rem; }
+
+        .tutorial-item {
+            padding: 1.2rem 0;
+            border-bottom: 1px solid #3d4b5e;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem; /* cite: 399 */
+        }
+
+        .badge {
+            width: 70px; height: 70px;
+            background-color: #313d4d;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid var(--primary-blue); /* cite: 398 */
+        }
+
+        .btn-small {
+            background-color: var(--primary-blue);
+            color: var(--bg-dark);
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        footer { padding: 2rem; text-align: center; color: #888; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">CodeMap</a>
+        <nav><a href="#">Home</a><a href="#">Learn</a><a href="#">About</a><a href="#">Log Out</a></nav>
+    </header>
+    <main class="container">
+        <section class="profile-header">
+            <div class="avatar">JS</div>
+            <div>
+                <h1 style="margin:0; font-size: 2.5rem;">Joshua Suber</h1>
+                <p style="color: #bbb; margin: 8px 0 0 0;">Senior Electrical Engineering Student | RPI</p>
+            </div>
+        </section>
+        <div class="dashboard-grid">
+            <div class="section-box">
+                <h2>Saved Tutorials</h2>
+                <div class="tutorial-item">
+                    <div><strong>C++ Pointers & Memory</strong><p style="font-size: 0.85rem; color: #888; margin: 6px 0 0 0;">Last accessed: 2 days ago</p></div>
+                    <a href="#" class="btn-small">Resume</a>
+                </div>
+                <div class="tutorial-item">
+                    <div><strong>ROS2 Node Integration</strong><p style="font-size: 0.85rem; color: #888; margin: 6px 0 0 0;">Practical Robotics Path</p></div>
+                    <a href="#" class="btn-small">Resume</a>
+                </div>
+            </div>
+            <div class="section-box">
+                <h2>My Badges</h2>
+                <div class="badge-grid">
+                    <div class="badge" title="Completed Python Basics">🐍</div>
+                    <div class="badge" title="Simulation Master">🎮</div>
+                    <div class="badge" title="Community Contributor">💬</div>
+                </div>
+                <p style="font-size: 0.85rem; color: #888; margin-top: 2rem; line-height: 1.4;">Badges foster a collaborative environment and reward academic support[cite: 358, 394].</p>
+            </div>
+        </div>
+    </main>
+    <footer><p>&copy; 2026 CodeMap | Bridging the gap between theory and coding proficiency</p></footer>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMap | Master Your Coursework</title>
+    <style>
+        :root {
+            --bg-dark: #161D26; /* cite: 378 */
+            --bg-accent: #273240; /* cite: 378 */
+            --primary-blue: #52C5F2; /* cite: 378 */
+            --primary-salmon: #F27D72; /* cite: 378 */
+            --text-off-white: #F6F2E6; /* cite: 378 */
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-off-white);
+            font-family: "proxima-nova", sans-serif; /* cite: 381 */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .logo, .cta-button, .resume-btn {
+            font-family: "din-2014", sans-serif; /* cite: 381 */
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-accent); /* cite: 204 */
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--text-off-white);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--primary-salmon); }
+
+        .hero {
+            padding: 4rem 5%;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem; /* cite: 382 */
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #ccc;
+            margin-bottom: 2.5rem; /* cite: 383 */
+        }
+
+        .continue-card {
+            background: linear-gradient(90deg, var(--bg-accent), #2c3a4d);
+            border-left: 5px solid var(--primary-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 600px;
+            margin: 2rem 5%; /* cite: 387 */
+        }
+
+        .resume-btn {
+            background-color: transparent;
+            color: var(--primary-salmon);
+            border: 2px solid var(--primary-salmon);
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .resume-btn:hover {
+            background-color: var(--primary-salmon);
+            color: var(--bg-dark);
+        }
+
+        .cta-button {
+            background-color: var(--primary-salmon);
+            color: var(--bg-dark);
+            padding: 1rem 2.2rem;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.9rem 1.2rem;
+            border-radius: 25px;
+            border: none;
+            background-color: var(--bg-accent);
+            color: white;
+            margin: 1rem 5%; /* cite: 388 */
+        }
+
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 3rem 5%; /* cite: 389 */
+        }
+
+        .lang-card {
+            background-color: var(--bg-accent);
+            padding: 2.5rem 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border-bottom: 4px solid transparent;
+            transition: 0.3s;
+        }
+
+        .lang-card:hover { border-bottom: 4px solid var(--primary-blue); }
+
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--bg-accent);
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">CodeMap</a>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Learn</a>
+            <a href="#">About</a>
+            <a href="#">Login</a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Master the languages of your degree.</h1>
+            <p>CodeMap bridges the gap between classroom theory and practical coding proficiency for RPI students.</p>
+            <a href="#" class="cta-button">Start Your Journey</a>
+        </section>
+
+        <section class="continue-card">
+            <div>
+                <h2 style="margin:0; font-size:1.1rem; color:var(--primary-blue)">CONTINUE: C++ POINTERS</h2>
+                <p style="margin:5px 0 0 0; font-size:0.9rem; color:#bbb">Current Lesson: Advanced Data Structures</p>
+            </div>
+            <a href="#" class="resume-btn">Resume</a>
+        </section>
+
+        <input type="text" class="search-box" placeholder="Search for a tutorial or function...">
+
+        <section class="language-grid">
+            <div class="lang-card"><h3>Python</h3><p>Curated for CS1 and Data Science</p></div>
+            <div class="lang-card"><h3>C++</h3><p>Advanced Data Structures support</p></div>
+            <div class="lang-card"><h3>MATLAB</h3><p>Engineered for Control Systems</p></div>
+        </section>
+    </main>
+    <footer><p>&copy; 2026 CodeMap | Designed for Academic Success at RPI</p></footer>
+</body>
+</html>

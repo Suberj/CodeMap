@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMap | Master Your Degree</title>
+    <link rel="stylesheet" href="global.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo" onclick="showSection('homepage')">CODEMAP</div>
+        <nav>
+            <a href="#" onclick="showSection('homepage')">Home</a>
+            <a href="#" onclick="showSection('learn')">Learn</a>
+            <a href="#" onclick="showSection('about')">About</a>
+            <a href="#" onclick="showSection('account')">Account</a>
+        </nav>
+    </header>
+
+    <div id="screen-container">
+        <div id="homepage" class="screen"></div>
+        <div id="learn" class="screen hidden"></div>
+        <div id="account" class="screen hidden"></div>
+        <div id="tutorial" class="screen hidden"></div>
+        <div id="about" class="screen hidden"></div>
+    </div>
+
+    <script>
+        // Controller to switch between screens
+        function showSection(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+            document.getElementById(screenId).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        // Simulating the loading of your separate files
+        async function loadScreens() {
+            const screens = ['homepage', 'learn', 'account', 'tutorial', 'about'];
+            for (const screen of screens) {
+                const response = await fetch(`${screen}.html`);
+                const html = await response.text();
+                // Extract only the <main> content to inject into index.html
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const content = doc.querySelector('main');
+                if (content) document.getElementById(screen).innerHTML = content.innerHTML;
+            }
+        }
+        
+        window.onload = loadScreens;
+    </script>
+</body>
+</html>

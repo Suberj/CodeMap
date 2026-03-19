@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeMap | Account</title>
     <style>
         :root {
             --bg-dark: #161D26;
             --bg-accent: #273240;
-            --panel-dark: #1c2430;
             --primary-blue: #52C5F2;
             --primary-salmon: #F27D72;
             --text-off-white: #F6F2E6;
-            --muted-text: #AEB7C3;
-            --line: rgba(255,255,255,0.08);
-            --green: #72d694;
-            --gold: #f2c572;
-            --purple: #b78cf6;
         }
 
         * {
@@ -24,17 +18,16 @@
         }
 
         body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-dark);
             color: var(--text-off-white);
-            background:
-                radial-gradient(circle at top left, rgba(82, 197, 242, 0.10), transparent 18%),
-                radial-gradient(circle at bottom right, rgba(242, 125, 114, 0.08), transparent 18%),
-                var(--bg-dark);
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        h1, h2, h3, h4, .logo, .pill, .small-btn, .progress-label {
+        h1, h2, h3, .logo, .section-title, .action-btn, .logout-btn, .small-btn {
             font-family: "din-2014", sans-serif;
             font-weight: 700;
             text-transform: uppercase;
@@ -47,7 +40,6 @@
             justify-content: space-between;
             align-items: center;
             background-color: var(--bg-accent);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .logo {
@@ -56,17 +48,12 @@
             text-decoration: none;
         }
 
-        nav {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
         nav a {
             color: var(--text-off-white);
             text-decoration: none;
+            margin-left: 2rem;
             font-weight: 500;
-            transition: color 0.2s ease;
+            transition: color 0.3s;
         }
 
         nav a:hover,
@@ -75,63 +62,73 @@
         }
 
         .page {
-            width: min(1240px, 92vw);
+            width: min(1180px, 92vw);
             margin: 0 auto;
-            padding: 2.5rem 0 3rem;
+            padding: 3rem 0;
+            display: grid;
+            gap: 2rem;
         }
 
-        .profile-banner {
+        .hero-card,
+        .content-card {
+            background-color: var(--bg-accent);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .hero-card {
             display: grid;
             grid-template-columns: auto 1fr auto;
             gap: 1.5rem;
             align-items: center;
-            padding: 2rem;
-            background: linear-gradient(180deg, rgba(39, 50, 64, 0.96), rgba(22, 29, 38, 0.98));
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 22px;
-            box-shadow: 0 18px 42px rgba(0,0,0,0.28);
-            margin-bottom: 2rem;
         }
 
         .avatar-wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.85rem;
+            gap: 0.8rem;
         }
 
         .avatar {
-            width: 96px;
-            height: 96px;
+            width: 92px;
+            height: 92px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-blue), #8ce2ff);
+            background-color: var(--primary-blue);
             color: var(--bg-dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 8px 18px rgba(82, 197, 242, 0.24);
+            font-size: 1.9rem;
+            font-weight: 800;
         }
 
         .small-btn {
             background-color: transparent;
             color: var(--primary-blue);
-            border: 1px solid rgba(82, 197, 242, 0.42);
-            padding: 0.65rem 0.85rem;
-            border-radius: 10px;
-            font-size: 0.78rem;
+            border: 2px solid var(--primary-blue);
+            padding: 0.55rem 0.85rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-decoration: none;
             cursor: pointer;
         }
 
+        .small-btn:hover {
+            background-color: var(--primary-blue);
+            color: var(--bg-dark);
+        }
+
         .identity h1 {
-            margin: 0;
-            font-size: clamp(2rem, 3vw, 2.9rem);
+            margin: 0 0 0.4rem 0;
+            font-size: 2.2rem;
+            line-height: 1.1;
         }
 
         .identity p {
-            margin: 0.45rem 0 0;
-            color: var(--muted-text);
-            line-height: 1.6;
+            margin: 0;
+            color: #bbb;
+            font-size: 1rem;
         }
 
         .pill-row {
@@ -142,145 +139,166 @@
         }
 
         .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.55rem 0.8rem;
-            border-radius: 999px;
-            background-color: rgba(82, 197, 242, 0.10);
-            border: 1px solid rgba(82, 197, 242, 0.18);
+            background-color: rgba(82, 197, 242, 0.12);
             color: var(--primary-blue);
-            font-size: 0.78rem;
+            border: 1px solid rgba(82, 197, 242, 0.22);
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
         }
 
-        .stats-strip {
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.8rem;
+        }
+
+        .logout-btn,
+        .action-btn {
+            text-decoration: none;
+            border-radius: 4px;
+            padding: 0.75rem 1.1rem;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .action-btn {
+            background-color: var(--primary-salmon);
+            color: var(--bg-dark);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.03);
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            color: var(--primary-salmon);
+            border: 2px solid var(--primary-salmon);
+        }
+
+        .logout-btn:hover {
+            background-color: var(--primary-salmon);
+            color: var(--bg-dark);
+        }
+
+        .stats-grid,
+        .main-grid,
+        .secondary-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(110px, 1fr));
-            gap: 0.9rem;
-            min-width: 300px;
+            gap: 2rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(3, 1fr);
         }
 
         .stat-card {
-            background-color: rgba(8, 13, 20, 0.42);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 16px;
-            padding: 1rem;
+            background-color: var(--bg-accent);
+            border-radius: 10px;
+            padding: 1.5rem;
             text-align: center;
         }
 
         .stat-card strong {
             display: block;
-            font-size: 1.55rem;
+            font-size: 2rem;
             color: var(--primary-blue);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.35rem;
         }
 
         .stat-card span {
-            font-size: 0.84rem;
-            color: var(--muted-text);
-            line-height: 1.45;
+            color: #bbb;
+            font-size: 0.95rem;
         }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 2rem;
+        .main-grid {
+            grid-template-columns: 1.25fr 0.75fr;
             align-items: start;
         }
 
-        .stack {
-            display: grid;
-            gap: 2rem;
+        .secondary-grid {
+            grid-template-columns: 1fr 1fr;
         }
 
-        .panel {
-            background: linear-gradient(180deg, rgba(39, 50, 64, 0.94), rgba(22, 29, 38, 0.98));
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
-            padding: 1.6rem;
-            box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+        .section-title {
+            margin: 0 0 1.2rem 0;
+            font-size: 1.15rem;
+            color: var(--primary-blue);
         }
 
-        .panel-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .panel-head h2 {
-            margin: 0;
-            font-size: 1.3rem;
-            color: var(--primary-salmon);
-        }
-
-        .panel-head p {
-            margin: 0.35rem 0 0;
-            color: var(--muted-text);
-            font-size: 0.93rem;
-        }
-
-        .tutorial-list {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .tutorial-item {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 1rem;
-            align-items: center;
-            padding: 1rem 1.05rem;
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            background-color: rgba(8, 13, 20, 0.34);
-        }
-
-        .tutorial-item h3 {
-            margin: 0;
-            font-size: 1rem;
-        }
-
-        .tutorial-meta {
-            margin-top: 0.45rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            color: var(--muted-text);
-            font-size: 0.9rem;
-        }
-
-        .action-btn {
-            background-color: var(--primary-blue);
-            color: var(--bg-dark);
-            text-decoration: none;
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
+        .saved-list,
+        .badges-list,
+        .settings-list,
         .progress-list {
             display: grid;
             gap: 1rem;
         }
 
+        .saved-item,
+        .badge-item,
+        .settings-item {
+            background-color: rgba(255,255,255,0.04);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .saved-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .saved-text h3,
+        .badge-item h3,
+        .settings-item h3 {
+            margin: 0 0 0.4rem 0;
+            font-size: 1rem;
+        }
+
+        .saved-text p,
+        .badge-item p,
+        .settings-item p {
+            margin: 0;
+            color: #bbb;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .resume-link {
+            text-decoration: none;
+            color: var(--primary-salmon);
+            border: 2px solid var(--primary-salmon);
+            padding: 0.55rem 0.9rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .resume-link:hover {
+            background-color: var(--primary-salmon);
+            color: var(--bg-dark);
+        }
+
         .progress-item {
             display: grid;
-            gap: 0.55rem;
+            gap: 0.5rem;
         }
 
         .progress-top {
             display: flex;
             justify-content: space-between;
-            gap: 1rem;
             align-items: center;
+            gap: 1rem;
         }
 
-        .progress-label {
-            font-size: 0.9rem;
-            color: var(--text-off-white);
+        .progress-top span:first-child {
+            font-weight: 700;
         }
 
         .progress-top span:last-child {
@@ -289,148 +307,88 @@
         }
 
         .progress-bar {
-            width: 100%;
             height: 12px;
             border-radius: 999px;
-            background-color: rgba(255,255,255,0.08);
+            background-color: rgba(255,255,255,0.10);
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
             border-radius: inherit;
+            background: linear-gradient(90deg, var(--primary-blue), #8fdfff);
         }
 
-        .fill-cpp { width: 74%; background: linear-gradient(90deg, var(--primary-blue), #8ce2ff); }
-        .fill-python { width: 62%; background: linear-gradient(90deg, var(--green), #9be6b4); }
-        .fill-matlab { width: 48%; background: linear-gradient(90deg, var(--gold), #f6d99a); }
-        .fill-ros { width: 35%; background: linear-gradient(90deg, var(--purple), #ccb0fa); }
-
-        .badge-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1rem;
+        .badge-item {
+            border-left: 4px solid var(--primary-blue);
         }
 
-        .badge-card {
-            padding: 1rem;
-            border-radius: 16px;
-            background-color: rgba(8, 13, 20, 0.38);
-            border: 1px solid var(--line);
-            display: grid;
-            gap: 0.7rem;
-        }
-
-        .badge-icon {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--bg-dark);
-        }
-
-        .badge-icon.blue { background: linear-gradient(135deg, var(--primary-blue), #a5ecff); }
-        .badge-icon.salmon { background: linear-gradient(135deg, var(--primary-salmon), #ffc0b8); }
-        .badge-icon.green { background: linear-gradient(135deg, var(--green), #baf0cb); }
-        .badge-icon.purple { background: linear-gradient(135deg, var(--purple), #d9c8ff); }
-
-        .badge-card h3 {
-            margin: 0;
-            font-size: 0.95rem;
-        }
-
-        .badge-card p {
-            margin: 0;
-            color: var(--muted-text);
-            font-size: 0.9rem;
-            line-height: 1.55;
-        }
-
-        .settings-list {
-            display: grid;
-            gap: 0.85rem;
-        }
-
-        .settings-row {
+        .settings-item {
             display: flex;
             justify-content: space-between;
-            gap: 1rem;
             align-items: center;
-            padding: 0.95rem 1rem;
-            border-radius: 14px;
-            background-color: rgba(8, 13, 20, 0.34);
-            border: 1px solid var(--line);
+            gap: 1rem;
         }
 
-        .settings-row strong {
-            display: block;
-            margin-bottom: 0.2rem;
-        }
-
-        .settings-row span {
-            color: var(--muted-text);
-            font-size: 0.92rem;
-        }
-
-        .edit-link {
-            color: var(--primary-blue);
+        .settings-edit {
+            color: var(--primary-salmon);
             text-decoration: none;
-            font-weight: 700;
+            font-size: 0.85rem;
             white-space: nowrap;
         }
 
-        .edit-link:hover {
-            color: var(--primary-salmon);
+        .settings-edit:hover {
+            text-decoration: underline;
+        }
+
+        .empty-state {
+            color: #bbb;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         footer {
-            width: min(1240px, 92vw);
-            margin: 0 auto;
-            padding: 0 0 2rem;
+            margin-top: auto;
+            padding: 3rem 5%;
             text-align: center;
-            color: #818a95;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--bg-accent);
+            color: #888;
         }
 
-        @media (max-width: 1100px) {
-            .profile-banner {
+        @media (max-width: 980px) {
+            .hero-card,
+            .main-grid,
+            .secondary-grid,
+            .stats-grid {
                 grid-template-columns: 1fr;
-                justify-items: start;
             }
 
-            .stats-strip {
-                width: 100%;
-                min-width: 0;
-            }
-
-            .content-grid {
-                grid-template-columns: 1fr;
+            .hero-actions {
+                align-items: flex-start;
             }
         }
 
-        @media (max-width: 720px) {
+        @media (max-width: 760px) {
             header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 1rem;
             }
 
-            nav {
-                gap: 1rem;
+            nav a {
+                margin-left: 0;
+                margin-right: 1.5rem;
             }
 
-            .tutorial-item,
-            .settings-row {
-                grid-template-columns: 1fr;
+            .saved-item,
+            .settings-item {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
-            .badge-grid,
-            .stats-strip {
-                grid-template-columns: 1fr;
+            .identity h1 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -440,237 +398,295 @@
         <a href="index.html" class="logo">CodeMap</a>
         <nav>
             <a href="index.html">Home</a>
-            <a href="#">Learn</a>
-            <a href="#">About</a>
+            <a href="learn.html">Learn</a>
+            <a href="about.html">About</a>
             <a href="account-page.html" class="active">Account</a>
-            <a href="login-signup.html">Log Out</a>
+            <a href="login-signup.html" id="navLogout">Logout</a>
         </nav>
     </header>
 
     <main class="page">
-        <section class="profile-banner">
+        <section class="hero-card">
             <div class="avatar-wrap">
-                <div class="avatar">JS</div>
-                <button class="small-btn" type="button">Change Photo</button>
+                <div class="avatar" id="avatar">CM</div>
+                <button class="small-btn" type="button">Edit Profile</button>
             </div>
 
             <div class="identity">
-                <h1>Joshua Suber</h1>
-                <p>Senior Computer / Electrical Engineering Student | RPI</p>
-                <div class="pill-row">
-                    <span class="pill">RPI</span>
-                    <span class="pill">Senior</span>
-                    <span class="pill">C++ Track</span>
-                    <span class="pill">Control Systems</span>
-                    <span class="pill">Robotics</span>
+                <h1 id="userName">CodeMap Student</h1>
+                <p id="userSubtitle">Signed in user</p>
+                <div class="pill-row" id="pillRow">
+                    <span class="pill">Student</span>
                 </div>
             </div>
 
-            <div class="stats-strip">
-                <div class="stat-card">
-                    <strong>12</strong>
-                    <span>Saved tutorials ready to resume</span>
-                </div>
-                <div class="stat-card">
-                    <strong>4</strong>
-                    <span>Languages currently in progress</span>
-                </div>
-                <div class="stat-card">
-                    <strong>7</strong>
-                    <span>Badges earned through learning</span>
-                </div>
+            <div class="hero-actions">
+                <a href="continue-lesson.html" class="action-btn">Continue Learning</a>
+                <a href="login-signup.html" class="logout-btn" id="logoutBtn">Log Out</a>
             </div>
         </section>
 
-        <section class="content-grid">
-            <div class="stack">
-                <article class="panel">
-                    <div class="panel-head">
-                        <div>
-                            <h2>Saved Tutorials</h2>
-                            <p>Resume exactly where you left off in your coursework-aligned content.</p>
-                        </div>
-                    </div>
+        <section class="stats-grid">
+            <div class="stat-card">
+                <strong id="savedCount">0</strong>
+                <span>Saved Tutorials</span>
+            </div>
+            <div class="stat-card">
+                <strong id="languageCount">0</strong>
+                <span>Languages In Progress</span>
+            </div>
+            <div class="stat-card">
+                <strong id="badgeCount">0</strong>
+                <span>Badges Earned</span>
+            </div>
+        </section>
 
-                    <div class="tutorial-list">
-                        <div class="tutorial-item">
-                            <div>
-                                <h3>C++ Pointers &amp; Memory</h3>
-                                <div class="tutorial-meta">
-                                    <span>Advanced Data Structures</span>
-                                    <span>Last opened 2 days ago</span>
-                                    <span>Lesson 8 of 12</span>
-                                </div>
-                            </div>
-                            <a href="#" class="action-btn">Resume</a>
-                        </div>
-
-                        <div class="tutorial-item">
-                            <div>
-                                <h3>ROS2 Node Integration</h3>
-                                <div class="tutorial-meta">
-                                    <span>Practical Robotics Path</span>
-                                    <span>Last opened yesterday</span>
-                                    <span>Lesson 3 of 10</span>
-                                </div>
-                            </div>
-                            <a href="#" class="action-btn">Resume</a>
-                        </div>
-
-                        <div class="tutorial-item">
-                            <div>
-                                <h3>MATLAB State Feedback Models</h3>
-                                <div class="tutorial-meta">
-                                    <span>Controls Review</span>
-                                    <span>Last opened 4 days ago</span>
-                                    <span>Lesson 5 of 9</span>
-                                </div>
-                            </div>
-                            <a href="#" class="action-btn">Resume</a>
-                        </div>
-
-                        <div class="tutorial-item">
-                            <div>
-                                <h3>Python Data Cleaning Basics</h3>
-                                <div class="tutorial-meta">
-                                    <span>Data Science Support</span>
-                                    <span>Saved for later</span>
-                                    <span>Lesson 2 of 11</span>
-                                </div>
-                            </div>
-                            <a href="#" class="action-btn">Resume</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="panel">
-                    <div class="panel-head">
-                        <div>
-                            <h2>Progress by Language</h2>
-                            <p>Track how much of each curriculum path has been completed.</p>
-                        </div>
-                    </div>
-
-                    <div class="progress-list">
-                        <div class="progress-item">
-                            <div class="progress-top">
-                                <span class="progress-label">C++</span>
-                                <span>74%</span>
-                            </div>
-                            <div class="progress-bar"><div class="progress-fill fill-cpp"></div></div>
-                        </div>
-
-                        <div class="progress-item">
-                            <div class="progress-top">
-                                <span class="progress-label">Python</span>
-                                <span>62%</span>
-                            </div>
-                            <div class="progress-bar"><div class="progress-fill fill-python"></div></div>
-                        </div>
-
-                        <div class="progress-item">
-                            <div class="progress-top">
-                                <span class="progress-label">MATLAB</span>
-                                <span>48%</span>
-                            </div>
-                            <div class="progress-bar"><div class="progress-fill fill-matlab"></div></div>
-                        </div>
-
-                        <div class="progress-item">
-                            <div class="progress-top">
-                                <span class="progress-label">ROS2 / Robotics</span>
-                                <span>35%</span>
-                            </div>
-                            <div class="progress-bar"><div class="progress-fill fill-ros"></div></div>
-                        </div>
-                    </div>
-                </article>
+        <section class="main-grid">
+            <div class="content-card">
+                <h2 class="section-title">Saved Tutorials</h2>
+                <div class="saved-list" id="savedTutorialsList"></div>
             </div>
 
-            <div class="stack">
-                <article class="panel">
-                    <div class="panel-head">
-                        <div>
-                            <h2>Badges</h2>
-                            <p>Visible rewards for completion and community engagement.</p>
-                        </div>
-                    </div>
+            <div class="content-card">
+                <h2 class="section-title">Progress by Language</h2>
+                <div class="progress-list" id="progressList"></div>
+            </div>
+        </section>
 
-                    <div class="badge-grid">
-                        <div class="badge-card">
-                            <div class="badge-icon blue">C+</div>
-                            <h3>Pointers Pro</h3>
-                            <p>Completed the memory and pointers unit with all challenge questions correct.</p>
-                        </div>
+        <section class="secondary-grid">
+            <div class="content-card">
+                <h2 class="section-title">Badges</h2>
+                <div class="badges-list" id="badgesList"></div>
+            </div>
 
-                        <div class="badge-card">
-                            <div class="badge-icon salmon">DS</div>
-                            <h3>Debug Streak</h3>
-                            <p>Finished three consecutive troubleshooting modules in the C++ pathway.</p>
-                        </div>
-
-                        <div class="badge-card">
-                            <div class="badge-icon green">Py</div>
-                            <h3>Python Builder</h3>
-                            <p>Completed the fundamentals path and saved two reference tutorials.</p>
-                        </div>
-
-                        <div class="badge-card">
-                            <div class="badge-icon purple">CM</div>
-                            <h3>Community Helper</h3>
-                            <p>Shared notes or helpful insights that improved the learning experience for others.</p>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="panel">
-                    <div class="panel-head">
-                        <div>
-                            <h2>Account Details</h2>
-                            <p>Quick settings for identity, personalization, and saved preferences.</p>
-                        </div>
-                    </div>
-
-                    <div class="settings-list">
-                        <div class="settings-row">
-                            <div>
-                                <strong>Institution</strong>
-                                <span>Rensselaer Polytechnic Institute</span>
-                            </div>
-                            <a href="#" class="edit-link">Edit</a>
-                        </div>
-
-                        <div class="settings-row">
-                            <div>
-                                <strong>Recommended Track</strong>
-                                <span>Systems + Controls + Robotics</span>
-                            </div>
-                            <a href="#" class="edit-link">Edit</a>
-                        </div>
-
-                        <div class="settings-row">
-                            <div>
-                                <strong>Email Notifications</strong>
-                                <span>Weekly progress reminders enabled</span>
-                            </div>
-                            <a href="#" class="edit-link">Manage</a>
-                        </div>
-
-                        <div class="settings-row">
-                            <div>
-                                <strong>Password &amp; Security</strong>
-                                <span>Last updated 30 days ago</span>
-                            </div>
-                            <a href="#" class="edit-link">Update</a>
-                        </div>
-                    </div>
-                </article>
+            <div class="content-card">
+                <h2 class="section-title">Account Details</h2>
+                <div class="settings-list" id="settingsList"></div>
             </div>
         </section>
     </main>
 
     <footer>
-        &copy; 2026 CodeMap | Account dashboard mockup
+        <p>&copy; 2026 CodeMap | Account Dashboard</p>
     </footer>
+
+    <script>
+        const CURRENT_USER_KEY = "codemap_current_user";
+
+        function getCurrentUser() {
+            const sessionUser = sessionStorage.getItem(CURRENT_USER_KEY);
+            const localUser = localStorage.getItem(CURRENT_USER_KEY);
+            const rawUser = sessionUser || localUser;
+
+            if (!rawUser) {
+                return null;
+            }
+
+            try {
+                return JSON.parse(rawUser);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function logoutUser(event) {
+            event.preventDefault();
+            sessionStorage.removeItem(CURRENT_USER_KEY);
+            localStorage.removeItem(CURRENT_USER_KEY);
+            window.location.href = "login-signup.html";
+        }
+
+        function makeInitials(firstName, lastName) {
+            const first = firstName ? firstName.charAt(0) : "";
+            const last = lastName ? lastName.charAt(0) : "";
+            return (first + last).toUpperCase() || "CM";
+        }
+
+        function titleFromKey(key) {
+            const mapping = {
+                cpp: "C++",
+                python: "Python",
+                matlab: "MATLAB",
+                ros2: "ROS2",
+                java: "Java",
+                javascript: "JavaScript"
+            };
+
+            return mapping[key] || key.toUpperCase();
+        }
+
+        function renderSavedTutorials(savedTutorials) {
+            const container = document.getElementById("savedTutorialsList");
+
+            if (!savedTutorials || !savedTutorials.length) {
+                container.innerHTML = '<p class="empty-state">No saved tutorials yet. Start exploring the Learn page to save content here.</p>';
+                return;
+            }
+
+            container.innerHTML = savedTutorials.map(function(tutorial, index) {
+                return `
+                    <div class="saved-item">
+                        <div class="saved-text">
+                            <h3>${tutorial}</h3>
+                            <p>Saved lesson ${index + 1} ready to resume.</p>
+                        </div>
+                        <a href="continue-lesson.html" class="resume-link">Resume</a>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function renderProgress(progress) {
+            const container = document.getElementById("progressList");
+            const keys = progress ? Object.keys(progress).filter(function(key) {
+                return Number(progress[key]) > 0;
+            }) : [];
+
+            if (!keys.length) {
+                container.innerHTML = '<p class="empty-state">No progress data yet. Complete a lesson to start tracking language progress.</p>';
+                return;
+            }
+
+            container.innerHTML = keys.map(function(key) {
+                const value = Math.max(0, Math.min(100, Number(progress[key]) || 0));
+
+                return `
+                    <div class="progress-item">
+                        <div class="progress-top">
+                            <span>${titleFromKey(key)}</span>
+                            <span>${value}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${value}%;"></div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function renderBadges(badges) {
+            const container = document.getElementById("badgesList");
+
+            if (!badges || !badges.length) {
+                container.innerHTML = '<p class="empty-state">No badges earned yet. Complete challenges and lessons to unlock achievements.</p>';
+                return;
+            }
+
+            container.innerHTML = badges.map(function(badge) {
+                return `
+                    <div class="badge-item">
+                        <h3>${badge}</h3>
+                        <p>Achievement unlocked through lesson progress and platform activity.</p>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function renderSettings(user) {
+            const container = document.getElementById("settingsList");
+
+            container.innerHTML = `
+                <div class="settings-item">
+                    <div>
+                        <h3>Full Name</h3>
+                        <p>${user.firstName || ""} ${user.lastName || ""}</p>
+                    </div>
+                    <a href="#" class="settings-edit">Edit</a>
+                </div>
+
+                <div class="settings-item">
+                    <div>
+                        <h3>Email</h3>
+                        <p>${user.email || "No email set"}</p>
+                    </div>
+                    <a href="#" class="settings-edit">Edit</a>
+                </div>
+
+                <div class="settings-item">
+                    <div>
+                        <h3>Major / Track</h3>
+                        <p>${user.major || "Not set"}</p>
+                    </div>
+                    <a href="#" class="settings-edit">Edit</a>
+                </div>
+
+                <div class="settings-item">
+                    <div>
+                        <h3>Academic Year</h3>
+                        <p>${user.year || "Not set"}</p>
+                    </div>
+                    <a href="#" class="settings-edit">Edit</a>
+                </div>
+            `;
+        }
+
+        function renderPage(user) {
+            const fullName = ((user.firstName || "") + " " + (user.lastName || "")).trim() || "CodeMap Student";
+            const subtitleParts = [];
+
+            if (user.year) {
+                subtitleParts.push(user.year);
+            }
+
+            if (user.major) {
+                subtitleParts.push(user.major);
+            }
+
+            if (user.email) {
+                subtitleParts.push(user.email);
+            }
+
+            document.getElementById("userName").textContent = fullName;
+            document.getElementById("userSubtitle").textContent = subtitleParts.join(" | ") || "Signed in user";
+            document.getElementById("avatar").textContent = makeInitials(user.firstName, user.lastName);
+
+            const pillRow = document.getElementById("pillRow");
+            const pills = [];
+
+            if (user.major) {
+                pills.push(`<span class="pill">${user.major}</span>`);
+            }
+
+            if (user.year) {
+                pills.push(`<span class="pill">${user.year}</span>`);
+            }
+
+            if (user.email) {
+                pills.push(`<span class="pill">${user.email}</span>`);
+            }
+
+            if (!pills.length) {
+                pills.push('<span class="pill">Student</span>');
+            }
+
+            pillRow.innerHTML = pills.join("");
+
+            const savedTutorials = user.savedTutorials || [];
+            const badges = user.badges || [];
+            const progress = user.progress || {};
+
+            document.getElementById("savedCount").textContent = savedTutorials.length;
+            document.getElementById("badgeCount").textContent = badges.length;
+            document.getElementById("languageCount").textContent = Object.keys(progress).filter(function(key) {
+                return Number(progress[key]) > 0;
+            }).length;
+
+            renderSavedTutorials(savedTutorials);
+            renderProgress(progress);
+            renderBadges(badges);
+            renderSettings(user);
+        }
+
+        const currentUser = getCurrentUser();
+
+        if (!currentUser) {
+            window.location.href = "login-signup.html";
+        } else {
+            renderPage(currentUser);
+        }
+
+        document.getElementById("logoutBtn").addEventListener("click", logoutUser);
+        document.getElementById("navLogout").addEventListener("click", logoutUser);
+    </script>
 </body>
 </html>

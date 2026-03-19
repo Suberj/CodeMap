@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeMap | Account</title>
+    <style>
+        :root {
+            --bg-dark: #161D26;
+            --bg-accent: #273240;
+            --panel-dark: #1c2430;
+            --primary-blue: #52C5F2;
+            --primary-salmon: #F27D72;
+            --text-off-white: #F6F2E6;
+            --muted-text: #AEB7C3;
+            --line: rgba(255,255,255,0.08);
+            --green: #72d694;
+            --gold: #f2c572;
+            --purple: #b78cf6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-off-white);
+            background:
+                radial-gradient(circle at top left, rgba(82, 197, 242, 0.10), transparent 18%),
+                radial-gradient(circle at bottom right, rgba(242, 125, 114, 0.08), transparent 18%),
+                var(--bg-dark);
+        }
+
+        h1, h2, h3, h4, .logo, .pill, .small-btn, .progress-label {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-accent);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-off-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary-salmon);
+        }
+
+        .page {
+            width: min(1240px, 92vw);
+            margin: 0 auto;
+            padding: 2.5rem 0 3rem;
+        }
+
+        .profile-banner {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(180deg, rgba(39, 50, 64, 0.96), rgba(22, 29, 38, 0.98));
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 22px;
+            box-shadow: 0 18px 42px rgba(0,0,0,0.28);
+            margin-bottom: 2rem;
+        }
+
+        .avatar-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), #8ce2ff);
+            color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 18px rgba(82, 197, 242, 0.24);
+        }
+
+        .small-btn {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 1px solid rgba(82, 197, 242, 0.42);
+            padding: 0.65rem 0.85rem;
+            border-radius: 10px;
+            font-size: 0.78rem;
+            cursor: pointer;
+        }
+
+        .identity h1 {
+            margin: 0;
+            font-size: clamp(2rem, 3vw, 2.9rem);
+        }
+
+        .identity p {
+            margin: 0.45rem 0 0;
+            color: var(--muted-text);
+            line-height: 1.6;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 1rem;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 0.8rem;
+            border-radius: 999px;
+            background-color: rgba(82, 197, 242, 0.10);
+            border: 1px solid rgba(82, 197, 242, 0.18);
+            color: var(--primary-blue);
+            font-size: 0.78rem;
+        }
+
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(110px, 1fr));
+            gap: 0.9rem;
+            min-width: 300px;
+        }
+
+        .stat-card {
+            background-color: rgba(8, 13, 20, 0.42);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: 1.55rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-card span {
+            font-size: 0.84rem;
+            color: var(--muted-text);
+            line-height: 1.45;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .stack {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .panel {
+            background: linear-gradient(180deg, rgba(39, 50, 64, 0.94), rgba(22, 29, 38, 0.98));
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 1.6rem;
+            box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+        }
+
+        .panel-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .panel-head h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: var(--primary-salmon);
+        }
+
+        .panel-head p {
+            margin: 0.35rem 0 0;
+            color: var(--muted-text);
+            font-size: 0.93rem;
+        }
+
+        .tutorial-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .tutorial-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem 1.05rem;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background-color: rgba(8, 13, 20, 0.34);
+        }
+
+        .tutorial-item h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .tutorial-meta {
+            margin-top: 0.45rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            color: var(--muted-text);
+            font-size: 0.9rem;
+        }
+
+        .action-btn {
+            background-color: var(--primary-blue);
+            color: var(--bg-dark);
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .progress-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .progress-item {
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: var(--text-off-white);
+        }
+
+        .progress-top span:last-child {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            border-radius: 999px;
+            background-color: rgba(255,255,255,0.08);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: inherit;
+        }
+
+        .fill-cpp { width: 74%; background: linear-gradient(90deg, var(--primary-blue), #8ce2ff); }
+        .fill-python { width: 62%; background: linear-gradient(90deg, var(--green), #9be6b4); }
+        .fill-matlab { width: 48%; background: linear-gradient(90deg, var(--gold), #f6d99a); }
+        .fill-ros { width: 35%; background: linear-gradient(90deg, var(--purple), #ccb0fa); }
+
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .badge-card {
+            padding: 1rem;
+            border-radius: 16px;
+            background-color: rgba(8, 13, 20, 0.38);
+            border: 1px solid var(--line);
+            display: grid;
+            gap: 0.7rem;
+        }
+
+        .badge-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+        }
+
+        .badge-icon.blue { background: linear-gradient(135deg, var(--primary-blue), #a5ecff); }
+        .badge-icon.salmon { background: linear-gradient(135deg, var(--primary-salmon), #ffc0b8); }
+        .badge-icon.green { background: linear-gradient(135deg, var(--green), #baf0cb); }
+        .badge-icon.purple { background: linear-gradient(135deg, var(--purple), #d9c8ff); }
+
+        .badge-card h3 {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .badge-card p {
+            margin: 0;
+            color: var(--muted-text);
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+
+        .settings-list {
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        .settings-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.95rem 1rem;
+            border-radius: 14px;
+            background-color: rgba(8, 13, 20, 0.34);
+            border: 1px solid var(--line);
+        }
+
+        .settings-row strong {
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .settings-row span {
+            color: var(--muted-text);
+            font-size: 0.92rem;
+        }
+
+        .edit-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .edit-link:hover {
+            color: var(--primary-salmon);
+        }
+
+        footer {
+            width: min(1240px, 92vw);
+            margin: 0 auto;
+            padding: 0 0 2rem;
+            text-align: center;
+            color: #818a95;
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 1100px) {
+            .profile-banner {
+                grid-template-columns: 1fr;
+                justify-items: start;
+            }
+
+            .stats-strip {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+
+            .tutorial-item,
+            .settings-row {
+                grid-template-columns: 1fr;
+            }
+
+            .badge-grid,
+            .stats-strip {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">CodeMap</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#">Learn</a>
+            <a href="#">About</a>
+            <a href="account-page.html" class="active">Account</a>
+            <a href="login-signup.html">Log Out</a>
+        </nav>
+    </header>
+
+    <main class="page">
+        <section class="profile-banner">
+            <div class="avatar-wrap">
+                <div class="avatar">JS</div>
+                <button class="small-btn" type="button">Change Photo</button>
+            </div>
+
+            <div class="identity">
+                <h1>Joshua Suber</h1>
+                <p>Senior Computer / Electrical Engineering Student | RPI</p>
+                <div class="pill-row">
+                    <span class="pill">RPI</span>
+                    <span class="pill">Senior</span>
+                    <span class="pill">C++ Track</span>
+                    <span class="pill">Control Systems</span>
+                    <span class="pill">Robotics</span>
+                </div>
+            </div>
+
+            <div class="stats-strip">
+                <div class="stat-card">
+                    <strong>12</strong>
+                    <span>Saved tutorials ready to resume</span>
+                </div>
+                <div class="stat-card">
+                    <strong>4</strong>
+                    <span>Languages currently in progress</span>
+                </div>
+                <div class="stat-card">
+                    <strong>7</strong>
+                    <span>Badges earned through learning</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            <div class="stack">
+                <article class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <h2>Saved Tutorials</h2>
+                            <p>Resume exactly where you left off in your coursework-aligned content.</p>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-list">
+                        <div class="tutorial-item">
+                            <div>
+                                <h3>C++ Pointers &amp; Memory</h3>
+                                <div class="tutorial-meta">
+                                    <span>Advanced Data Structures</span>
+                                    <span>Last opened 2 days ago</span>
+                                    <span>Lesson 8 of 12</span>
+                                </div>
+                            </div>
+                            <a href="#" class="action-btn">Resume</a>
+                        </div>
+
+                        <div class="tutorial-item">
+                            <div>
+                                <h3>ROS2 Node Integration</h3>
+                                <div class="tutorial-meta">
+                                    <span>Practical Robotics Path</span>
+                                    <span>Last opened yesterday</span>
+                                    <span>Lesson 3 of 10</span>
+                                </div>
+                            </div>
+                            <a href="#" class="action-btn">Resume</a>
+                        </div>
+
+                        <div class="tutorial-item">
+                            <div>
+                                <h3>MATLAB State Feedback Models</h3>
+                                <div class="tutorial-meta">
+                                    <span>Controls Review</span>
+                                    <span>Last opened 4 days ago</span>
+                                    <span>Lesson 5 of 9</span>
+                                </div>
+                            </div>
+                            <a href="#" class="action-btn">Resume</a>
+                        </div>
+
+                        <div class="tutorial-item">
+                            <div>
+                                <h3>Python Data Cleaning Basics</h3>
+                                <div class="tutorial-meta">
+                                    <span>Data Science Support</span>
+                                    <span>Saved for later</span>
+                                    <span>Lesson 2 of 11</span>
+                                </div>
+                            </div>
+                            <a href="#" class="action-btn">Resume</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <h2>Progress by Language</h2>
+                            <p>Track how much of each curriculum path has been completed.</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-list">
+                        <div class="progress-item">
+                            <div class="progress-top">
+                                <span class="progress-label">C++</span>
+                                <span>74%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill fill-cpp"></div></div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-top">
+                                <span class="progress-label">Python</span>
+                                <span>62%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill fill-python"></div></div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-top">
+                                <span class="progress-label">MATLAB</span>
+                                <span>48%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill fill-matlab"></div></div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-top">
+                                <span class="progress-label">ROS2 / Robotics</span>
+                                <span>35%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill fill-ros"></div></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="stack">
+                <article class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <h2>Badges</h2>
+                            <p>Visible rewards for completion and community engagement.</p>
+                        </div>
+                    </div>
+
+                    <div class="badge-grid">
+                        <div class="badge-card">
+                            <div class="badge-icon blue">C+</div>
+                            <h3>Pointers Pro</h3>
+                            <p>Completed the memory and pointers unit with all challenge questions correct.</p>
+                        </div>
+
+                        <div class="badge-card">
+                            <div class="badge-icon salmon">DS</div>
+                            <h3>Debug Streak</h3>
+                            <p>Finished three consecutive troubleshooting modules in the C++ pathway.</p>
+                        </div>
+
+                        <div class="badge-card">
+                            <div class="badge-icon green">Py</div>
+                            <h3>Python Builder</h3>
+                            <p>Completed the fundamentals path and saved two reference tutorials.</p>
+                        </div>
+
+                        <div class="badge-card">
+                            <div class="badge-icon purple">CM</div>
+                            <h3>Community Helper</h3>
+                            <p>Shared notes or helpful insights that improved the learning experience for others.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <h2>Account Details</h2>
+                            <p>Quick settings for identity, personalization, and saved preferences.</p>
+                        </div>
+                    </div>
+
+                    <div class="settings-list">
+                        <div class="settings-row">
+                            <div>
+                                <strong>Institution</strong>
+                                <span>Rensselaer Polytechnic Institute</span>
+                            </div>
+                            <a href="#" class="edit-link">Edit</a>
+                        </div>
+
+                        <div class="settings-row">
+                            <div>
+                                <strong>Recommended Track</strong>
+                                <span>Systems + Controls + Robotics</span>
+                            </div>
+                            <a href="#" class="edit-link">Edit</a>
+                        </div>
+
+                        <div class="settings-row">
+                            <div>
+                                <strong>Email Notifications</strong>
+                                <span>Weekly progress reminders enabled</span>
+                            </div>
+                            <a href="#" class="edit-link">Manage</a>
+                        </div>
+
+                        <div class="settings-row">
+                            <div>
+                                <strong>Password &amp; Security</strong>
+                                <span>Last updated 30 days ago</span>
+                            </div>
+                            <a href="#" class="edit-link">Update</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 CodeMap | Account dashboard mockup
+    </footer>
+</body>
+</html>

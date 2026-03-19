@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeMap | Master Your Coursework</title>
     <style>
-        /* Color Palette [cite: 122-126] */
         :root {
             --bg-dark: #161D26;
             --bg-accent: #273240;
@@ -17,7 +16,6 @@
         body {
             background-color: var(--bg-dark);
             color: var(--text-off-white);
-            /* Primary Body Font: Proxima Nova */
             font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
             margin: 0;
             display: flex;
@@ -25,7 +23,6 @@
             min-height: 100vh;
         }
 
-        /* Headings & Logo: DIN 2014 Bold */
         h1, h2, h3, .logo, .cta-button, .resume-btn {
             font-family: "din-2014", sans-serif;
             font-weight: 700;
@@ -33,7 +30,6 @@
             letter-spacing: 0.05em;
         }
 
-        /* Functional (Global) Navigation */
         header {
             padding: 1.5rem 5%;
             display: flex;
@@ -60,10 +56,9 @@
             color: var(--primary-salmon);
         }
 
-        /* Hero Section - Western scan pattern [cite: 115-116] */
         .hero {
             padding: 4rem 5% 2rem 5%;
-            text-align: left; 
+            text-align: left;
             max-width: 800px;
         }
 
@@ -78,10 +73,9 @@
             font-size: 1.25rem;
             color: #ccc;
             margin-bottom: 2.5rem;
-            max-width: 600px; /* Minimalist text [cite: 119] */
+            max-width: 600px;
         }
 
-        /* Continue Lesson Section */
         .continue-section {
             padding: 2rem 5%;
             margin-bottom: 1rem;
@@ -144,9 +138,13 @@
             transform: scale(1.05);
         }
 
-        /* Search Section [cite: 796] */
         .search-container {
             padding: 1rem 5%;
+        }
+
+        .search-form {
+            width: 100%;
+            max-width: 500px;
         }
 
         .search-box {
@@ -161,7 +159,15 @@
             font-family: "proxima-nova", sans-serif;
         }
 
-        /* Language Grid [cite: 325, 835] */
+        .search-box::placeholder {
+            color: #bbb;
+        }
+
+        .search-box:focus {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
         .language-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -177,6 +183,9 @@
             border-bottom: 4px solid transparent;
             transition: 0.3s;
             cursor: pointer;
+            text-decoration: none;
+            color: var(--text-off-white);
+            display: block;
         }
 
         .lang-card h3 {
@@ -203,17 +212,45 @@
             border-top: 1px solid var(--bg-accent);
             color: #888;
         }
+
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            nav a {
+                margin-left: 0;
+                margin-right: 1.5rem;
+            }
+
+            .continue-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo">CodeMap</a>
+        <a href="index.html" class="logo">CodeMap</a>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Learn</a>
-            <a href="#">About</a>
-            <a href="#">Login</a>
+            <a href="index.html">Home</a>
+            <a href="learn.html">Learn</a>
+            <a href="about.html">About</a>
+            <a href="account-page.html">Account</a>
+            <a href="login-signup.html">Login</a>
         </nav>
     </header>
 
@@ -221,7 +258,7 @@
         <section class="hero">
             <h1>Master the languages of your degree.</h1>
             <p>CodeMap bridges the gap between classroom theory and practical coding proficiency for RPI students.</p>
-            <a href="#" class="cta-button">Start Your Journey</a>
+            <a href="learn.html" class="cta-button">Start Your Journey</a>
         </section>
 
         <section class="continue-section">
@@ -230,27 +267,31 @@
                     <h2>Continue: C++ Pointers</h2>
                     <p>Current Lesson: Advanced Data Structures</p>
                 </div>
-                <a href="#" class="resume-btn">Resume</a>
+                <a href="continue-lesson.html" class="resume-btn">Resume</a>
             </div>
         </section>
 
         <section class="search-container">
-            <input type="text" class="search-box" placeholder="Search for a tutorial or function...">
+            <form class="search-form" action="learn.html" method="get">
+                <input type="text" name="q" class="search-box" placeholder="Search for a tutorial or function...">
+            </form>
         </section>
 
         <section class="language-grid">
-            <div class="lang-card">
+            <a href="language-page.html" class="lang-card">
                 <h3>Python</h3>
                 <p>Curated for CS1 and Data Science</p>
-            </div>
-            <div class="lang-card">
+            </a>
+
+            <a href="language-page.html" class="lang-card">
                 <h3>C++</h3>
                 <p>Advanced Data Structures support</p>
-            </div>
-            <div class="lang-card">
+            </a>
+
+            <a href="language-page.html" class="lang-card">
                 <h3>MATLAB</h3>
                 <p>Engineered for Control Systems</p>
-            </div>
+            </a>
         </section>
     </main>
 

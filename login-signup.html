@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeMap | Login / Sign Up</title>
+    <style>
+        :root {
+            --bg-dark: #161D26;
+            --bg-accent: #273240;
+            --panel: #1d2632;
+            --border: #334153;
+            --primary-blue: #52C5F2;
+            --primary-salmon: #F27D72;
+            --text-off-white: #F6F2E6;
+            --muted-text: #A8B0BC;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-off-white);
+            background:
+                radial-gradient(circle at top left, rgba(82, 197, 242, 0.12), transparent 24%),
+                radial-gradient(circle at bottom right, rgba(242, 125, 114, 0.10), transparent 22%),
+                var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, .logo, .tab-btn, .primary-btn, .outline-btn {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-accent);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-off-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary-salmon);
+        }
+
+        .page {
+            width: min(1180px, 92vw);
+            margin: 0 auto;
+            padding: 4rem 0 3rem;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 2rem;
+            flex: 1;
+            align-items: stretch;
+        }
+
+        .intro,
+        .auth-card {
+            background: linear-gradient(180deg, rgba(39, 50, 64, 0.96), rgba(22, 29, 38, 0.98));
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 22px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.30);
+        }
+
+        .intro {
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro::after {
+            content: "";
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            right: -70px;
+            bottom: -70px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(82, 197, 242, 0.18), transparent 65%);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            background-color: rgba(82, 197, 242, 0.12);
+            color: var(--primary-blue);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .intro h1 {
+            margin: 0 0 1rem;
+            font-size: clamp(2.4rem, 4vw, 4rem);
+            line-height: 1.02;
+            max-width: 11ch;
+        }
+
+        .intro p {
+            margin: 0 0 2rem;
+            color: #d5dce5;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            max-width: 56ch;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .feature {
+            padding: 1.1rem;
+            background-color: rgba(11, 17, 24, 0.46);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+        }
+
+        .feature h3 {
+            margin: 0 0 0.45rem;
+            font-size: 0.95rem;
+            color: var(--primary-blue);
+        }
+
+        .feature p {
+            margin: 0;
+            font-size: 0.92rem;
+            color: var(--muted-text);
+            line-height: 1.55;
+        }
+
+        .auth-card {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-head h2 {
+            margin: 0 0 0.45rem;
+            font-size: 1.85rem;
+        }
+
+        .auth-head p {
+            margin: 0 0 1.5rem;
+            color: var(--muted-text);
+            line-height: 1.6;
+        }
+
+        .tab-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            border: 1px solid rgba(255,255,255,0.08);
+            background-color: rgba(255,255,255,0.03);
+            color: var(--text-off-white);
+            padding: 0.95rem 1rem;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-blue);
+            color: var(--bg-dark);
+            border-color: var(--primary-blue);
+        }
+
+        .form-panel {
+            display: none;
+            gap: 1rem;
+        }
+
+        .form-panel.active {
+            display: grid;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        label {
+            font-size: 0.92rem;
+            color: #dde5ee;
+            font-weight: 600;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 0.95rem 1rem;
+            background-color: rgba(8, 13, 20, 0.52);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-off-white);
+            font-size: 0.98rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(82, 197, 242, 0.12);
+        }
+
+        .row-between {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--muted-text);
+            font-size: 0.92rem;
+        }
+
+        .checkbox-inline input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-blue);
+            padding: 0;
+        }
+
+        .helper-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 0.92rem;
+        }
+
+        .helper-link:hover {
+            color: var(--primary-salmon);
+        }
+
+        .primary-btn,
+        .outline-btn {
+            width: 100%;
+            padding: 1rem 1.1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .primary-btn {
+            border: none;
+            background-color: var(--primary-salmon);
+            color: var(--bg-dark);
+        }
+
+        .outline-btn {
+            border: 1px solid rgba(82, 197, 242, 0.42);
+            background-color: transparent;
+            color: var(--primary-blue);
+        }
+
+        .primary-btn:hover,
+        .outline-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .status {
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            background-color: rgba(82, 197, 242, 0.10);
+            border: 1px solid rgba(82, 197, 242, 0.18);
+            color: #d7f5ff;
+        }
+
+        .auth-footer {
+            margin-top: 0.6rem;
+            color: var(--muted-text);
+            font-size: 0.92rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        footer {
+            padding: 1.5rem 5% 2rem;
+            text-align: center;
+            color: #7e8792;
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 980px) {
+            .page {
+                grid-template-columns: 1fr;
+                padding-top: 2rem;
+            }
+
+            .feature-grid,
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+
+            .intro,
+            .auth-card {
+                padding: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">CodeMap</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#">Learn</a>
+            <a href="#">About</a>
+            <a href="login-signup.html" class="active">Login</a>
+        </nav>
+    </header>
+
+    <main class="page">
+        <section class="intro">
+            <span class="eyebrow">Built for coursework mastery</span>
+            <h1>Learn the languages behind your degree.</h1>
+            <p>
+                CodeMap helps students bridge class concepts with real coding practice.
+                Save lessons, track progress, earn badges, and return exactly where you left off.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature">
+                    <h3>Saved Tutorials</h3>
+                    <p>Pick up where you stopped with bookmarked lessons and quick resume links.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>Progress Tracking</h3>
+                    <p>See how far you are in C++, Python, MATLAB, ROS, and more.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>Course-Aligned Paths</h3>
+                    <p>Focus on the coding skills that match your engineering and CS coursework.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>Achievements</h3>
+                    <p>Stay motivated with badges for streaks, completions, and challenge modules.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-card">
+            <div class="auth-head">
+                <h2>Account Access</h2>
+                <p>Log in to continue learning or create a new CodeMap account.</p>
+            </div>
+
+            <div class="tab-row">
+                <button class="tab-btn active" id="loginTab" type="button">Login</button>
+                <button class="tab-btn" id="signupTab" type="button">Sign Up</button>
+            </div>
+
+            <form class="form-panel active" id="loginForm">
+                <div class="field">
+                    <label for="loginEmail">Email</label>
+                    <input id="loginEmail" type="email" placeholder="you@school.edu" />
+                </div>
+
+                <div class="field">
+                    <label for="loginPassword">Password</label>
+                    <input id="loginPassword" type="password" placeholder="Enter your password" />
+                </div>
+
+                <div class="row-between">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" />
+                        Remember me
+                    </label>
+                    <a href="#" class="helper-link">Forgot password?</a>
+                </div>
+
+                <button class="primary-btn" type="submit">Log In</button>
+                <a href="account-page.html" class="outline-btn">Preview Account Page</a>
+
+            </form>
+
+            <form class="form-panel" id="signupForm">
+                <div class="two-col">
+                    <div class="field">
+                        <label for="firstName">First Name</label>
+                        <input id="firstName" type="text" placeholder="Josh" />
+                    </div>
+
+                    <div class="field">
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName" type="text" placeholder="Suber" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="signupEmail">School Email</label>
+                    <input id="signupEmail" type="email" placeholder="you@rpi.edu" />
+                </div>
+
+                <div class="two-col">
+                    <div class="field">
+                        <label for="major">Major / Track</label>
+                        <select id="major">
+                            <option>Computer Science</option>
+                            <option>Computer Engineering</option>
+                            <option>Electrical Engineering</option>
+                            <option>Mechanical Engineering</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="year">Academic Year</label>
+                        <select id="year">
+                            <option>Freshman</option>
+                            <option>Sophomore</option>
+                            <option>Junior</option>
+                            <option selected>Senior</option>
+                            <option>Graduate</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="field">
+                        <label for="signupPassword">Password</label>
+                        <input id="signupPassword" type="password" placeholder="Create a password" />
+                    </div>
+
+                    <div class="field">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input id="confirmPassword" type="password" placeholder="Re-enter password" />
+                    </div>
+                </div>
+
+                <div class="row-between">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" />
+                        I agree to the terms and privacy policy
+                    </label>
+                </div>
+
+                <button class="primary-btn" type="submit">Create Account</button>
+                <a href="account-page.html" class="outline-btn">Go to Demo Dashboard</a>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 CodeMap | Login and sign up page mockup
+    </footer>
+
+    <script>
+        const loginTab = document.getElementById("loginTab");
+        const signupTab = document.getElementById("signupTab");
+        const loginForm = document.getElementById("loginForm");
+        const signupForm = document.getElementById("signupForm");
+
+        loginTab.addEventListener("click", function () {
+            loginTab.classList.add("active");
+            signupTab.classList.remove("active");
+            loginForm.classList.add("active");
+            signupForm.classList.remove("active");
+        });
+
+        signupTab.addEventListener("click", function () {
+            signupTab.classList.add("active");
+            loginTab.classList.remove("active");
+            signupForm.classList.add("active");
+            loginForm.classList.remove("active");
+        });
+    </script>
+</body>
+</html>

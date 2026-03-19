@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeMap | Installation</title>
+    <style>
+        :root {
+            --bg-dark: #161D26;
+            --bg-accent: #273240;
+            --panel: #1d2632;
+            --border: #364558;
+            --primary-blue: #52C5F2;
+            --primary-salmon: #F27D72;
+            --text-off-white: #F6F2E6;
+            --muted: #AAB4C0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg-dark);
+            color: var(--text-off-white);
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            background: var(--bg-accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 1.8rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-off-white);
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--primary-salmon);
+        }
+
+        .container {
+            width: min(1080px, 92vw);
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+
+        .hero {
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            margin: 0 0 0.8rem;
+            font-size: clamp(2.1rem, 4vw, 3.3rem);
+        }
+
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 62ch;
+        }
+
+        .step-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .step {
+            background: linear-gradient(180deg, rgba(39,50,64,0.95), rgba(22,29,38,0.98));
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 18px;
+            padding: 1.4rem;
+        }
+
+        .step h2 {
+            margin: 0 0 0.75rem;
+            color: var(--primary-salmon);
+            font-size: 1.1rem;
+        }
+
+        .step p {
+            margin: 0 0 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .command {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            background: rgba(8,13,20,0.72);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.95rem 1rem;
+            color: var(--primary-blue);
+            font-family: "Courier New", monospace;
+            white-space: pre-wrap;
+        }
+
+        .image-placeholder {
+            margin-top: 1rem;
+            border: 1px dashed rgba(255,255,255,0.18);
+            border-radius: 14px;
+            padding: 1rem;
+            color: #8f99a5;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .link-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(82,197,242,0.08);
+            border: 1px solid rgba(82,197,242,0.18);
+            border-radius: 14px;
+        }
+
+        .link-box a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 5%;
+            color: #8a939d;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        @media (max-width: 720px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a class="logo" href="index.html">CodeMap</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="learn.html">Learn</a>
+            <a href="about.html">About</a>
+            <a href="account-page.html">Account</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Python Installation Guide</h1>
+            <p>
+                Follow these steps in order to set up Python, verify your installation,
+                and get ready to start running code locally.
+            </p>
+        </section>
+
+        <section class="step-list">
+            <article class="step">
+                <h2>Step 1: Check if Python is already installed</h2>
+                <p>Open your terminal and run the following command to see if Python is already available on your machine.</p>
+                <code class="command">python --version</code>
+                <div class="image-placeholder">Terminal screenshot placeholder: expected output example goes here.</div>
+            </article>
+
+            <article class="step">
+                <h2>Step 2: Install Python</h2>
+                <p>If Python is not installed, download it from the official website and complete the installer steps.</p>
+                <div class="link-box">
+                    External download link:
+                    <a href="#">python.org/downloads</a>
+                </div>
+            </article>
+
+            <article class="step">
+                <h2>Step 3: Verify pip</h2>
+                <p>After installation, confirm that the package installer is also available.</p>
+                <code class="command">pip --version</code>
+            </article>
+
+            <article class="step">
+                <h2>Step 4: Create a project folder</h2>
+                <p>Make a clean folder for your coursework or practice files.</p>
+                <code class="command">mkdir my-python-project
+cd my-python-project</code>
+            </article>
+
+            <article class="step">
+                <h2>Step 5: Run your first test file</h2>
+                <p>Create a file called <strong>hello.py</strong> and run it to confirm the environment works.</p>
+                <code class="command">python hello.py</code>
+                <div class="image-placeholder">Image placeholder: show expected output after successfully running the file.</div>
+            </article>
+        </section>
+    </main>
+
+    <footer>&copy; 2026 CodeMap | Installation Page</footer>
+</body>
+</html>

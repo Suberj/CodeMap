@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeMap | Documentation Guide</title>
+    <style>
+        :root {
+            --bg-dark: #161D26;
+            --bg-accent: #273240;
+            --panel: #1d2632;
+            --primary-blue: #52C5F2;
+            --primary-salmon: #F27D72;
+            --text-off-white: #F6F2E6;
+            --muted: #AAB4C0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg-dark);
+            color: var(--text-off-white);
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        h1, h2, h3, .logo, .link-btn {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            background: var(--bg-accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 1.8rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-off-white);
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--primary-salmon);
+        }
+
+        .container {
+            width: min(1120px, 92vw);
+            margin: 0 auto;
+            padding: 3rem 0;
+            display: grid;
+            gap: 1.8rem;
+        }
+
+        .hero h1 {
+            margin: 0 0 0.8rem;
+            font-size: clamp(2.1rem, 4vw, 3.3rem);
+        }
+
+        .hero p {
+            margin: 0;
+            max-width: 64ch;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .panel {
+            background: linear-gradient(180deg, rgba(39,50,64,0.95), rgba(22,29,38,0.98));
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 18px;
+            padding: 1.5rem;
+        }
+
+        .panel h2 {
+            margin-top: 0;
+            color: var(--primary-salmon);
+        }
+
+        .panel p,
+        .panel li {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.2rem;
+        }
+
+        .mini-card {
+            background: rgba(8,13,20,0.38);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 1rem;
+        }
+
+        .mini-card h3 {
+            margin-top: 0;
+            color: var(--primary-blue);
+            font-size: 1rem;
+        }
+
+        .link-btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            background: var(--primary-salmon);
+            color: var(--bg-dark);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 5%;
+            color: #8a939d;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a class="logo" href="index.html">CodeMap</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="learn.html">Learn</a>
+            <a href="about.html">About</a>
+            <a href="account-page.html">Account</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>How to Read Documentation</h1>
+            <p>
+                Documentation can feel dense at first. This page highlights the usual structure,
+                what details matter most, and how to extract useful information quickly.
+            </p>
+        </section>
+
+        <section class="panel">
+            <h2>Typical Documentation Layout</h2>
+            <div class="grid">
+                <div class="mini-card">
+                    <h3>Overview</h3>
+                    <p>What the tool, function, or library is meant to do.</p>
+                </div>
+                <div class="mini-card">
+                    <h3>Syntax</h3>
+                    <p>The exact format for calling a function or using a feature.</p>
+                </div>
+                <div class="mini-card">
+                    <h3>Examples</h3>
+                    <p>Practical reference points that show correct usage in context.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>What to Focus On</h2>
+            <ul>
+                <li>Function or method name</li>
+                <li>Expected inputs and their data types</li>
+                <li>Return value or output behavior</li>
+                <li>Required imports, setup steps, or dependencies</li>
+                <li>Warnings, notes, and version differences</li>
+            </ul>
+        </section>
+
+        <section class="panel">
+            <h2>Reading Strategy</h2>
+            <p>
+                Start with the overview so you understand the purpose. Then check syntax, parameters,
+                and return values. Finally, compare your code against the example and look closely at
+                warnings or edge cases.
+            </p>
+        </section>
+
+        <section class="panel">
+            <h2>Official Documentation</h2>
+            <p>Use the official source whenever possible so you are reading the most accurate reference.</p>
+            <a class="link-btn" href="#">Open Official Python Documentation</a>
+        </section>
+    </main>
+
+    <footer>&copy; 2026 CodeMap | Documentation Page</footer>
+</body>
+</html>

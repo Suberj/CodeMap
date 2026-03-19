@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeMap | Tutorial</title>
+    <style>
+        :root {
+            --bg-dark: #161D26;
+            --bg-accent: #273240;
+            --panel: #1d2632;
+            --border: #364558;
+            --primary-blue: #52C5F2;
+            --primary-salmon: #F27D72;
+            --text-off-white: #F6F2E6;
+            --muted: #AAB4C0;
+            --success: #7fe0a2;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg-dark);
+            color: var(--text-off-white);
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        h1, h2, h3, .logo, .btn {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            background: var(--bg-accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 1.8rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-off-white);
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--primary-salmon);
+        }
+
+        .container {
+            width: min(1100px, 92vw);
+            margin: 0 auto;
+            padding: 3rem 0;
+            display: grid;
+            gap: 1.8rem;
+        }
+
+        .hero h1 {
+            margin: 0 0 0.8rem;
+            font-size: clamp(2.1rem, 4vw, 3.3rem);
+        }
+
+        .hero p {
+            margin: 0;
+            max-width: 64ch;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .panel {
+            background: linear-gradient(180deg, rgba(39,50,64,0.95), rgba(22,29,38,0.98));
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 18px;
+            padding: 1.5rem;
+        }
+
+        .panel h2 {
+            margin-top: 0;
+            color: var(--primary-salmon);
+        }
+
+        .panel p,
+        .panel li {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .video-placeholder,
+        .diagram-placeholder {
+            border: 1px dashed rgba(255,255,255,0.18);
+            border-radius: 14px;
+            padding: 2rem;
+            text-align: center;
+            color: #8d98a5;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .question-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .question {
+            padding: 1rem;
+            border-radius: 14px;
+            background: rgba(8,13,20,0.44);
+            border: 1px solid var(--border);
+        }
+
+        .question label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+        }
+
+        .question input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.04);
+            color: var(--text-off-white);
+        }
+
+        .status {
+            margin-top: 0.75rem;
+            padding: 0.75rem 0.9rem;
+            border-radius: 10px;
+            background: rgba(127,224,162,0.10);
+            border: 1px solid rgba(127,224,162,0.20);
+            color: var(--success);
+            font-size: 0.92rem;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            background: var(--primary-salmon);
+            color: var(--bg-dark);
+            text-decoration: none;
+        }
+
+        .resources a {
+            display: block;
+            color: var(--primary-blue);
+            text-decoration: none;
+            margin-bottom: 0.6rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 5%;
+            color: #8a939d;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        @media (max-width: 720px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a class="logo" href="index.html">CodeMap</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="learn.html">Learn</a>
+            <a href="about.html">About</a>
+            <a href="account-page.html">Account</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Python Variables and Data Types</h1>
+            <p>
+                This lesson introduces variables, naming, and common data types.
+                Review the explanation, study the diagram, and answer the short questions below.
+            </p>
+        </section>
+
+        <section class="panel">
+            <h2>Lesson Overview</h2>
+            <p>
+                Variables store values so your program can use and update them later.
+                Common beginner data types include integers, floating point numbers, strings, and booleans.
+            </p>
+        </section>
+
+        <section class="panel">
+            <h2>Video / Walkthrough</h2>
+            <div class="video-placeholder">Embedded video placeholder</div>
+        </section>
+
+        <section class="panel">
+            <h2>Diagram</h2>
+            <div class="diagram-placeholder">Concept diagram placeholder: variable name → value → data type</div>
+        </section>
+
+        <section class="panel">
+            <h2>Practice Questions</h2>
+            <div class="question-grid">
+                <div class="question">
+                    <label for="q1">1. What data type is the value 42?</label>
+                    <input id="q1" type="text" placeholder="Type your answer here" />
+                    <div class="status">Correct state example: integer</div>
+                </div>
+
+                <div class="question">
+                    <label for="q2">2. What data type is "hello"?</label>
+                    <input id="q2" type="text" placeholder="Type your answer here" />
+                </div>
+
+                <div class="question">
+                    <label for="q3">3. Write a variable name that stores a student's major.</label>
+                    <input id="q3" type="text" placeholder="Type your answer here" />
+                </div>
+            </div>
+
+            <a class="btn" href="#">Run / Check Answers</a>
+        </section>
+
+        <section class="panel resources">
+            <h2>Supplemental Materials</h2>
+            <a href="#">Python official tutorial</a>
+            <a href="#">Variable naming rules cheat sheet</a>
+            <a href="#">Beginner debugging tips</a>
+        </section>
+    </main>
+
+    <footer>&copy; 2026 CodeMap | Tutorial Page</footer>
+</body>
+</html>

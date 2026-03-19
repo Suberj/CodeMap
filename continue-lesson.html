@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeMap | Continue Lessons</title>
+    <style>
+        :root {
+            --bg-dark: #161D26;
+            --bg-accent: #273240;
+            --panel: #1d2632;
+            --border: #364558;
+            --primary-blue: #52C5F2;
+            --primary-salmon: #F27D72;
+            --text-off-white: #F6F2E6;
+            --muted: #AAB4C0;
+            --green: #77d99a;
+            --gold: #f3c76d;
+            --purple: #b88cf6;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg-dark);
+            color: var(--text-off-white);
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        h1, h2, h3, .logo, .btn {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            background: var(--bg-accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 1.8rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-off-white);
+            text-decoration: none;
+        }
+
+        nav a.active,
+        nav a:hover {
+            color: var(--primary-salmon);
+        }
+
+        .container {
+            width: min(1150px, 92vw);
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+
+        .intro {
+            margin-bottom: 2rem;
+        }
+
+        .intro h1 {
+            margin: 0 0 0.8rem;
+            font-size: clamp(2.1rem, 4vw, 3.4rem);
+        }
+
+        .intro p {
+            margin: 0;
+            color: var(--muted);
+            max-width: 62ch;
+            line-height: 1.7;
+        }
+
+        .list {
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .lesson-card {
+            background: linear-gradient(180deg, rgba(39,50,64,0.96), rgba(22,29,38,0.98));
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 18px;
+            padding: 1.4rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .lesson-card h3 {
+            margin: 0 0 0.35rem;
+            font-size: 1.1rem;
+        }
+
+        .lesson-card p {
+            margin: 0 0 0.85rem;
+            color: var(--muted);
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .progress-wrap {
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.92rem;
+        }
+
+        .progress-bar {
+            height: 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            overflow: hidden;
+        }
+
+        .fill {
+            height: 100%;
+            border-radius: inherit;
+        }
+
+        .blue { width: 78%; background: linear-gradient(90deg, var(--primary-blue), #93e7ff); }
+        .green { width: 52%; background: linear-gradient(90deg, var(--green), #b9efca); }
+        .gold { width: 41%; background: linear-gradient(90deg, var(--gold), #f7dd9d); }
+        .purple { width: 29%; background: linear-gradient(90deg, var(--purple), #d8c5ff); }
+
+        .btn {
+            text-decoration: none;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            background: var(--primary-salmon);
+            color: var(--bg-dark);
+            white-space: nowrap;
+        }
+
+        footer {
+            padding: 2rem 5%;
+            text-align: center;
+            color: #8a939d;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        @media (max-width: 760px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+
+            .lesson-card {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a class="logo" href="index.html">CodeMap</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="learn.html">Learn</a>
+            <a href="about.html">About</a>
+            <a href="account-page.html">Account</a>
+            <a class="active" href="continue-lesson.html">Continue</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <h1>Continue where you left off.</h1>
+            <p>
+                Jump back into recent lessons without digging through menus. Your most recently
+                visited tutorials appear here with current completion progress.
+            </p>
+        </section>
+
+        <section class="list">
+            <article class="lesson-card">
+                <div>
+                    <h3>C++ Pointers and Memory</h3>
+                    <p>Advanced Data Structures support path</p>
+                    <div class="meta">
+                        <span>Last visited: 2 days ago</span>
+                        <span>Lesson 8 of 12</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-top">
+                            <span>Progress</span>
+                            <span>78%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill blue"></div></div>
+                    </div>
+                </div>
+                <a class="btn" href="tutorial.html">Resume</a>
+            </article>
+
+            <article class="lesson-card">
+                <div>
+                    <h3>Python Data Cleaning Basics</h3>
+                    <p>Intro scripting and data tools</p>
+                    <div class="meta">
+                        <span>Last visited: yesterday</span>
+                        <span>Lesson 5 of 10</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-top">
+                            <span>Progress</span>
+                            <span>52%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill green"></div></div>
+                    </div>
+                </div>
+                <a class="btn" href="tutorial.html">Resume</a>
+            </article>
+
+            <article class="lesson-card">
+                <div>
+                    <h3>MATLAB State Feedback Models</h3>
+                    <p>Control systems review path</p>
+                    <div class="meta">
+                        <span>Last visited: 4 days ago</span>
+                        <span>Lesson 4 of 9</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-top">
+                            <span>Progress</span>
+                            <span>41%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill gold"></div></div>
+                    </div>
+                </div>
+                <a class="btn" href="tutorial.html">Resume</a>
+            </article>
+
+            <article class="lesson-card">
+                <div>
+                    <h3>ROS2 Node Integration</h3>
+                    <p>Robotics package and communication workflow</p>
+                    <div class="meta">
+                        <span>Last visited: 1 week ago</span>
+                        <span>Lesson 3 of 11</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-top">
+                            <span>Progress</span>
+                            <span>29%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill purple"></div></div>
+                    </div>
+                </div>
+                <a class="btn" href="tutorial.html">Resume</a>
+            </article>
+        </section>
+    </main>
+
+    <footer>&copy; 2026 CodeMap | Continue Lesson Page</footer>
+</body>
+</html>

@@ -1,258 +1,781 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CodeMap | Tutorial</title>
-    <style>
-        :root {
-            --bg-dark: #161D26;
-            --bg-accent: #273240;
-            --panel: #1d2632;
-            --border: #364558;
-            --primary-blue: #52C5F2;
-            --primary-salmon: #F27D72;
-            --text-off-white: #F6F2E6;
-            --muted: #AAB4C0;
-            --success: #7fe0a2;
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            background: var(--bg-dark);
-            color: var(--text-off-white);
-            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
-        }
-
-        h1, h2, h3, .logo, .btn {
-            font-family: "din-2014", sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        header {
-            padding: 1.5rem 5%;
-            background: var(--bg-accent);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-size: 1.8rem;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: var(--text-off-white);
-            text-decoration: none;
-        }
-
-        nav a:hover {
-            color: var(--primary-salmon);
-        }
-
-        .container {
-            width: min(1100px, 92vw);
-            margin: 0 auto;
-            padding: 3rem 0;
-            display: grid;
-            gap: 1.8rem;
-        }
-
-        .hero h1 {
-            margin: 0 0 0.8rem;
-            font-size: clamp(2.1rem, 4vw, 3.3rem);
-        }
-
-        .hero p {
-            margin: 0;
-            max-width: 64ch;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        .panel {
-            background: linear-gradient(180deg, rgba(39,50,64,0.95), rgba(22,29,38,0.98));
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 18px;
-            padding: 1.5rem;
-        }
-
-        .panel h2 {
-            margin-top: 0;
-            color: var(--primary-salmon);
-        }
-
-        .panel p,
-        .panel li {
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        .video-placeholder,
-        .diagram-placeholder {
-            border: 1px dashed rgba(255,255,255,0.18);
-            border-radius: 14px;
-            padding: 2rem;
-            text-align: center;
-            color: #8d98a5;
-            background: rgba(255,255,255,0.02);
-        }
-
-        .question-grid {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .question {
-            padding: 1rem;
-            border-radius: 14px;
-            background: rgba(8,13,20,0.44);
-            border: 1px solid var(--border);
-        }
-
-        .question label {
-            display: block;
-            margin-bottom: 0.6rem;
-            font-weight: 700;
-        }
-
-        .question input {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.04);
-            color: var(--text-off-white);
-        }
-
-        .status {
-            margin-top: 0.75rem;
-            padding: 0.75rem 0.9rem;
-            border-radius: 10px;
-            background: rgba(127,224,162,0.10);
-            border: 1px solid rgba(127,224,162,0.20);
-            color: var(--success);
-            font-size: 0.92rem;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.9rem 1rem;
-            border-radius: 12px;
-            background: var(--primary-salmon);
-            color: var(--bg-dark);
-            text-decoration: none;
-        }
-
-        .resources a {
-            display: block;
-            color: var(--primary-blue);
-            text-decoration: none;
-            margin-bottom: 0.6rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem 5%;
-            color: #8a939d;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        @media (max-width: 720px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            nav {
-                gap: 1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeMap | Tutorial</title>
+  <style>
+    :root {
+      --bg-dark: #161D26;
+      --bg-accent: #273240;
+      --panel: #1d2632;
+      --border: #364558;
+      --primary-blue: #52C5F2;
+      --primary-salmon: #F27D72;
+      --text-off-white: #F6F2E6;
+      --muted: #AAB4C0;
+      --success: #7fe0a2;
+      --warning: #f3c76d;
+      --danger: #f28a82;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(82,197,242,0.08), transparent 18%),
+        radial-gradient(circle at bottom right, rgba(242,125,114,0.06), transparent 20%),
+        var(--bg-dark);
+      color: var(--text-off-white);
+      font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+    }
+    h1, h2, h3, .logo, .btn, .lesson-tag, .progress-chip, .mini-pill, .section-link, .header-nav a {
+      font-family: "din-2014", sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    header {
+      padding: 1.5rem 5%;
+      background: var(--bg-accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .logo { color: var(--primary-blue); font-size: 1.8rem; text-decoration: none; }
+    .header-nav { display:flex; gap:1.25rem; flex-wrap:wrap; }
+    .header-nav a { color: var(--text-off-white); text-decoration:none; }
+    .header-nav a.active, .header-nav a:hover { color: var(--primary-salmon); }
+    .container { width: min(1120px, 92vw); margin: 0 auto; padding: 3rem 0; display: grid; gap: 1.6rem; }
+    .hero { display: grid; gap: 0.9rem; }
+    .hero h1 { margin: 0; font-size: clamp(2.2rem, 4vw, 3.5rem); }
+    .hero p { margin: 0; max-width: 68ch; color: var(--muted); line-height: 1.75; }
+    .plain-crumb { color: var(--muted); font-size: 0.88rem; display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; }
+    .plain-crumb a { color: var(--primary-blue); text-decoration:none; }
+    .section-links { display:flex; flex-wrap:wrap; gap:0.8rem; margin-top:0.35rem; }
+    .section-link { display:inline-flex; align-items:center; padding:0.6rem 0.9rem; border-radius:999px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:var(--text-off-white); text-decoration:none; font-size:0.76rem; }
+    .section-link:hover { color:var(--primary-blue); border-color: rgba(82,197,242,0.25); }
+    .panel {
+      background: linear-gradient(180deg, rgba(39,50,64,0.96), rgba(22,29,38,0.99));
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.22);
+    }
+    .panel h2 { margin: 0 0 0.85rem; color: var(--primary-salmon); }
+    .panel p, .panel li { color: var(--muted); line-height: 1.7; }
+    .intro-grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 1.2rem; }
+    .lesson-tag { display:inline-flex; width:fit-content; padding:0.45rem 0.75rem; border-radius:999px; background:rgba(82,197,242,0.1); border:1px solid rgba(82,197,242,0.18); color:var(--primary-blue); font-size:0.78rem; margin-bottom:0.2rem; }
+    .mini-pill-row { display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1rem; }
+    .mini-pill { display:inline-flex; align-items:center; gap:0.45rem; padding:0.55rem 0.8rem; border-radius:999px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:var(--text-off-white); font-size:0.76rem; text-decoration:none; }
+    .mini-pill:hover { border-color: rgba(82,197,242,0.25); color: var(--primary-blue); }
+    .progress-panel { background: linear-gradient(135deg, rgba(82,197,242,0.08), rgba(22,29,38,0.98)); border: 1px solid rgba(82,197,242,0.18); }
+    .progress-head { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:0.8rem; }
+    .progress-head h2 { margin:0; color: var(--primary-blue); }
+    .progress-chip { padding:0.45rem 0.75rem; border-radius:999px; font-size:0.78rem; color:var(--bg-dark); background:var(--primary-blue); }
+    .progress-track { height:12px; border-radius:999px; background:rgba(255,255,255,0.08); overflow:hidden; margin-bottom:0.7rem; }
+    .progress-fill { height:100%; width:0%; border-radius:inherit; background:linear-gradient(90deg,#52C5F2,#93e7ff); transition:width 0.5s ease; }
+    .progress-meta { display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; color:var(--muted); font-size:0.88rem; }
+    .roadmap { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; }
+    .roadmap-card { background:rgba(8,13,20,0.4); border:1px solid var(--border); border-radius:16px; padding:1rem; }
+    .roadmap-card h3 { margin:0 0 0.45rem; color:var(--primary-blue); font-size:0.98rem; }
+    .roadmap-card p { margin:0 0 0.7rem; font-size:0.9rem; }
+    .roadmap-state { font-size:0.8rem; color:var(--warning); }
+    .roadmap-card.completed { border-color:rgba(127,224,162,0.28); background:linear-gradient(180deg, rgba(127,224,162,0.08), rgba(8,13,20,0.35)); }
+    .roadmap-card.completed .roadmap-state { color:var(--success); }
+    .lesson-section { display:grid; gap:1rem; }
+    .lesson-head { display:flex; justify-content:space-between; align-items:start; gap:1rem; flex-wrap:wrap; }
+    .lesson-head h2 { margin-bottom:0.25rem; }
+    .section-badge { padding:0.45rem 0.75rem; border-radius:999px; font-size:0.76rem; background:rgba(243,199,109,0.12); border:1px solid rgba(243,199,109,0.18); color:var(--warning); white-space:nowrap; }
+    .section-badge.completed { background:rgba(127,224,162,0.12); border-color:rgba(127,224,162,0.2); color:var(--success); }
+    .lesson-content { display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; }
+    .explain-box, .practice-box, .code-box, .tip-box { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:1.1rem; }
+    .explain-box h3, .practice-box h3, .code-box h3, .tip-box h3 { margin:0 0 0.7rem; color:var(--primary-blue); font-size:0.95rem; }
+    .code-box pre { margin:0; white-space:pre-wrap; word-break:break-word; font-family:"Courier New", monospace; font-size:0.94rem; line-height:1.65; color:var(--text-off-white); }
+    .question-grid { display:grid; gap:0.9rem; }
+    .question { padding:1rem; border-radius:14px; background:rgba(8,13,20,0.45); border:1px solid var(--border); }
+    .question label { display:block; margin-bottom:0.55rem; font-weight:700; color:var(--text-off-white); }
+    .question input { width:100%; padding:0.9rem 1rem; border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.04); color:var(--text-off-white); font-size:0.96rem; }
+    .question input:focus { outline:2px solid rgba(82,197,242,0.3); outline-offset:2px; }
+    .question.completed { border-color:rgba(127,224,162,0.22); background:rgba(127,224,162,0.06); }
+    .answer-display { display:none; margin-top:0.7rem; padding:0.9rem 1rem; border-radius:12px; border:1px solid rgba(127,224,162,0.22); background:rgba(127,224,162,0.08); align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .answer-display.show { display:flex; }
+    .answer-label { color:var(--muted); font-size:0.82rem; margin-bottom:0.3rem; }
+    .answer-text { color:var(--text-off-white); font-weight:700; font-size:1rem; word-break:break-word; }
+    .answer-check { display:inline-flex; align-items:center; padding:0.35rem 0.7rem; border-radius:999px; background:rgba(127,224,162,0.12); border:1px solid rgba(127,224,162,0.22); color:var(--success); white-space:nowrap; font-size:0.78rem; font-weight:700; }
+    .status { margin-top:0.7rem; padding:0.75rem 0.9rem; border-radius:10px; font-size:0.92rem; display:none; border:1px solid transparent; }
+    .status.success { background:rgba(127,224,162,0.1); border-color:rgba(127,224,162,0.22); color:var(--success); display:block; }
+    .status.error { background:rgba(242,125,114,0.08); border-color:rgba(242,125,114,0.22); color:var(--danger); display:block; }
+    .status.neutral { background:rgba(170,180,192,0.08); border-color:rgba(170,180,192,0.2); color:var(--muted); display:block; }
+    .section-score { margin-top:1rem; padding:0.95rem 1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--text-off-white); display:none; }
+    .section-score.show { display:block; }
+    .study-list { display:grid; gap:0.9rem; margin:0; padding-left:1.2rem; }
+    .study-note { margin-top:1rem; padding:1rem 1.1rem; border-radius:12px; background:rgba(82,197,242,0.08); border:1px solid rgba(82,197,242,0.18); color:var(--text-off-white); }
+    .final-actions { display:flex; gap:1rem; flex-wrap:wrap; }
+    .btn { display:inline-block; padding:0.9rem 1rem; border-radius:12px; background:var(--primary-salmon); color:var(--bg-dark); border:none; cursor:pointer; font-size:0.92rem; text-decoration:none; }
+    .btn:hover { transform:translateY(-1px); }
+    .btn-secondary { background:transparent; color:var(--primary-blue); border:1px solid rgba(82,197,242,0.28); }
+    footer { text-align:center; padding:2rem 5%; color:#8a939d; border-top:1px solid rgba(255,255,255,0.05); }
+    .badge-modal-overlay { position:fixed; inset:0; background:rgba(6,10,16,0.55); display:none; align-items:center; justify-content:center; z-index:999; padding:1.5rem; }
+    .badge-modal-overlay.show { display:flex; }
+    .badge-modal { width:min(440px, 92vw); background:linear-gradient(180deg, rgba(39,50,64,0.98), rgba(22,29,38,1)); border:1px solid rgba(255,255,255,0.08); border-radius:22px; padding:1.6rem; text-align:center; box-shadow:0 20px 50px rgba(0,0,0,0.35); position:relative; overflow:hidden; }
+    .badge-modal h3 { margin:0 0 0.5rem; color:var(--primary-salmon); font-size:1.5rem; }
+    .badge-icon-big { font-size:3rem; line-height:1; margin-bottom:0.7rem; }
+    .badge-name-big { font-family:"din-2014", sans-serif; font-size:1.15rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.45rem; color:var(--warning); }
+    .badge-desc-big { color:var(--muted); line-height:1.65; margin-bottom:1rem; }
+    .badge-close-note { font-size:0.82rem; color:var(--muted); }
+    .confetti-wrap { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .confetti-piece { position:absolute; top:-16px; width:10px; height:14px; opacity:0.9; animation:fall 2.8s linear forwards; }
+    @keyframes fall {
+      0% { transform:translateY(0) rotate(0deg); opacity:0.95; }
+      100% { transform:translateY(420px) rotate(520deg); opacity:0; }
+    }
+    @media (max-width: 900px) {
+      .intro-grid, .lesson-content { grid-template-columns: 1fr; }
+      .roadmap { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+    @media (max-width: 720px) {
+      header { align-items:flex-start; }
+      .roadmap { grid-template-columns:1fr; }
+      .progress-head { align-items:flex-start; flex-direction:column; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <a class="logo" href="index.html">CodeMap</a>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="learn.html">Learn</a>
-            <a href="about.html">About</a>
-            <a href="account-page.html">Account</a>
-        </nav>
-    </header>
+  <header>
+    <a class="logo" href="index.html">CodeMap</a>
+    <nav class="header-nav">
+      <a href="index.html">Home</a>
+      <a class="active" href="learn.html">Learn</a>
+      <a href="about.html">About</a>
+      <a href="account-page.html">Account</a>
+      <a href="login-signup.html">Login</a>
+    </nav>
+  </header>
 
-    <main class="container">
-        <section class="hero">
-            <h1>Python Variables and Data Types</h1>
-            <p>
-                This lesson introduces variables, naming, and common data types.
-                Review the explanation, study the diagram, and answer the short questions below.
-            </p>
-        </section>
+  <main class="container">
+    <section class="hero">
+      <div class="plain-crumb" id="breadcrumb"></div>
+      <span class="lesson-tag" id="lessonTag">Tutorial</span>
+      <h1 id="heroTitle">Tutorial</h1>
+      <p id="heroIntro"></p>
+      <div class="section-links">
+        <a class="section-link" id="hubButton" href="language-page.html">Back to Hub</a>
+        <a class="section-link" id="installButton" href="installation.html">Installation Guide</a>
+        <a class="section-link" id="docsButton" href="documentation.html">Documentation Guide</a>
+      </div>
+    </section>
 
-        <section class="panel">
-            <h2>Lesson Overview</h2>
-            <p>
-                Variables store values so your program can use and update them later.
-                Common beginner data types include integers, floating point numbers, strings, and booleans.
-            </p>
-        </section>
+    <section class="panel intro-grid">
+      <div>
+        <h2>What this tutorial covers</h2>
+        <p id="coverageText"></p>
+        <div class="mini-pill-row" id="outcomesRow"></div>
+      </div>
+      <div class="panel progress-panel" style="margin:0; box-shadow:none;">
+        <div class="progress-head">
+          <h2>Progress</h2>
+          <span class="progress-chip" id="lessonPctLabel">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="lessonProgressBar"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="completionCount">0 of 4 mini lessons complete</span>
+          <span id="lessonStatusMsg">Complete each mini lesson to build your progress.</span>
+        </div>
+      </div>
+    </section>
 
-        <section class="panel">
-            <h2>Video / Walkthrough</h2>
-            <div class="video-placeholder">Embedded video placeholder</div>
-        </section>
+    <section class="panel" id="pathSection">
+      <h2>Lesson Path</h2>
+      <div class="roadmap" id="roadmap"></div>
+    </section>
 
-        <section class="panel">
-            <h2>Diagram</h2>
-            <div class="diagram-placeholder">Concept diagram placeholder: variable name → value → data type</div>
-        </section>
+    <div id="lessonSections"></div>
 
-        <section class="panel">
-            <h2>Practice Questions</h2>
-            <div class="question-grid">
-                <div class="question">
-                    <label for="q1">1. What data type is the value 42?</label>
-                    <input id="q1" type="text" placeholder="Type your answer here" />
-                    <div class="status">Correct state example: integer</div>
+    <section class="panel" id="studySection">
+      <h2>Study Tips</h2>
+      <ul class="study-list" id="studyList"></ul>
+      <div class="study-note" id="studyNote">Progress increases when an entire mini lesson is completed correctly. Each mini lesson is worth an equal share of the overall tutorial.</div>
+    </section>
+
+    <section class="panel" id="finishSection">
+      <h2>Finish Up</h2>
+      <p id="finishText">When every mini lesson is complete, the tutorial reaches 100% and the saved progress updates to match.</p>
+      <div class="final-actions">
+        <button class="btn btn-secondary" type="button" id="resetBtn">Reset Tutorial Progress</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="badge-modal-overlay" id="badgeOverlay">
+    <div class="badge-modal" id="badgeModal" role="dialog" aria-modal="true" aria-label="Badge earned notification">
+      <div class="confetti-wrap" id="confettiWrap"></div>
+      <div class="badge-icon-big" id="badgePopupIcon">🏅</div>
+      <h3>New Badge Earned</h3>
+      <div class="badge-name-big" id="badgePopupName">Badge</div>
+      <div class="badge-desc-big" id="badgePopupDesc">Description</div>
+      <button class="btn" type="button" id="closeBadgeBtn">Awesome</button>
+      <div class="badge-close-note">This closes automatically after a moment.</div>
+    </div>
+  </div>
+
+  <footer>&copy; 2026 CodeMap | Tutorial Page</footer>
+
+  <script src="language-data.js"></script>
+  <script>
+    (function() {
+      const CURRENT_USER_KEY = 'codemap_current_user';
+      const USERS_KEY = 'codemap_users';
+      const GUEST_PROGRESS_KEY = 'codemap_guest_progress';
+      const all = window.CODEMAP_LANGUAGES || {};
+      const params = new URLSearchParams(window.location.search);
+      const savedLang = localStorage.getItem('codemap_last_lang');
+      const requested = (params.get('lang') || savedLang || 'python').toLowerCase();
+      const LANG_KEY = all[requested] ? requested : 'python';
+      const LANGUAGE = all[LANG_KEY] || all.python;
+      const LANG = (LANGUAGE && LANGUAGE.tutorial) ? LANGUAGE.tutorial : null;
+      localStorage.setItem('codemap_last_lang', LANG_KEY);
+
+      const BADGE_CATALOG = [
+        { id: 'first_launch', icon: '🚀', name: 'First Launch', desc: 'Started learning on CodeMap', earn: (u) => Object.values(u.progress || {}).some((v) => v > 0) },
+        { id: 'python_start', icon: '🐍', name: 'Python Starter', desc: 'Began a Python lesson', earn: (u) => (u.progress?.python || 0) > 0 },
+        { id: 'cpp_start', icon: '⚙️', name: 'C++ Explorer', desc: 'Started C++ coursework', earn: (u) => (u.progress?.cpp || 0) > 0 },
+        { id: 'matlab_start', icon: '📐', name: 'MATLAB Engineer', desc: 'Opened a MATLAB lesson', earn: (u) => (u.progress?.matlab || 0) > 0 },
+        { id: 'ros2_start', icon: '🤖', name: 'ROS2 Pilot', desc: 'Began robotics coursework', earn: (u) => (u.progress?.ros2 || 0) > 0 },
+        { id: 'multi_lang', icon: '🌐', name: 'Multi-Linguist', desc: 'Active in 3 or more languages', earn: (u) => Object.values(u.progress || {}).filter((v) => v > 0).length >= 3 },
+        { id: 'halfway', icon: '🌗', name: 'Halfway There', desc: 'Reached 50% in any language', earn: (u) => Object.values(u.progress || {}).some((v) => v >= 50) },
+        { id: 'high_achiever', icon: '⭐', name: 'High Achiever', desc: 'Reached 75% in any language', earn: (u) => Object.values(u.progress || {}).some((v) => v >= 75) },
+        { id: 'completionist', icon: '🏅', name: 'Completionist', desc: 'All four core languages active', earn: (u) => { const p = u.progress || {}; return p.python > 0 && p.cpp > 0 && p.matlab > 0 && p.ros2 > 0; } },
+        { id: 'python_master', icon: '🏆', name: 'Python Master', desc: 'Completed all Python lessons', earn: (u) => (u.progress?.python || 0) >= 100 },
+        { id: 'cpp_master', icon: '🛡️', name: 'C++ Master', desc: 'Completed all C++ lessons', earn: (u) => (u.progress?.cpp || 0) >= 100 }
+      ];
+
+      function pageLink(page, key) {
+        return page + '?lang=' + encodeURIComponent(key || LANG_KEY);
+      }
+      function deepClone(value) {
+        return JSON.parse(JSON.stringify(value));
+      }
+      function normalize(value) {
+        return String(value || '').trim().toLowerCase().replace(/["']/g, '');
+      }
+      function escapeHtml(value) {
+        return String(value || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+      function isIdentifier(value) {
+        return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(String(value || '').trim());
+      }
+      function currentProgressPercentage(state) {
+        const completed = SECTION_ORDER.filter((section) => state.sections[section]).length;
+        return Math.round((completed / SECTION_ORDER.length) * 100);
+      }
+      function readCurrentUser() {
+        const sessionRaw = sessionStorage.getItem(CURRENT_USER_KEY);
+        if (sessionRaw) {
+          try { return { user: JSON.parse(sessionRaw), inSession: true }; } catch (error) {}
+        }
+        const localRaw = localStorage.getItem(CURRENT_USER_KEY);
+        if (localRaw) {
+          try { return { user: JSON.parse(localRaw), inSession: false }; } catch (error) {}
+        }
+        return null;
+      }
+      function saveUserRecord(user, inSession) {
+        if (inSession) {
+          sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+        } else {
+          localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+        }
+        const usersRaw = localStorage.getItem(USERS_KEY);
+        if (!usersRaw || !user.email) return;
+        try {
+          const users = JSON.parse(usersRaw);
+          const index = users.findIndex((entry) => entry.email === user.email);
+          if (index >= 0) {
+            users[index] = {
+              ...users[index],
+              savedTutorials: user.savedTutorials || [],
+              progress: user.progress || {},
+              lessonState: user.lessonState || {},
+              badges: user.badges || []
+            };
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+          }
+        } catch (error) {}
+      }
+      function readGuestProgress() {
+        try { return JSON.parse(localStorage.getItem(GUEST_PROGRESS_KEY) || '{}'); } catch (error) { return {}; }
+      }
+      function writeGuestProgress(progress) {
+        localStorage.setItem(GUEST_PROGRESS_KEY, JSON.stringify(progress));
+      }
+      function earnedBadgeIdsFor(user) {
+        return BADGE_CATALOG.filter((badge) => {
+          try { return badge.earn(user); } catch (error) { return false; }
+        }).map((badge) => badge.id);
+      }
+      function badgeById(id) {
+        return BADGE_CATALOG.find((badge) => badge.id === id) || null;
+      }
+      function buildBadgeContext(progressPct) {
+        const current = readCurrentUser();
+        if (current && current.user) {
+          const user = deepClone(current.user);
+          user.progress = user.progress || {};
+          user.progress[LANG_KEY] = progressPct;
+          return user;
+        }
+        return { progress: { [LANG_KEY]: progressPct } };
+      }
+
+      if (!LANG) {
+        document.getElementById('heroTitle').textContent = 'Tutorial not found';
+        document.getElementById('heroIntro').textContent = 'This language does not have tutorial content yet.';
+        return;
+      }
+
+      const SECTION_ORDER = LANG.lessons.map((lesson) => lesson.id);
+      const STATE_KEY = 'codemap_tutorial_state_' + LANG_KEY;
+      const defaultState = {
+        sections: Object.fromEntries(SECTION_ORDER.map((id) => [id, false])),
+        answers: Object.fromEntries(SECTION_ORDER.map((id) => [id, {}]))
+      };
+
+      const badgeQueue = [];
+      let badgeTimer = null;
+      let tutorialState = loadSavedState();
+
+      function loadSavedState() {
+        const current = readCurrentUser();
+        if (current?.user?.lessonState?.[LANG_KEY]) {
+          return mergeState(current.user.lessonState[LANG_KEY]);
+        }
+        try {
+          const stored = JSON.parse(localStorage.getItem(STATE_KEY) || 'null');
+          return mergeState(stored);
+        } catch (error) {
+          return deepClone(defaultState);
+        }
+      }
+
+      function mergeState(candidate) {
+        const state = deepClone(defaultState);
+        if (!candidate || typeof candidate !== 'object') return state;
+        SECTION_ORDER.forEach((sectionId) => {
+          if (candidate.sections && typeof candidate.sections[sectionId] === 'boolean') {
+            state.sections[sectionId] = candidate.sections[sectionId];
+          }
+          if (candidate.answers && candidate.answers[sectionId] && typeof candidate.answers[sectionId] === 'object') {
+            state.answers[sectionId] = { ...candidate.answers[sectionId] };
+          }
+        });
+        return state;
+      }
+
+      function persistState(state) {
+        const snapshot = deepClone(state);
+        localStorage.setItem(STATE_KEY, JSON.stringify(snapshot));
+        const progressPct = currentProgressPercentage(snapshot);
+        const current = readCurrentUser();
+
+        if (current && current.user) {
+          const user = deepClone(current.user);
+          user.progress = user.progress || {};
+          user.lessonState = user.lessonState || {};
+          user.savedTutorials = Array.from(new Set([...(user.savedTutorials || []), LANG_KEY]));
+          user.progress[LANG_KEY] = progressPct;
+          user.lessonState[LANG_KEY] = snapshot;
+          user.badges = earnedBadgeIdsFor(user);
+          saveUserRecord(user, current.inSession);
+        } else {
+          const progress = readGuestProgress();
+          progress[LANG_KEY] = progressPct;
+          writeGuestProgress(progress);
+        }
+
+        updateProgressUI(snapshot);
+      }
+
+      function buildQuestionId(sectionId, index) {
+        return sectionId + '_q' + (index + 1);
+      }
+
+      function questionAccepts(question, rawValue) {
+        if (question.validator === 'identifier') {
+          return isIdentifier(rawValue);
+        }
+        const normalized = normalize(rawValue);
+        const accepted = (question.accept || []).map(normalize);
+        return accepted.includes(normalized);
+      }
+
+      function getFallbackAnswer(question) {
+        if (question.validator === 'identifier') return 'student_major';
+        return question.accept && question.accept.length ? question.accept[0] : '';
+      }
+
+      function setStatus(id, type, message) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.className = 'status ' + type;
+        el.textContent = message;
+      }
+
+      function setSectionScore(sectionId, message, success) {
+        const score = document.getElementById('score-' + sectionId);
+        if (!score) return;
+        score.className = 'section-score show';
+        score.textContent = message;
+        score.style.borderColor = success ? 'rgba(127,224,162,0.22)' : 'rgba(242,125,114,0.22)';
+      }
+
+      function collectSectionAnswers(sectionId) {
+        const lesson = LANG.lessons.find((item) => item.id === sectionId);
+        if (!lesson) return {};
+        const answers = {};
+        lesson.questions.forEach((question, index) => {
+          const questionId = buildQuestionId(sectionId, index);
+          const input = document.getElementById(questionId);
+          answers[questionId] = (input && input.value.trim()) || getFallbackAnswer(question);
+        });
+        return answers;
+      }
+
+      function showSavedAnswer(questionId, answerText) {
+        const answer = document.getElementById('answer-' + questionId);
+        if (!answer) return;
+        answer.innerHTML = `
+          <div>
+            <div class="answer-label">Saved correct answer</div>
+            <div class="answer-text">${escapeHtml(answerText)}</div>
+          </div>
+          <div class="answer-check">Correct</div>
+        `;
+        answer.classList.add('show');
+      }
+
+      function updateSectionCompletionView(sectionId, isComplete) {
+        const lesson = LANG.lessons.find((item) => item.id === sectionId);
+        if (!lesson) return;
+        lesson.questions.forEach((question, index) => {
+          const questionId = buildQuestionId(sectionId, index);
+          const input = document.getElementById(questionId);
+          const questionCard = document.getElementById('card-' + questionId);
+          const saved = tutorialState.answers?.[sectionId]?.[questionId] || getFallbackAnswer(question);
+          if (input) {
+            if (isComplete) {
+              if (!input.value.trim()) input.value = saved;
+              input.style.display = 'none';
+            } else {
+              input.style.display = 'block';
+            }
+          }
+          if (questionCard) questionCard.classList.toggle('completed', isComplete);
+          if (isComplete) {
+            showSavedAnswer(questionId, saved);
+            setStatus('status-' + questionId, 'success', question.correctText || 'Correct!');
+          } else {
+            const answer = document.getElementById('answer-' + questionId);
+            if (answer) {
+              answer.className = 'answer-display';
+              answer.innerHTML = '';
+            }
+            const status = document.getElementById('status-' + questionId);
+            if (status) {
+              status.className = 'status';
+              status.textContent = '';
+            }
+          }
+        });
+      }
+
+      function validateSection(sectionId) {
+        const lesson = LANG.lessons.find((item) => item.id === sectionId);
+        if (!lesson) return false;
+        let allCorrect = true;
+        lesson.questions.forEach((question, index) => {
+          const questionId = buildQuestionId(sectionId, index);
+          const input = document.getElementById(questionId);
+          const raw = input ? input.value : '';
+          if (!raw.trim()) {
+            setStatus('status-' + questionId, 'neutral', 'Please type an answer first.');
+            allCorrect = false;
+            return;
+          }
+          if (questionAccepts(question, raw)) {
+            setStatus('status-' + questionId, 'success', question.correctText || 'Correct!');
+          } else {
+            setStatus('status-' + questionId, 'error', 'Not quite. Review the key idea and example, then try again.');
+            allCorrect = false;
+          }
+        });
+        return allCorrect;
+      }
+
+      function updateProgressUI(state) {
+        const completedCount = SECTION_ORDER.filter((section) => state.sections[section]).length;
+        const progressPct = currentProgressPercentage(state);
+        document.getElementById('lessonProgressBar').style.width = progressPct + '%';
+        document.getElementById('lessonPctLabel').textContent = progressPct + '%';
+        document.getElementById('completionCount').textContent = completedCount + ' of ' + SECTION_ORDER.length + ' mini lessons complete';
+        const statusMsg = document.getElementById('lessonStatusMsg');
+        if (progressPct === 100) {
+          statusMsg.textContent = '✓ Full tutorial completed. ' + LANGUAGE.label + ' progress is now 100%.';
+          statusMsg.style.color = '#7fe0a2';
+        } else if (progressPct > 0) {
+          statusMsg.textContent = 'Good progress. Complete the remaining mini lessons to finish the tutorial.';
+          statusMsg.style.color = '#AAB4C0';
+        } else {
+          statusMsg.textContent = 'Complete each mini lesson to build your progress.';
+          statusMsg.style.color = '#AAB4C0';
+        }
+        SECTION_ORDER.forEach((sectionId) => {
+          const badge = document.getElementById('badge-' + sectionId);
+          const roadmapCard = document.getElementById('roadmap-' + sectionId);
+          const roadmapState = document.getElementById('roadmap-state-' + sectionId);
+          const isComplete = !!state.sections[sectionId];
+          if (badge) {
+            badge.textContent = isComplete ? 'Completed' : 'Not completed';
+            badge.classList.toggle('completed', isComplete);
+          }
+          if (roadmapCard) roadmapCard.classList.toggle('completed', isComplete);
+          if (roadmapState) roadmapState.textContent = isComplete ? 'Completed' : 'In progress';
+          updateSectionCompletionView(sectionId, isComplete);
+        });
+      }
+
+      function launchConfetti() {
+        const wrap = document.getElementById('confettiWrap');
+        wrap.innerHTML = '';
+        const colors = ['#52C5F2', '#F27D72', '#F3C76D', '#7FE0A2', '#b88cf6'];
+        for (let i = 0; i < 28; i += 1) {
+          const piece = document.createElement('span');
+          piece.className = 'confetti-piece';
+          piece.style.left = (Math.random() * 100) + '%';
+          piece.style.background = colors[i % colors.length];
+          piece.style.animationDelay = (Math.random() * 0.35) + 's';
+          piece.style.transform = 'translateY(0) rotate(' + Math.round(Math.random() * 180) + 'deg)';
+          wrap.appendChild(piece);
+        }
+      }
+
+      function closeBadgeModal() {
+        document.getElementById('badgeOverlay').classList.remove('show');
+        document.getElementById('confettiWrap').innerHTML = '';
+        if (badgeTimer) {
+          clearTimeout(badgeTimer);
+          badgeTimer = null;
+        }
+        if (badgeQueue.length) {
+          showNextBadge();
+        }
+      }
+
+      function showNextBadge() {
+        if (!badgeQueue.length) return;
+        const badge = badgeQueue.shift();
+        document.getElementById('badgePopupIcon').textContent = badge.icon;
+        document.getElementById('badgePopupName').textContent = badge.name;
+        document.getElementById('badgePopupDesc').textContent = badge.desc;
+        launchConfetti();
+        document.getElementById('badgeOverlay').classList.add('show');
+        badgeTimer = setTimeout(closeBadgeModal, 3200);
+      }
+
+      function enqueueBadges(badges) {
+        badges.forEach((badge) => badgeQueue.push(badge));
+        if (!document.getElementById('badgeOverlay').classList.contains('show')) {
+          showNextBadge();
+        }
+      }
+
+      function checkSection(sectionId) {
+        const beforeUser = buildBadgeContext(currentProgressPercentage(tutorialState));
+        const beforeBadges = new Set(earnedBadgeIdsFor(beforeUser));
+        const passed = validateSection(sectionId);
+        if (passed) {
+          tutorialState.sections[sectionId] = true;
+          tutorialState.answers[sectionId] = collectSectionAnswers(sectionId);
+          setSectionScore(sectionId, 'Mini lesson completed. Progress has been added to the overall tutorial.', true);
+        } else {
+          setSectionScore(sectionId, 'This mini lesson is not complete yet. Fix the answers above and try again.', false);
+        }
+        persistState(tutorialState);
+        const afterUser = buildBadgeContext(currentProgressPercentage(tutorialState));
+        const afterBadges = earnedBadgeIdsFor(afterUser);
+        const newBadges = afterBadges.filter((id) => !beforeBadges.has(id)).map((id) => badgeById(id)).filter(Boolean);
+        enqueueBadges(newBadges);
+      }
+
+      function resetTutorialProgress() {
+        tutorialState = deepClone(defaultState);
+        persistState(tutorialState);
+        LANG.lessons.forEach((lesson) => {
+          lesson.questions.forEach((question, index) => {
+            const questionId = buildQuestionId(lesson.id, index);
+            const input = document.getElementById(questionId);
+            if (input) {
+              input.value = '';
+              input.style.display = 'block';
+            }
+            const answer = document.getElementById('answer-' + questionId);
+            if (answer) {
+              answer.className = 'answer-display';
+              answer.innerHTML = '';
+            }
+            const status = document.getElementById('status-' + questionId);
+            if (status) {
+              status.className = 'status';
+              status.textContent = '';
+            }
+          });
+          const score = document.getElementById('score-' + lesson.id);
+          if (score) {
+            score.className = 'section-score';
+            score.textContent = '';
+            score.style.borderColor = 'rgba(255,255,255,0.08)';
+          }
+        });
+      }
+
+      function renderPage() {
+        document.title = 'CodeMap | ' + LANGUAGE.label + ' Tutorial';
+        document.getElementById('lessonTag').textContent = LANG.tag || (LANGUAGE.label + ' Tutorial');
+        document.getElementById('heroTitle').textContent = LANG.title || (LANGUAGE.label + ' Tutorial');
+        document.getElementById('heroIntro').textContent = LANG.intro || '';
+        document.getElementById('coverageText').textContent = LANG.intro || '';
+        document.getElementById('hubButton').href = pageLink('language-page.html');
+        document.getElementById('installButton').href = pageLink('installation.html');
+        document.getElementById('docsButton').href = pageLink('documentation.html');
+
+        document.getElementById('breadcrumb').innerHTML = [
+          '<a href="index.html">Home</a>',
+          '<span>&rsaquo;</span>',
+          '<a href="learn.html">Learn</a>',
+          '<span>&rsaquo;</span>',
+          '<a href="' + pageLink('language-page.html') + '">' + escapeHtml(LANGUAGE.label) + '</a>',
+          '<span>&rsaquo;</span>',
+          '<span>' + escapeHtml(LANG.tag || 'Tutorial') + '</span>'
+        ].join('');
+
+        document.getElementById('outcomesRow').innerHTML = (LANG.outcomes || []).map((item, index) => `
+          <a class="mini-pill" href="#${LANG.lessons[index]?.id || ''}">${index + 1}. ${escapeHtml(item)}</a>
+        `).join('');
+
+        document.getElementById('roadmap').innerHTML = LANG.lessons.map((lesson, index) => `
+          <article class="roadmap-card" id="roadmap-${lesson.id}">
+            <h3>${escapeHtml(lesson.title)}</h3>
+            <p>${escapeHtml(lesson.summary)}</p>
+            <div class="roadmap-state" id="roadmap-state-${lesson.id}">${index === 0 ? 'Ready to start' : 'In progress'}</div>
+          </article>
+        `).join('');
+
+        document.getElementById('lessonSections').innerHTML = LANG.lessons.map((lesson) => {
+          const tipTitle = lesson.tipTitle || 'Teaching Tip';
+          const tipText = lesson.tipText || 'Pause after the example and ask students to explain what each line is doing before answering the questions.';
+          return `
+            <section class="panel lesson-section" id="${lesson.id}">
+              <div class="lesson-head">
+                <div>
+                  <h2>${escapeHtml(lesson.title)}</h2>
+                  <p>${escapeHtml(lesson.summary)}</p>
+                </div>
+                <span class="section-badge" id="badge-${lesson.id}">Not completed</span>
+              </div>
+
+              <div class="lesson-content">
+                <div class="explain-box">
+                  <h3>Key Idea</h3>
+                  <p>${escapeHtml(lesson.keyIdea)}</p>
+                  <div class="code-box" style="margin-top:1rem;">
+                    <h3>${escapeHtml(lesson.exampleTitle || 'Example')}</h3>
+                    <pre>${escapeHtml(lesson.exampleCode || '')}</pre>
+                  </div>
+                  <div class="tip-box" style="margin-top:1rem;">
+                    <h3>${escapeHtml(tipTitle)}</h3>
+                    <p>${escapeHtml(tipText)}</p>
+                  </div>
                 </div>
 
-                <div class="question">
-                    <label for="q2">2. What data type is "hello"?</label>
-                    <input id="q2" type="text" placeholder="Type your answer here" />
+                <div class="practice-box">
+                  <h3>Mini Check</h3>
+                  <div class="question-grid">
+                    ${lesson.questions.map((question, index) => {
+                      const questionId = buildQuestionId(lesson.id, index);
+                      return `
+                        <div class="question" id="card-${questionId}">
+                          <label for="${questionId}">${escapeHtml(question.prompt)}</label>
+                          <input id="${questionId}" type="text" placeholder="${escapeHtml(question.placeholder || 'Type your answer here')}" autocomplete="off" />
+                          <div class="answer-display" id="answer-${questionId}"></div>
+                          <div class="status" id="status-${questionId}"></div>
+                        </div>
+                      `;
+                    }).join('')}
+                  </div>
+                  <div class="section-score" id="score-${lesson.id}"></div>
+                  <div class="final-actions" style="margin-top:1rem;">
+                    <button class="btn" type="button" data-check-section="${lesson.id}">Check Mini Lesson</button>
+                  </div>
                 </div>
+              </div>
+            </section>
+          `;
+        }).join('');
 
-                <div class="question">
-                    <label for="q3">3. Write a variable name that stores a student's major.</label>
-                    <input id="q3" type="text" placeholder="Type your answer here" />
-                </div>
-            </div>
+        const studyTips = LANGUAGE.tutorial.studyTips || [
+          'Work one mini lesson at a time instead of jumping ahead.',
+          'Say what each line means in plain language before changing it.',
+          'Use the example to check your understanding before guessing.',
+          'Reset and retry if an answer is marked wrong so students can learn from the correction.'
+        ];
+        document.getElementById('studyList').innerHTML = studyTips.map((tip) => `<li>${escapeHtml(tip)}</li>`).join('');
+        document.getElementById('finishText').textContent = 'When all ' + SECTION_ORDER.length + ' mini lessons are complete, the tutorial reaches 100% and the saved progress updates to match.';
+      }
 
-            <a class="btn" href="#">Run / Check Answers</a>
-        </section>
+      renderPage();
+      updateProgressUI(tutorialState);
 
-        <section class="panel resources">
-            <h2>Supplemental Materials</h2>
-            <a href="#">Python official tutorial</a>
-            <a href="#">Variable naming rules cheat sheet</a>
-            <a href="#">Beginner debugging tips</a>
-        </section>
-    </main>
+      LANG.lessons.forEach((lesson) => {
+        const savedSectionAnswers = tutorialState.answers?.[lesson.id] || {};
+        lesson.questions.forEach((question, index) => {
+          const questionId = buildQuestionId(lesson.id, index);
+          const input = document.getElementById(questionId);
+          if (input && savedSectionAnswers[questionId]) {
+            input.value = savedSectionAnswers[questionId];
+          }
+          if (input) {
+            input.addEventListener('keydown', function(event) {
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                checkSection(lesson.id);
+              }
+            });
+          }
+        });
+      });
 
-    <footer>&copy; 2026 CodeMap | Tutorial Page</footer>
+      document.querySelectorAll('[data-check-section]').forEach((button) => {
+        button.addEventListener('click', function() {
+          checkSection(button.getAttribute('data-check-section'));
+        });
+      });
+
+      document.getElementById('resetBtn').addEventListener('click', resetTutorialProgress);
+      document.getElementById('closeBadgeBtn').addEventListener('click', closeBadgeModal);
+      document.getElementById('badgeOverlay').addEventListener('click', function(event) {
+        if (event.target.id === 'badgeOverlay') closeBadgeModal();
+      });
+    })();
+  </script>
 </body>
 </html>

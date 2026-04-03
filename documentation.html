@@ -56,7 +56,8 @@
             text-decoration: none;
         }
 
-        nav a:hover {
+        nav a:hover,
+        nav a.active {
             color: var(--primary-salmon);
         }
 
@@ -66,6 +67,20 @@
             padding: 3rem 0;
             display: grid;
             gap: 1.8rem;
+        }
+
+        .crumbs {
+            color: var(--muted);
+            font-size: 0.88rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .crumbs a {
+            color: var(--primary-blue);
+            text-decoration: none;
         }
 
         .hero h1 {
@@ -78,6 +93,13 @@
             max-width: 64ch;
             color: var(--muted);
             line-height: 1.7;
+        }
+
+        .link-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-top: 1rem;
         }
 
         .panel {
@@ -117,6 +139,19 @@
             font-size: 1rem;
         }
 
+        .example-code {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            background: rgba(8,13,20,0.72);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 0.95rem 1rem;
+            color: var(--text-off-white);
+            font-family: "Courier New", monospace;
+            white-space: pre-wrap;
+        }
+
         .link-btn {
             display: inline-block;
             text-decoration: none;
@@ -145,10 +180,6 @@
                 align-items: flex-start;
                 gap: 1rem;
             }
-
-            nav {
-                gap: 1rem;
-            }
         }
     </style>
 </head>
@@ -157,19 +188,30 @@
         <a class="logo" href="index.html">CodeMap</a>
         <nav>
             <a href="index.html">Home</a>
-            <a href="learn.html">Learn</a>
+            <a class="active" href="learn.html">Learn</a>
             <a href="about.html">About</a>
             <a href="account-page.html">Account</a>
+            <a href="login-signup.html">Login</a>
         </nav>
     </header>
 
     <main class="container">
         <section class="hero">
-            <h1>How to Read Documentation</h1>
-            <p>
-                Documentation can feel dense at first. This page highlights the usual structure,
-                what details matter most, and how to extract useful information quickly.
-            </p>
+            <div class="crumbs">
+                <a href="index.html">Home</a>
+                <span>&rsaquo;</span>
+                <a href="learn.html">Learn</a>
+                <span>&rsaquo;</span>
+                <a id="hubLink" href="language-page.html">Language Hub</a>
+                <span>&rsaquo;</span>
+                <span>Documentation</span>
+            </div>
+            <h1 id="heroTitle">Documentation Guide</h1>
+            <p id="heroText"></p>
+            <div class="link-row">
+                <a class="link-btn" id="tutorialLink" href="tutorial.html">Open Tutorial</a>
+                <a class="link-btn" id="installLink" href="installation.html">Open Installation Guide</a>
+            </div>
         </section>
 
         <section class="panel">
@@ -177,24 +219,15 @@
             <div class="grid">
                 <div class="mini-card">
                     <h3>Overview</h3>
-                    <p>Typically, documentations are divided into different libraries they are corresponding to. 
-                        Most function documentations includes description of implementation logic, syntax, and may include an example.
-                    </p>
+                    <p>What the tool, function, or library is meant to do.</p>
                 </div>
                 <div class="mini-card">
                     <h3>Syntax</h3>
-                    <p>The exact format for calling a function or using a feature.
-                        Usually, these are presented in the following format:
-                    </p>
-                    <p>list<b>.append(</b>x<b>)</b><br>Add an item to the end of the list.</br></p>
-                    <p>This shows how a function should be called and its functionality. 
-                        In languages that uses strict type definition like C++, the data type of input values and outpu
-                         value will be detailed in the syntax.</p>
+                    <p>The exact format for calling a function or using a feature.</p>
                 </div>
                 <div class="mini-card">
                     <h3>Examples</h3>
-                    <p>Practical reference points that show correct usage in context. 
-                        Often times the documentation may omit what the result of the example code</p>
+                    <p>Practical reference points that show correct usage in context.</p>
                 </div>
             </div>
         </section>
@@ -207,26 +240,65 @@
                 <li>Return value or output behavior</li>
                 <li>Required imports, setup steps, or dependencies</li>
                 <li>Warnings, notes, and version differences</li>
-                <li>Any explicit typedef used in the example code</li>
             </ul>
         </section>
 
         <section class="panel">
-            <h2>Reading Strategy</h2>
-            <p>
-                Start with the overview so you understand the purpose. Then check syntax, parameters,
-                and return values. Finally, compare your code against the example and look closely at
-                warnings or edge cases.
-            </p>
+            <h2>Common beginner mistakes</h2>
+            <ul id="mistakeList"></ul>
         </section>
 
         <section class="panel">
-            <h2>Official Documentation</h2>
-            <p>Use the official source whenever possible so you are reading the most accurate reference.</p>
-            <a class="link-btn" href="#">Open Official Python Documentation</a>
+            <h2>Quick checklist</h2>
+            <ul id="checklist"></ul>
         </section>
     </main>
 
-    <footer>&copy; 2026 CodeMap | Documentation Page</footer>
+    <footer>&copy; 2026 CodeMap | Documentation Guide</footer>
+
+    <script src="language-data.js"></script>
+    <script>
+    (function() {
+        const all = window.CODEMAP_LANGUAGES || {};
+        const params = new URLSearchParams(window.location.search);
+        const savedLang = localStorage.getItem('codemap_last_lang');
+        const requested = (params.get('lang') || savedLang || 'python').toLowerCase();
+        const key = all[requested] ? requested : 'python';
+        const lang = all[key];
+        const docs = lang.docs || {};
+        localStorage.setItem('codemap_last_lang', key);
+
+        function pageLink(page) {
+            return page + '?lang=' + encodeURIComponent(key);
+        }
+
+        document.title = 'CodeMap | ' + lang.label + ' Documentation';
+        document.getElementById('heroTitle').textContent = docs.heroTitle || (lang.label + ' Documentation Guide');
+        document.getElementById('heroText').textContent = docs.heroText || '';
+        document.getElementById('overviewTitle').textContent = docs.overviewTitle || 'Why documentation matters';
+        document.getElementById('overviewText').textContent = docs.overviewText || '';
+        document.getElementById('hubLink').textContent = lang.label;
+        document.getElementById('hubLink').href = pageLink('language-page.html');
+        document.getElementById('tutorialLink').href = pageLink('tutorial.html');
+        document.getElementById('installLink').href = pageLink('installation.html');
+
+        const structure = docs.structure || [];
+        document.getElementById('structureGrid').innerHTML = structure.map((item) => `
+            <article class="mini-card">
+                <h3>${item.title}</h3>
+                <p>${item.text}</p>
+            </article>
+        `).join('');
+
+        const example = docs.example || {};
+        document.getElementById('exampleTitle').textContent = example.title || 'Worked Example';
+        document.getElementById('exampleDescription').textContent = example.description || '';
+        document.getElementById('exampleCode').textContent = example.code || '';
+        document.getElementById('exampleBullets').innerHTML = (example.bullets || []).map((item) => `<li>${item}</li>`).join('');
+        document.getElementById('strategyList').innerHTML = (docs.strategy || []).map((item) => `<li>${item}</li>`).join('');
+        document.getElementById('mistakeList').innerHTML = (docs.mistakes || []).map((item) => `<li>${item}</li>`).join('');
+        document.getElementById('checklist').innerHTML = (docs.checklist || []).map((item) => `<li>${item}</li>`).join('');
+    })();
+    </script>
 </body>
 </html>

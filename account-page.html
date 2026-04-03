@@ -8,26 +8,32 @@
         :root {
             --bg-dark: #161D26;
             --bg-accent: #273240;
+            --panel: #1d2632;
             --primary-blue: #52C5F2;
             --primary-salmon: #F27D72;
             --text-off-white: #F6F2E6;
+            --muted: #AAB4C0;
+            --green: #77d99a;
+            --gold: #f3c76d;
+            --purple: #b88cf6;
+            --border: rgba(255,255,255,0.07);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-dark);
+            margin: 0;
+            background:
+                radial-gradient(ellipse at top left, rgba(82,197,242,0.07), transparent 40%),
+                var(--bg-dark);
             color: var(--text-off-white);
             font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
-        h1, h2, h3, .logo, .section-title, .action-btn, .logout-btn, .small-btn {
+        h1, h2, h3, .logo, .btn, .section-title {
             font-family: "din-2014", sans-serif;
             font-weight: 700;
             text-transform: uppercase;
@@ -40,276 +46,218 @@
             justify-content: space-between;
             align-items: center;
             background-color: var(--bg-accent);
+            border-bottom: 1px solid var(--border);
         }
 
-        .logo {
-            font-size: 1.8rem;
-            color: var(--primary-blue);
-            text-decoration: none;
-        }
+        .logo { font-size: 1.8rem; color: var(--primary-blue); text-decoration: none; }
 
-        nav a {
-            color: var(--text-off-white);
-            text-decoration: none;
-            margin-left: 2rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover,
-        nav a.active {
-            color: var(--primary-salmon);
-        }
+        nav { display: flex; gap: 2rem; flex-wrap: wrap; }
+        nav a { color: var(--text-off-white); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        nav a:hover, nav a.active { color: var(--primary-salmon); }
 
         .page {
             width: min(1180px, 92vw);
             margin: 0 auto;
-            padding: 3rem 0;
+            padding: 2.5rem 0 4rem;
             display: grid;
-            gap: 2rem;
+            gap: 1.8rem;
+            flex: 1;
         }
 
-        .hero-card,
-        .content-card {
-            background-color: var(--bg-accent);
-            border-radius: 10px;
-            padding: 2rem;
-        }
-
+        /* ── HERO CARD ── */
         .hero-card {
+            background: linear-gradient(135deg, rgba(39,50,64,0.98), rgba(22,29,38,0.98));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
             display: grid;
             grid-template-columns: auto 1fr auto;
-            gap: 1.5rem;
+            gap: 1.8rem;
             align-items: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .avatar-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at top right, rgba(82,197,242,0.07), transparent 60%);
+            pointer-events: none;
         }
+
+        .avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
 
         .avatar {
-            width: 92px;
-            height: 92px;
+            width: 96px;
+            height: 96px;
             border-radius: 50%;
-            background-color: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue), #9be8ff);
             color: var(--bg-dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.9rem;
-            font-weight: 800;
+            font-size: 2rem;
+            font-weight: 900;
+            font-family: "din-2014", sans-serif;
+            letter-spacing: 0.02em;
+            box-shadow: 0 0 0 4px rgba(82,197,242,0.15), 0 8px 24px rgba(82,197,242,0.2);
         }
 
         .small-btn {
-            background-color: transparent;
+            background: transparent;
             color: var(--primary-blue);
-            border: 2px solid var(--primary-blue);
-            padding: 0.55rem 0.85rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            text-decoration: none;
+            border: 1.5px solid rgba(82,197,242,0.4);
+            padding: 0.45rem 0.85rem;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
             cursor: pointer;
+            transition: 0.2s;
         }
+        .small-btn:hover { background: rgba(82,197,242,0.1); border-color: var(--primary-blue); }
 
-        .small-btn:hover {
-            background-color: var(--primary-blue);
-            color: var(--bg-dark);
-        }
+        .identity h1 { margin: 0 0 0.35rem; font-size: clamp(1.8rem, 3vw, 2.4rem); }
+        .identity p { margin: 0; color: var(--muted); font-size: 0.98rem; }
 
-        .identity h1 {
-            margin: 0 0 0.4rem 0;
-            font-size: 2.2rem;
-            line-height: 1.1;
-        }
-
-        .identity p {
-            margin: 0;
-            color: #bbb;
-            font-size: 1rem;
-        }
-
-        .pill-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
-            margin-top: 1rem;
-        }
-
+        .pill-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.9rem; }
         .pill {
-            background-color: rgba(82, 197, 242, 0.12);
+            background: rgba(82,197,242,0.10);
             color: var(--primary-blue);
-            border: 1px solid rgba(82, 197, 242, 0.22);
-            padding: 0.45rem 0.8rem;
+            border: 1px solid rgba(82,197,242,0.2);
+            padding: 0.35rem 0.75rem;
             border-radius: 999px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
+            font-weight: 600;
         }
 
-        .hero-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 0.8rem;
-        }
+        .hero-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 0.8rem; }
 
-        .logout-btn,
-        .action-btn {
+        .btn {
             text-decoration: none;
-            border-radius: 4px;
-            padding: 0.75rem 1.1rem;
-            font-size: 0.85rem;
-            transition: 0.3s;
+            border-radius: 10px;
+            padding: 0.75rem 1.2rem;
+            font-size: 0.82rem;
+            transition: 0.2s;
             text-align: center;
-            min-width: 150px;
+            min-width: 160px;
+            display: inline-block;
         }
 
-        .action-btn {
-            background-color: var(--primary-salmon);
-            color: var(--bg-dark);
-        }
+        .btn-primary { background: var(--primary-salmon); color: var(--bg-dark); }
+        .btn-primary:hover { transform: scale(1.03); box-shadow: 0 6px 20px rgba(242,125,114,0.35); }
 
-        .action-btn:hover {
-            transform: scale(1.03);
-        }
-
-        .logout-btn {
-            background-color: transparent;
+        .btn-outline {
+            background: transparent;
             color: var(--primary-salmon);
-            border: 2px solid var(--primary-salmon);
+            border: 1.5px solid rgba(242,125,114,0.45);
         }
+        .btn-outline:hover { background: rgba(242,125,114,0.1); border-color: var(--primary-salmon); }
 
-        .logout-btn:hover {
-            background-color: var(--primary-salmon);
-            color: var(--bg-dark);
-        }
-
-        .stats-grid,
-        .main-grid,
-        .secondary-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
+        /* ── STATS GRID ── */
         .stats-grid {
-            grid-template-columns: repeat(3, 1fr);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
         }
 
         .stat-card {
-            background-color: var(--bg-accent);
-            border-radius: 10px;
-            padding: 1.5rem;
+            background: linear-gradient(180deg, rgba(39,50,64,0.9), rgba(22,29,38,0.95));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.4rem;
             text-align: center;
         }
 
         .stat-card strong {
             display: block;
-            font-size: 2rem;
+            font-size: 2.2rem;
+            font-family: "din-2014", sans-serif;
+            font-weight: 900;
             color: var(--primary-blue);
-            margin-bottom: 0.35rem;
+            line-height: 1;
+            margin-bottom: 0.4rem;
         }
 
-        .stat-card span {
-            color: #bbb;
-            font-size: 0.95rem;
-        }
+        .stat-card span { color: var(--muted); font-size: 0.88rem; }
 
+        /* ── MAIN GRID ── */
         .main-grid {
-            grid-template-columns: 1.25fr 0.75fr;
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 1.8rem;
             align-items: start;
         }
 
-        .secondary-grid {
-            grid-template-columns: 1fr 1fr;
+        .content-card {
+            background: linear-gradient(180deg, rgba(39,50,64,0.9), rgba(22,29,38,0.95));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.8rem;
         }
 
         .section-title {
-            margin: 0 0 1.2rem 0;
-            font-size: 1.15rem;
+            margin: 0 0 1.4rem;
+            font-size: 1rem;
             color: var(--primary-blue);
         }
 
-        .saved-list,
-        .badges-list,
-        .settings-list,
-        .progress-list {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .saved-item,
-        .badge-item,
-        .settings-item {
-            background-color: rgba(255,255,255,0.04);
-            border-radius: 8px;
-            padding: 1rem;
-        }
+        /* ── SAVED TUTORIALS ── */
+        .saved-list { display: grid; gap: 0.9rem; }
 
         .saved-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
+            transition: border-color 0.2s;
         }
+        .saved-item:hover { border-color: rgba(82,197,242,0.2); }
 
-        .saved-text h3,
-        .badge-item h3,
-        .settings-item h3 {
-            margin: 0 0 0.4rem 0;
-            font-size: 1rem;
-        }
-
-        .saved-text p,
-        .badge-item p,
-        .settings-item p {
-            margin: 0;
-            color: #bbb;
-            font-size: 0.92rem;
-            line-height: 1.5;
-        }
+        .saved-text h3 { margin: 0 0 0.25rem; font-size: 0.95rem; }
+        .saved-text p { margin: 0; color: var(--muted); font-size: 0.85rem; }
 
         .resume-link {
             text-decoration: none;
             color: var(--primary-salmon);
-            border: 2px solid var(--primary-salmon);
-            padding: 0.55rem 0.9rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            transition: 0.3s;
+            border: 1.5px solid rgba(242,125,114,0.4);
+            padding: 0.45rem 0.85rem;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
             white-space: nowrap;
+            transition: 0.2s;
         }
+        .resume-link:hover { background: rgba(242,125,114,0.1); border-color: var(--primary-salmon); }
 
-        .resume-link:hover {
-            background-color: var(--primary-salmon);
-            color: var(--bg-dark);
-        }
+        /* ── PROGRESS ── */
+        .progress-list { display: grid; gap: 1.1rem; }
 
-        .progress-item {
-            display: grid;
-            gap: 0.5rem;
-        }
+        .progress-item { display: grid; gap: 0.5rem; }
 
         .progress-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 1rem;
-        }
-
-        .progress-top span:first-child {
+            font-size: 0.9rem;
             font-weight: 700;
         }
-
-        .progress-top span:last-child {
-            color: var(--primary-blue);
-            font-weight: 700;
-        }
+        .progress-top span:last-child { color: var(--primary-blue); }
 
         .progress-bar {
-            height: 12px;
+            height: 10px;
             border-radius: 999px;
-            background-color: rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.08);
             overflow: hidden;
         }
 
@@ -317,79 +265,252 @@
             height: 100%;
             border-radius: inherit;
             background: linear-gradient(90deg, var(--primary-blue), #8fdfff);
+            transition: width 0.8s ease;
+        }
+
+        /* ── BADGES ── */
+        .badges-section { grid-column: 1 / -1; }
+
+        .badges-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.4rem;
+        }
+
+        .badges-header .section-title { margin: 0; }
+
+        .badges-summary {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .badges-summary span { color: var(--gold); font-weight: 700; }
+
+        .badges-categories { display: grid; gap: 1.6rem; }
+
+        .badge-category-title {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin: 0 0 1rem;
+        }
+
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 1rem;
         }
 
         .badge-item {
-            border-left: 4px solid var(--primary-blue);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.1rem;
+            text-align: center;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
         }
 
+        .badge-item.earned {
+            border-color: rgba(243,199,109,0.35);
+            background: linear-gradient(145deg, rgba(243,199,109,0.07), rgba(22,29,38,0.95));
+        }
+
+        .badge-item.earned:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(243,199,109,0.15);
+            border-color: rgba(243,199,109,0.55);
+        }
+
+        .badge-item.locked {
+            opacity: 0.42;
+            filter: grayscale(0.5);
+        }
+
+        .badge-icon {
+            font-size: 2.2rem;
+            line-height: 1;
+            margin-bottom: 0.7rem;
+            display: block;
+        }
+
+        .badge-item.earned .badge-icon {
+            filter: drop-shadow(0 0 8px rgba(243,199,109,0.5));
+        }
+
+        .badge-name {
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.4rem;
+        }
+
+        .badge-item.earned .badge-name { color: var(--gold); }
+        .badge-item.locked .badge-name { color: var(--muted); }
+
+        .badge-desc {
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .badge-earned-tag {
+            display: inline-block;
+            margin-top: 0.6rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(243,199,109,0.15);
+            border: 1px solid rgba(243,199,109,0.3);
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 700;
+            font-family: "din-2014", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .badge-locked-tag {
+            display: inline-block;
+            margin-top: 0.6rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #5a6470;
+            font-size: 0.7rem;
+            font-weight: 700;
+            font-family: "din-2014", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* badge progress mini-bar */
+        .badge-progress {
+            margin-top: 0.6rem;
+        }
+        .badge-progress-bar {
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.07);
+            overflow: hidden;
+            margin-top: 0.35rem;
+        }
+        .badge-progress-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: var(--muted);
+        }
+        .badge-progress-label {
+            font-size: 0.7rem;
+            color: #5a6470;
+        }
+
+        /* ── BOTTOM GRID ── */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+        }
+
+        /* ── CONTINUE LEARNING (inline on account) ── */
+        .continue-list { display: grid; gap: 0.9rem; }
+
+        .continue-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.1rem;
+            transition: border-color 0.2s;
+        }
+        .continue-item:hover { border-color: rgba(82,197,242,0.25); }
+
+        .continue-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .continue-info h3 { margin: 0 0 0.2rem; font-size: 0.95rem; }
+        .continue-info p { margin: 0; color: var(--muted); font-size: 0.82rem; }
+
+        .continue-pct {
+            font-family: "din-2014", sans-serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            white-space: nowrap;
+        }
+
+        /* ── SETTINGS ── */
+        .settings-list { display: grid; gap: 0.9rem; }
+
         .settings-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.9rem 1.1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
         }
 
+        .settings-item h3 { margin: 0 0 0.2rem; font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+        .settings-item p { margin: 0; font-size: 0.95rem; }
+
         .settings-edit {
             color: var(--primary-salmon);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
             white-space: nowrap;
+            opacity: 0.8;
+            transition: opacity 0.2s;
         }
-
-        .settings-edit:hover {
-            text-decoration: underline;
-        }
+        .settings-edit:hover { opacity: 1; }
 
         .empty-state {
-            color: #bbb;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.65;
+            padding: 0.5rem 0;
         }
 
         footer {
             margin-top: auto;
-            padding: 3rem 5%;
+            padding: 2rem 5%;
             text-align: center;
             font-size: 0.85rem;
-            border-top: 1px solid var(--bg-accent);
-            color: #888;
+            border-top: 1px solid var(--border);
+            color: #5a6470;
         }
 
-        @media (max-width: 980px) {
-            .hero-card,
-            .main-grid,
-            .secondary-grid,
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-actions {
-                align-items: flex-start;
-            }
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .main-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 760px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            nav a {
-                margin-left: 0;
-                margin-right: 1.5rem;
-            }
-
-            .saved-item,
-            .settings-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .identity h1 {
-                font-size: 1.8rem;
-            }
+            header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            nav a { margin-left: 0; margin-right: 1.5rem; }
+            .hero-card { grid-template-columns: 1fr; }
+            .hero-actions { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+            .bottom-grid { grid-template-columns: 1fr; }
+            .saved-item { flex-direction: column; align-items: flex-start; }
+            .badge-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -406,10 +527,12 @@
     </header>
 
     <main class="page">
+
+        <!-- PROFILE HERO -->
         <section class="hero-card">
             <div class="avatar-wrap">
                 <div class="avatar" id="avatar">CM</div>
-                <button class="small-btn" type="button">Edit Profile</button>
+                <button class="small-btn" type="button">Edit Photo</button>
             </div>
 
             <div class="identity">
@@ -421,11 +544,12 @@
             </div>
 
             <div class="hero-actions">
-                <a href="continue-lesson.html" class="action-btn">Continue Learning</a>
-                <a href="login-signup.html" class="logout-btn" id="logoutBtn">Log Out</a>
+                <a href="continue-lesson.html" class="btn btn-primary">Continue Learning</a>
+                <a href="login-signup.html" class="btn btn-outline" id="logoutBtn">Log Out</a>
             </div>
         </section>
 
+        <!-- STATS -->
         <section class="stats-grid">
             <div class="stat-card">
                 <strong id="savedCount">0</strong>
@@ -433,14 +557,19 @@
             </div>
             <div class="stat-card">
                 <strong id="languageCount">0</strong>
-                <span>Languages In Progress</span>
+                <span>Languages Active</span>
             </div>
             <div class="stat-card">
                 <strong id="badgeCount">0</strong>
                 <span>Badges Earned</span>
             </div>
+            <div class="stat-card">
+                <strong id="avgProgress">0%</strong>
+                <span>Avg. Completion</span>
+            </div>
         </section>
 
+        <!-- SAVED TUTORIALS + PROGRESS -->
         <section class="main-grid">
             <div class="content-card">
                 <h2 class="section-title">Saved Tutorials</h2>
@@ -453,10 +582,20 @@
             </div>
         </section>
 
-        <section class="secondary-grid">
-            <div class="content-card">
+        <!-- BADGES -->
+        <section class="content-card badges-section">
+            <div class="badges-header">
                 <h2 class="section-title">Badges</h2>
-                <div class="badges-list" id="badgesList"></div>
+                <p class="badges-summary"><span id="earnedCount">0</span> of <span id="totalCount">0</span> earned</p>
+            </div>
+            <div class="badges-categories" id="badgesCategoriesContainer"></div>
+        </section>
+
+        <!-- CONTINUE LEARNING + ACCOUNT DETAILS -->
+        <section class="bottom-grid">
+            <div class="content-card">
+                <h2 class="section-title">Continue Learning</h2>
+                <div class="continue-list" id="continueList"></div>
             </div>
 
             <div class="content-card">
@@ -464,229 +603,377 @@
                 <div class="settings-list" id="settingsList"></div>
             </div>
         </section>
+
     </main>
 
-    <footer>
-        <p>&copy; 2026 CodeMap | Account Dashboard</p>
-    </footer>
+    <footer>&copy; 2026 CodeMap | Account Dashboard</footer>
 
     <script>
-        const CURRENT_USER_KEY = "codemap_current_user";
-
-        function getCurrentUser() {
-            const sessionUser = sessionStorage.getItem(CURRENT_USER_KEY);
-            const localUser = localStorage.getItem(CURRENT_USER_KEY);
-            const rawUser = sessionUser || localUser;
-
-            if (!rawUser) {
-                return null;
+    /* ─────────────────────────────────────────────────────────────
+       BADGE CATALOG
+       Each badge has: id, icon, name, desc, category,
+       and earn(user) → bool
+    ───────────────────────────────────────────────────────────── */
+    const BADGE_CATALOG = [
+        // ── GETTING STARTED ──
+        {
+            id: "first_launch",
+            icon: "🚀",
+            name: "First Launch",
+            desc: "Started learning on CodeMap",
+            category: "Getting Started",
+            earn: (u) => Object.values(u.progress||{}).some(v => v > 0)
+        },
+        {
+            id: "tutorial_saver",
+            icon: "🔖",
+            name: "Collector",
+            desc: "Saved your first tutorial",
+            category: "Getting Started",
+            earn: (u) => (u.savedTutorials||[]).length >= 1
+        },
+        {
+            id: "profile_complete",
+            icon: "🎓",
+            name: "Fully Enrolled",
+            desc: "Filled out your major and year",
+            category: "Getting Started",
+            earn: (u) => !!(u.major && u.year)
+        },
+        // ── LANGUAGE EXPLORER ──
+        {
+            id: "python_start",
+            icon: "🐍",
+            name: "Python Starter",
+            desc: "Began a Python lesson",
+            category: "Language Explorer",
+            earn: (u) => (u.progress?.python||0) > 0,
+            progressKey: "python",
+            progressTarget: 1
+        },
+        {
+            id: "cpp_start",
+            icon: "⚙️",
+            name: "C++ Explorer",
+            desc: "Started C++ coursework",
+            category: "Language Explorer",
+            earn: (u) => (u.progress?.cpp||0) > 0,
+            progressKey: "cpp",
+            progressTarget: 1
+        },
+        {
+            id: "matlab_start",
+            icon: "📐",
+            name: "MATLAB Engineer",
+            desc: "Opened a MATLAB lesson",
+            category: "Language Explorer",
+            earn: (u) => (u.progress?.matlab||0) > 0,
+            progressKey: "matlab",
+            progressTarget: 1
+        },
+        {
+            id: "ros2_start",
+            icon: "🤖",
+            name: "ROS2 Pilot",
+            desc: "Began robotics coursework",
+            category: "Language Explorer",
+            earn: (u) => (u.progress?.ros2||0) > 0,
+            progressKey: "ros2",
+            progressTarget: 1
+        },
+        {
+            id: "multi_lang",
+            icon: "🌐",
+            name: "Multi-Linguist",
+            desc: "Active in 3 or more languages",
+            category: "Language Explorer",
+            earn: (u) => Object.values(u.progress||{}).filter(v=>v>0).length >= 3
+        },
+        // ── PROGRESS ──
+        {
+            id: "halfway",
+            icon: "🌗",
+            name: "Halfway There",
+            desc: "Reached 50% in any language",
+            category: "Progress",
+            earn: (u) => Object.values(u.progress||{}).some(v => v >= 50)
+        },
+        {
+            id: "high_achiever",
+            icon: "⭐",
+            name: "High Achiever",
+            desc: "Reached 75% in any language",
+            category: "Progress",
+            earn: (u) => Object.values(u.progress||{}).some(v => v >= 75)
+        },
+        {
+            id: "completionist",
+            icon: "🏅",
+            name: "Completionist",
+            desc: "All four core languages active",
+            category: "Progress",
+            earn: (u) => {
+                const p = u.progress||{};
+                return p.python>0 && p.cpp>0 && p.matlab>0 && p.ros2>0;
             }
-
-            try {
-                return JSON.parse(rawUser);
-            } catch (error) {
-                return null;
-            }
+        },
+        // ── MASTERY ──
+        {
+            id: "python_master",
+            icon: "🏆",
+            name: "Python Master",
+            desc: "Completed all Python lessons",
+            category: "Mastery",
+            earn: (u) => (u.progress?.python||0) >= 100,
+            progressKey: "python",
+            progressTarget: 100
+        },
+        {
+            id: "cpp_master",
+            icon: "🛡️",
+            name: "C++ Master",
+            desc: "Completed all C++ lessons",
+            category: "Mastery",
+            earn: (u) => (u.progress?.cpp||0) >= 100,
+            progressKey: "cpp",
+            progressTarget: 100
         }
+    ];
 
-        function logoutUser(event) {
-            event.preventDefault();
-            sessionStorage.removeItem(CURRENT_USER_KEY);
-            localStorage.removeItem(CURRENT_USER_KEY);
-            window.location.href = "login-signup.html";
+    /* ─────────────────────────────────────────────────────────────
+       LANGUAGE META — for continue learning section
+    ───────────────────────────────────────────────────────────── */
+    const LANG_META = {
+        python: { label: "Python", icon: "🐍", sub: "Intro scripting & data tools", color: "#52C5F2" },
+        cpp:    { label: "C++",    icon: "⚙️",  sub: "Advanced Data Structures",    color: "#F27D72" },
+        matlab: { label: "MATLAB", icon: "📐",  sub: "Control systems modeling",    color: "#f3c76d" },
+        ros2:   { label: "ROS2",   icon: "🤖",  sub: "Robotics middleware",          color: "#b88cf6" },
+        java:   { label: "Java",   icon: "☕",  sub: "Object-oriented programming", color: "#77d99a" },
+        javascript: { label: "JavaScript", icon: "⚡", sub: "Web dev & UI", color: "#f3c76d" }
+    };
+
+    /* ─────────────────────────────────────────────────────────────
+       AUTH HELPERS
+    ───────────────────────────────────────────────────────────── */
+    const CURRENT_USER_KEY = "codemap_current_user";
+
+    function getCurrentUser() {
+        const raw = sessionStorage.getItem(CURRENT_USER_KEY) || localStorage.getItem(CURRENT_USER_KEY);
+        if (!raw) return null;
+        try { return JSON.parse(raw); } catch { return null; }
+    }
+
+    function logoutUser(e) {
+        e.preventDefault();
+        sessionStorage.removeItem(CURRENT_USER_KEY);
+        localStorage.removeItem(CURRENT_USER_KEY);
+        window.location.href = "login-signup.html";
+    }
+
+    function makeInitials(first, last) {
+        return ((first||"").charAt(0) + (last||"").charAt(0)).toUpperCase() || "CM";
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       RENDER FUNCTIONS
+    ───────────────────────────────────────────────────────────── */
+    function renderSavedTutorials(list) {
+        const el = document.getElementById("savedTutorialsList");
+        if (!list || !list.length) {
+            el.innerHTML = '<p class="empty-state">No saved tutorials yet. Explore the Learn page to save content here.</p>';
+            return;
         }
-
-        function makeInitials(firstName, lastName) {
-            const first = firstName ? firstName.charAt(0) : "";
-            const last = lastName ? lastName.charAt(0) : "";
-            return (first + last).toUpperCase() || "CM";
-        }
-
-        function titleFromKey(key) {
-            const mapping = {
-                cpp: "C++",
-                python: "Python",
-                matlab: "MATLAB",
-                ros2: "ROS2",
-                java: "Java",
-                javascript: "JavaScript"
-            };
-
-            return mapping[key] || key.toUpperCase();
-        }
-
-        function renderSavedTutorials(savedTutorials) {
-            const container = document.getElementById("savedTutorialsList");
-
-            if (!savedTutorials || !savedTutorials.length) {
-                container.innerHTML = '<p class="empty-state">No saved tutorials yet. Start exploring the Learn page to save content here.</p>';
-                return;
-            }
-
-            container.innerHTML = savedTutorials.map(function(tutorial, index) {
-                return `
-                    <div class="saved-item">
-                        <div class="saved-text">
-                            <h3>${tutorial}</h3>
-                            <p>Saved lesson ${index + 1} ready to resume.</p>
-                        </div>
-                        <a href="continue-lesson.html" class="resume-link">Resume</a>
-                    </div>
-                `;
-            }).join("");
-        }
-
-        function renderProgress(progress) {
-            const container = document.getElementById("progressList");
-            const keys = progress ? Object.keys(progress).filter(function(key) {
-                return Number(progress[key]) > 0;
-            }) : [];
-
-            if (!keys.length) {
-                container.innerHTML = '<p class="empty-state">No progress data yet. Complete a lesson to start tracking language progress.</p>';
-                return;
-            }
-
-            container.innerHTML = keys.map(function(key) {
-                const value = Math.max(0, Math.min(100, Number(progress[key]) || 0));
-
-                return `
-                    <div class="progress-item">
-                        <div class="progress-top">
-                            <span>${titleFromKey(key)}</span>
-                            <span>${value}%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${value}%;"></div>
-                        </div>
-                    </div>
-                `;
-            }).join("");
-        }
-
-        function renderBadges(badges) {
-            const container = document.getElementById("badgesList");
-
-            if (!badges || !badges.length) {
-                container.innerHTML = '<p class="empty-state">No badges earned yet. Complete challenges and lessons to unlock achievements.</p>';
-                return;
-            }
-
-            container.innerHTML = badges.map(function(badge) {
-                return `
-                    <div class="badge-item">
-                        <h3>${badge}</h3>
-                        <p>Achievement unlocked through lesson progress and platform activity.</p>
-                    </div>
-                `;
-            }).join("");
-        }
-
-        function renderSettings(user) {
-            const container = document.getElementById("settingsList");
-
-            container.innerHTML = `
-                <div class="settings-item">
-                    <div>
-                        <h3>Full Name</h3>
-                        <p>${user.firstName || ""} ${user.lastName || ""}</p>
-                    </div>
-                    <a href="#" class="settings-edit">Edit</a>
+        el.innerHTML = list.map((t, i) => `
+            <div class="saved-item">
+                <div class="saved-text">
+                    <h3>${t}</h3>
+                    <p>Saved lesson · ready to resume</p>
                 </div>
+                <a href="continue-lesson.html" class="resume-link">Resume</a>
+            </div>
+        `).join("");
+    }
 
-                <div class="settings-item">
-                    <div>
-                        <h3>Email</h3>
-                        <p>${user.email || "No email set"}</p>
+    function renderProgress(progress) {
+        const el = document.getElementById("progressList");
+        const keys = Object.keys(progress||{}).filter(k => Number(progress[k]) > 0);
+        if (!keys.length) {
+            el.innerHTML = '<p class="empty-state">Complete a lesson to start tracking progress.</p>';
+            return;
+        }
+        el.innerHTML = keys.map(k => {
+            const pct = Math.max(0, Math.min(100, Number(progress[k])||0));
+            const meta = LANG_META[k] || { label: k.toUpperCase(), icon: "📌" };
+            return `
+                <div class="progress-item">
+                    <div class="progress-top">
+                        <span>${meta.icon} ${meta.label}</span>
+                        <span>${pct}%</span>
                     </div>
-                    <a href="#" class="settings-edit">Edit</a>
-                </div>
-
-                <div class="settings-item">
-                    <div>
-                        <h3>Major / Track</h3>
-                        <p>${user.major || "Not set"}</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:${pct}%"></div>
                     </div>
-                    <a href="#" class="settings-edit">Edit</a>
-                </div>
-
-                <div class="settings-item">
-                    <div>
-                        <h3>Academic Year</h3>
-                        <p>${user.year || "Not set"}</p>
-                    </div>
-                    <a href="#" class="settings-edit">Edit</a>
                 </div>
             `;
+        }).join("");
+    }
+
+    function renderBadges(user) {
+        const container = document.getElementById("badgesCategoriesContainer");
+
+        // Compute earned set
+        const earnedIds = new Set(
+            BADGE_CATALOG.filter(b => b.earn(user)).map(b => b.id)
+        );
+
+        // Also honor legacy string badges from old data
+        const legacyEarned = new Set((user.badges||[]).map(s => s.toLowerCase().replace(/\s+/g,'_')));
+
+        document.getElementById("earnedCount").textContent = earnedIds.size;
+        document.getElementById("totalCount").textContent = BADGE_CATALOG.length;
+
+        // Group by category
+        const categories = {};
+        BADGE_CATALOG.forEach(b => {
+            if (!categories[b.category]) categories[b.category] = [];
+            categories[b.category].push(b);
+        });
+
+        container.innerHTML = Object.entries(categories).map(([cat, badges]) => {
+            const items = badges.map(b => {
+                const isEarned = earnedIds.has(b.id);
+                let progressHTML = "";
+
+                if (!isEarned && b.progressKey) {
+                    const cur = Math.min(100, Number((user.progress||{})[b.progressKey]||0));
+                    const pct = Math.round((cur / b.progressTarget) * 100);
+                    progressHTML = `
+                        <div class="badge-progress">
+                            <div class="badge-progress-label">${cur} / ${b.progressTarget}%</div>
+                            <div class="badge-progress-bar">
+                                <div class="badge-progress-fill" style="width:${Math.min(100,pct)}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="badge-item ${isEarned ? 'earned' : 'locked'}">
+                        <span class="badge-icon">${b.icon}</span>
+                        <div class="badge-name">${b.name}</div>
+                        <div class="badge-desc">${b.desc}</div>
+                        ${isEarned
+                            ? '<span class="badge-earned-tag">✓ Earned</span>'
+                            : `<span class="badge-locked-tag">🔒 Locked</span>${progressHTML}`
+                        }
+                    </div>
+                `;
+            }).join("");
+
+            return `
+                <div>
+                    <p class="badge-category-title">${cat}</p>
+                    <div class="badge-grid">${items}</div>
+                </div>
+            `;
+        }).join("");
+    }
+
+    function renderContinueLearning(progress) {
+        const el = document.getElementById("continueList");
+        const active = Object.entries(progress||{}).filter(([,v]) => v > 0).sort(([,a],[,b]) => b-a);
+        if (!active.length) {
+            el.innerHTML = '<p class="empty-state">No languages started yet. Head to Learn to begin.</p>';
+            return;
         }
+        el.innerHTML = active.map(([key, pct]) => {
+            const meta = LANG_META[key] || { label: key.toUpperCase(), icon: "📌", sub: "", color: "#52C5F2" };
+            const v = Math.max(0, Math.min(100, Number(pct)||0));
+            return `
+                <a class="continue-item" href="continue-lesson.html" style="text-decoration:none;color:inherit;display:block;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s;">
+                    <div class="continue-top">
+                        <div class="continue-info">
+                            <h3>${meta.icon} ${meta.label}</h3>
+                            <p>${meta.sub}</p>
+                        </div>
+                        <span class="continue-pct">${v}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:${v}%; background: linear-gradient(90deg, ${meta.color}, ${meta.color}99)"></div>
+                    </div>
+                </a>
+            `;
+        }).join("");
+    }
 
-        function renderPage(user) {
-            const fullName = ((user.firstName || "") + " " + (user.lastName || "")).trim() || "CodeMap Student";
-            const subtitleParts = [];
+    function renderSettings(user) {
+        document.getElementById("settingsList").innerHTML = `
+            <div class="settings-item">
+                <div><h3>Full Name</h3><p>${(user.firstName||"")} ${(user.lastName||"")}</p></div>
+                <a href="#" class="settings-edit">Edit</a>
+            </div>
+            <div class="settings-item">
+                <div><h3>Email</h3><p>${user.email||"Not set"}</p></div>
+                <a href="#" class="settings-edit">Edit</a>
+            </div>
+            <div class="settings-item">
+                <div><h3>Major / Track</h3><p>${user.major||"Not set"}</p></div>
+                <a href="#" class="settings-edit">Edit</a>
+            </div>
+            <div class="settings-item">
+                <div><h3>Academic Year</h3><p>${user.year||"Not set"}</p></div>
+                <a href="#" class="settings-edit">Edit</a>
+            </div>
+        `;
+    }
 
-            if (user.year) {
-                subtitleParts.push(user.year);
-            }
+    function renderPage(user) {
+        // Header
+        const fullName = ((user.firstName||"") + " " + (user.lastName||"")).trim() || "CodeMap Student";
+        document.getElementById("userName").textContent = fullName;
+        document.getElementById("avatar").textContent = makeInitials(user.firstName, user.lastName);
 
-            if (user.major) {
-                subtitleParts.push(user.major);
-            }
+        const parts = [user.year, user.major, user.email].filter(Boolean);
+        document.getElementById("userSubtitle").textContent = parts.join(" · ") || "Signed in user";
 
-            if (user.email) {
-                subtitleParts.push(user.email);
-            }
+        const pillRow = document.getElementById("pillRow");
+        pillRow.innerHTML = [user.major, user.year].filter(Boolean)
+            .map(p => `<span class="pill">${p}</span>`).join("") || '<span class="pill">Student</span>';
 
-            document.getElementById("userName").textContent = fullName;
-            document.getElementById("userSubtitle").textContent = subtitleParts.join(" | ") || "Signed in user";
-            document.getElementById("avatar").textContent = makeInitials(user.firstName, user.lastName);
+        // Stats
+        const saved = user.savedTutorials||[];
+        const progress = user.progress||{};
+        const activeLangs = Object.keys(progress).filter(k => Number(progress[k]) > 0);
+        const earnedCount = BADGE_CATALOG.filter(b => b.earn(user)).length;
+        const avgPct = activeLangs.length
+            ? Math.round(activeLangs.reduce((sum, k) => sum + Number(progress[k]), 0) / activeLangs.length)
+            : 0;
 
-            const pillRow = document.getElementById("pillRow");
-            const pills = [];
+        document.getElementById("savedCount").textContent = saved.length;
+        document.getElementById("languageCount").textContent = activeLangs.length;
+        document.getElementById("badgeCount").textContent = earnedCount;
+        document.getElementById("avgProgress").textContent = avgPct + "%";
 
-            if (user.major) {
-                pills.push(`<span class="pill">${user.major}</span>`);
-            }
+        // Sections
+        renderSavedTutorials(saved);
+        renderProgress(progress);
+        renderBadges(user);
+        renderContinueLearning(progress);
+        renderSettings(user);
+    }
 
-            if (user.year) {
-                pills.push(`<span class="pill">${user.year}</span>`);
-            }
+    /* ─────────────────────────────────────────────────────────────
+       INIT
+    ───────────────────────────────────────────────────────────── */
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+        window.location.href = "login-signup.html";
+    } else {
+        renderPage(currentUser);
+    }
 
-            if (user.email) {
-                pills.push(`<span class="pill">${user.email}</span>`);
-            }
-
-            if (!pills.length) {
-                pills.push('<span class="pill">Student</span>');
-            }
-
-            pillRow.innerHTML = pills.join("");
-
-            const savedTutorials = user.savedTutorials || [];
-            const badges = user.badges || [];
-            const progress = user.progress || {};
-
-            document.getElementById("savedCount").textContent = savedTutorials.length;
-            document.getElementById("badgeCount").textContent = badges.length;
-            document.getElementById("languageCount").textContent = Object.keys(progress).filter(function(key) {
-                return Number(progress[key]) > 0;
-            }).length;
-
-            renderSavedTutorials(savedTutorials);
-            renderProgress(progress);
-            renderBadges(badges);
-            renderSettings(user);
-        }
-
-        const currentUser = getCurrentUser();
-
-        if (!currentUser) {
-            window.location.href = "login-signup.html";
-        } else {
-            renderPage(currentUser);
-        }
-
-        document.getElementById("logoutBtn").addEventListener("click", logoutUser);
-        document.getElementById("navLogout").addEventListener("click", logoutUser);
+    document.getElementById("logoutBtn").addEventListener("click", logoutUser);
+    document.getElementById("navLogout").addEventListener("click", logoutUser);
     </script>
 </body>
 </html>

@@ -25,7 +25,7 @@
             font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
         }
 
-        h1, h2, h3, .logo {
+        h1, h2, h3, .logo, .action-link {
             font-family: "din-2014", sans-serif;
             font-weight: 700;
             text-transform: uppercase;
@@ -57,7 +57,8 @@
             text-decoration: none;
         }
 
-        nav a:hover {
+        nav a:hover,
+        nav a.active {
             color: var(--primary-salmon);
         }
 
@@ -69,10 +70,26 @@
 
         .hero {
             margin-bottom: 2rem;
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .crumbs {
+            color: var(--muted);
+            font-size: 0.88rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .crumbs a {
+            color: var(--primary-blue);
+            text-decoration: none;
         }
 
         .hero h1 {
-            margin: 0 0 0.8rem;
+            margin: 0;
             font-size: clamp(2.1rem, 4vw, 3.3rem);
         }
 
@@ -81,6 +98,23 @@
             color: var(--muted);
             line-height: 1.7;
             max-width: 62ch;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .action-link {
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(82,197,242,0.22);
+            background: rgba(82,197,242,0.08);
+            color: var(--primary-blue);
+            font-size: 0.82rem;
         }
 
         .step-list {
@@ -102,7 +136,7 @@
         }
 
         .step p {
-            margin: 0 0 0.9rem;
+            margin: 0;
             color: var(--muted);
             line-height: 1.7;
         }
@@ -118,29 +152,7 @@
             color: var(--primary-blue);
             font-family: "Courier New", monospace;
             white-space: pre-wrap;
-        }
-
-        .image-placeholder {
             margin-top: 1rem;
-            border: 1px dashed rgba(255,255,255,0.18);
-            border-radius: 14px;
-            padding: 1rem;
-            color: #8f99a5;
-            background: rgba(255,255,255,0.02);
-        }
-
-        .link-box {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(82,197,242,0.08);
-            border: 1px solid rgba(82,197,242,0.18);
-            border-radius: 14px;
-        }
-
-        .link-box a {
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-weight: 700;
         }
 
         footer {
@@ -156,10 +168,6 @@
                 align-items: flex-start;
                 gap: 1rem;
             }
-
-            nav {
-                gap: 1rem;
-            }
         }
     </style>
 </head>
@@ -168,60 +176,69 @@
         <a class="logo" href="index.html">CodeMap</a>
         <nav>
             <a href="index.html">Home</a>
-            <a href="learn.html">Learn</a>
+            <a class="active" href="learn.html">Learn</a>
             <a href="about.html">About</a>
             <a href="account-page.html">Account</a>
+            <a href="login-signup.html">Login</a>
         </nav>
     </header>
 
     <main class="container">
         <section class="hero">
-            <h1>Python Installation Guide</h1>
-            <p>
-                Follow these steps in order to set up Python, verify your installation,
-                and get ready to start running code locally.
-            </p>
+            <div class="crumbs">
+                <a href="index.html">Home</a>
+                <span>&rsaquo;</span>
+                <a href="learn.html">Learn</a>
+                <span>&rsaquo;</span>
+                <a id="hubLink" href="language-page.html">Language Hub</a>
+                <span>&rsaquo;</span>
+                <span>Installation</span>
+            </div>
+            <h1 id="heroTitle">Installation Guide</h1>
+            <p id="heroText"></p>
+            <div class="actions">
+                <a class="action-link" id="tutorialLink" href="tutorial.html">Open Tutorial</a>
+                <a class="action-link" id="docsLink" href="documentation.html">Open Documentation Guide</a>
+            </div>
         </section>
 
-        <section class="step-list">
-            <article class="step">
-                <h2>Step 1: Check if Python is already installed</h2>
-                <p>Open your terminal and run the following command to see if Python is already available on your machine.</p>
-                <code class="command">python --version</code>
-                <div class="image-placeholder">Terminal screenshot placeholder: expected output example goes here.</div>
-            </article>
-
-            <article class="step">
-                <h2>Step 2: Install Python</h2>
-                <p>If Python is not installed, download it from the official website and complete the installer steps.</p>
-                <div class="link-box">
-                    External download link:
-                    <a href="#">python.org/downloads</a>
-                </div>
-            </article>
-
-            <article class="step">
-                <h2>Step 3: Verify pip</h2>
-                <p>After installation, confirm that the package installer is also available.</p>
-                <code class="command">pip --version</code>
-            </article>
-
-            <article class="step">
-                <h2>Step 4: Create a project folder</h2>
-                <p>Make a clean folder for your coursework or practice files.</p>
-                <code class="command">mkdir my-python-project
-cd my-python-project</code>
-            </article>
-
-            <article class="step">
-                <h2>Step 5: Run your first test file</h2>
-                <p>Create a file called <strong>hello.py</strong> and run it to confirm the environment works.</p>
-                <code class="command">python hello.py</code>
-                <div class="image-placeholder">Image placeholder: show expected output after successfully running the file.</div>
-            </article>
-        </section>
+        <section class="step-list" id="stepList"></section>
     </main>
 
-    <footer>&copy; 2026 CodeMap | Installation Page</footer>
+    <footer>&copy; 2026 CodeMap | Installation</footer>
+
+    <script src="language-data.js"></script>
+    <script>
+    (function() {
+        const all = window.CODEMAP_LANGUAGES || {};
+        const params = new URLSearchParams(window.location.search);
+        const savedLang = localStorage.getItem('codemap_last_lang');
+        const requested = (params.get('lang') || savedLang || 'python').toLowerCase();
+        const key = all[requested] ? requested : 'python';
+        const lang = all[key];
+        localStorage.setItem('codemap_last_lang', key);
+
+        function pageLink(page) {
+            return page + '?lang=' + encodeURIComponent(key);
+        }
+
+        document.title = 'CodeMap | ' + lang.label + ' Installation';
+        document.getElementById('heroTitle').textContent = lang.install?.heroTitle || (lang.label + ' Installation Guide');
+        document.getElementById('heroText').textContent = lang.install?.heroText || '';
+        document.getElementById('hubLink').textContent = lang.label;
+        document.getElementById('hubLink').href = pageLink('language-page.html');
+        document.getElementById('tutorialLink').href = pageLink('tutorial.html');
+        document.getElementById('docsLink').href = pageLink('documentation.html');
+
+        const steps = lang.install?.steps || [];
+        document.getElementById('stepList').innerHTML = steps.map((step) => `
+            <article class="step">
+                <h2>${step.title}</h2>
+                <p>${step.text || ''}</p>
+                ${step.command ? `<code class="command">${step.command.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code>` : ''}
+            </article>
+        `).join('');
+    })();
+    </script>
 </body>
 </html>

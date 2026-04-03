@@ -8,8 +8,6 @@
         :root {
             --bg-dark: #161D26;
             --bg-accent: #273240;
-            --panel: #1d2632;
-            --border: #364558;
             --primary-blue: #52C5F2;
             --primary-salmon: #F27D72;
             --text-off-white: #F6F2E6;
@@ -17,15 +15,21 @@
             --green: #77d99a;
             --gold: #f3c76d;
             --purple: #b88cf6;
+            --border: rgba(255,255,255,0.07);
         }
 
         * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            background: var(--bg-dark);
+            background:
+                radial-gradient(ellipse at bottom right, rgba(242,125,114,0.06), transparent 40%),
+                var(--bg-dark);
             color: var(--text-off-white);
             font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         h1, h2, h3, .logo, .btn {
@@ -41,145 +45,243 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid var(--border);
         }
 
-        .logo {
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-size: 1.8rem;
-        }
+        .logo { color: var(--primary-blue); text-decoration: none; font-size: 1.8rem; }
 
-        nav {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: var(--text-off-white);
-            text-decoration: none;
-        }
-
-        nav a.active,
-        nav a:hover {
-            color: var(--primary-salmon);
-        }
+        nav { display: flex; gap: 2rem; flex-wrap: wrap; }
+        nav a { color: var(--text-off-white); text-decoration: none; }
+        nav a.active, nav a:hover { color: var(--primary-salmon); }
 
         .container {
             width: min(1150px, 92vw);
             margin: 0 auto;
-            padding: 3rem 0;
+            padding: 3rem 0 4rem;
+            flex: 1;
         }
 
-        .intro {
-            margin-bottom: 2rem;
-        }
+        /* ── INTRO ── */
+        .intro { margin-bottom: 2.5rem; }
 
         .intro h1 {
-            margin: 0 0 0.8rem;
-            font-size: clamp(2.1rem, 4vw, 3.4rem);
+            margin: 0 0 0.7rem;
+            font-size: clamp(2rem, 4vw, 3.2rem);
         }
 
         .intro p {
             margin: 0;
             color: var(--muted);
-            max-width: 62ch;
+            max-width: 60ch;
             line-height: 1.7;
         }
 
-        .list {
-            display: grid;
-            gap: 1.2rem;
+        /* ── QUICK STATS ROW ── */
+        .quick-stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
         }
+
+        .stat-pill {
+            background: rgba(82,197,242,0.08);
+            border: 1px solid rgba(82,197,242,0.18);
+            border-radius: 999px;
+            padding: 0.5rem 1.1rem;
+            font-size: 0.85rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .stat-pill span { opacity: 0.7; font-weight: 400; }
+
+        /* ── SECTION HEADER ── */
+        .section-label {
+            font-family: "din-2014", sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        /* ── LESSON CARDS ── */
+        .list { display: grid; gap: 1.2rem; margin-bottom: 2.5rem; }
 
         .lesson-card {
             background: linear-gradient(180deg, rgba(39,50,64,0.96), rgba(22,29,38,0.98));
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 18px;
-            padding: 1.4rem;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.6rem;
             display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 1rem;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.4rem;
             align-items: center;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .lesson-card h3 {
-            margin: 0 0 0.35rem;
-            font-size: 1.1rem;
+        .lesson-card::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: var(--card-color, var(--primary-blue));
+            border-radius: 4px 0 0 4px;
         }
 
-        .lesson-card p {
-            margin: 0 0 0.85rem;
+        .lesson-card:hover {
+            border-color: rgba(255,255,255,0.14);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+        }
+
+        .lang-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .lesson-body h3 {
+            margin: 0 0 0.25rem;
+            font-size: 1.15rem;
+        }
+
+        .lesson-body .sub {
             color: var(--muted);
+            font-size: 0.88rem;
+            margin: 0 0 0.8rem;
         }
 
         .meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.8rem;
+            gap: 0.9rem;
             color: var(--muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.8rem;
+            font-size: 0.83rem;
+            margin-bottom: 0.85rem;
+            align-items: center;
         }
 
-        .progress-wrap {
-            display: grid;
-            gap: 0.45rem;
+        .meta-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--muted);
+            opacity: 0.4;
         }
+
+        .progress-wrap { display: grid; gap: 0.4rem; }
 
         .progress-top {
             display: flex;
             justify-content: space-between;
-            font-size: 0.92rem;
+            font-size: 0.85rem;
         }
+        .progress-top .pct { font-weight: 700; color: var(--card-color, var(--primary-blue)); }
 
         .progress-bar {
-            height: 12px;
+            height: 10px;
             border-radius: 999px;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.07);
             overflow: hidden;
         }
 
         .fill {
             height: 100%;
             border-radius: inherit;
+            background: linear-gradient(90deg, var(--card-color, var(--primary-blue)), var(--card-color-light, #93e7ff));
+            transition: width 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-
-        .blue { width: 78%; background: linear-gradient(90deg, var(--primary-blue), #93e7ff); }
-        .green { width: 52%; background: linear-gradient(90deg, var(--green), #b9efca); }
-        .gold { width: 41%; background: linear-gradient(90deg, var(--gold), #f7dd9d); }
-        .purple { width: 29%; background: linear-gradient(90deg, var(--purple), #d8c5ff); }
 
         .btn {
             text-decoration: none;
-            padding: 0.9rem 1rem;
+            padding: 0.85rem 1.1rem;
             border-radius: 12px;
             background: var(--primary-salmon);
             color: var(--bg-dark);
             white-space: nowrap;
+            align-self: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 0.82rem;
         }
+
+        .btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 6px 20px rgba(242,125,114,0.35);
+        }
+
+        /* ── COMPLETE BADGES ── */
+        .completed-section { margin-top: 1rem; }
+
+        .completed-list { display: grid; gap: 1rem; }
+
+        .completed-card {
+            background: linear-gradient(180deg, rgba(39,50,64,0.7), rgba(22,29,38,0.8));
+            border: 1px solid rgba(119,217,154,0.15);
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .completed-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .completed-card h3 { margin: 0 0 0.2rem; font-size: 0.98rem; opacity: 0.7; }
+        .completed-card p { margin: 0; color: var(--green); font-size: 0.85rem; font-weight: 600; }
+
+        /* ── EMPTY / NO LESSONS ── */
+        .empty-wrap {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--muted);
+        }
+
+        .empty-wrap .emoji { font-size: 3rem; margin-bottom: 1rem; }
+        .empty-wrap h2 { margin: 0 0 0.7rem; font-size: 1.4rem; }
+        .empty-wrap p { margin: 0 0 1.8rem; max-width: 44ch; margin-left: auto; margin-right: auto; line-height: 1.7; }
+
+        .btn-outline {
+            text-decoration: none;
+            padding: 0.85rem 1.5rem;
+            border-radius: 12px;
+            border: 1.5px solid rgba(82,197,242,0.4);
+            color: var(--primary-blue);
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.82rem;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .btn-outline:hover { background: rgba(82,197,242,0.08); border-color: var(--primary-blue); }
 
         footer {
             padding: 2rem 5%;
             text-align: center;
-            color: #8a939d;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #5a6470;
+            border-top: 1px solid var(--border);
         }
 
         @media (max-width: 760px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            nav {
-                gap: 1rem;
-            }
-
-            .lesson-card {
-                grid-template-columns: 1fr;
-            }
+            header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            nav { gap: 1rem; }
+            .lesson-card { grid-template-columns: auto 1fr; }
+            .lesson-card .btn { grid-column: 1 / -1; text-align: center; }
         }
     </style>
 </head>
@@ -195,94 +297,235 @@
         </nav>
     </header>
 
-    <main class="container">
-        <section class="intro">
-            <h1>Continue where you left off.</h1>
-            <p>
-                Jump back into recent lessons without digging through menus. Your most recently
-                visited tutorials appear here with current completion progress.
-            </p>
-        </section>
-
-        <section class="list">
-            <article class="lesson-card">
-                <div>
-                    <h3>C++ Pointers and Memory</h3>
-                    <p>Advanced Data Structures support path</p>
-                    <div class="meta">
-                        <span>Last visited: 2 days ago</span>
-                        <span>Lesson 8 of 12</span>
-                    </div>
-                    <div class="progress-wrap">
-                        <div class="progress-top">
-                            <span>Progress</span>
-                            <span>78%</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill blue"></div></div>
-                    </div>
-                </div>
-                <a class="btn" href="tutorial.html">Resume</a>
-            </article>
-
-            <article class="lesson-card">
-                <div>
-                    <h3>Python Data Cleaning Basics</h3>
-                    <p>Intro scripting and data tools</p>
-                    <div class="meta">
-                        <span>Last visited: yesterday</span>
-                        <span>Lesson 5 of 10</span>
-                    </div>
-                    <div class="progress-wrap">
-                        <div class="progress-top">
-                            <span>Progress</span>
-                            <span>52%</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill green"></div></div>
-                    </div>
-                </div>
-                <a class="btn" href="tutorial.html">Resume</a>
-            </article>
-
-            <article class="lesson-card">
-                <div>
-                    <h3>MATLAB State Feedback Models</h3>
-                    <p>Control systems review path</p>
-                    <div class="meta">
-                        <span>Last visited: 4 days ago</span>
-                        <span>Lesson 4 of 9</span>
-                    </div>
-                    <div class="progress-wrap">
-                        <div class="progress-top">
-                            <span>Progress</span>
-                            <span>41%</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill gold"></div></div>
-                    </div>
-                </div>
-                <a class="btn" href="tutorial.html">Resume</a>
-            </article>
-
-            <article class="lesson-card">
-                <div>
-                    <h3>ROS2 Node Integration</h3>
-                    <p>Robotics package and communication workflow</p>
-                    <div class="meta">
-                        <span>Last visited: 1 week ago</span>
-                        <span>Lesson 3 of 11</span>
-                    </div>
-                    <div class="progress-wrap">
-                        <div class="progress-top">
-                            <span>Progress</span>
-                            <span>29%</span>
-                        </div>
-                        <div class="progress-bar"><div class="fill purple"></div></div>
-                    </div>
-                </div>
-                <a class="btn" href="tutorial.html">Resume</a>
-            </article>
-        </section>
+    <main class="container" id="mainContent">
+        <!-- Filled by JS -->
     </main>
 
-    <footer>&copy; 2026 CodeMap | Continue Lesson Page</footer>
+    <footer>&copy; 2026 CodeMap | Continue Learning</footer>
+
+    <script>
+    /* ─────────────────────────────────────────────────────────────
+       LANGUAGE DEFINITIONS
+    ───────────────────────────────────────────────────────────── */
+    const LANG_META = {
+        python: {
+            label: "Python",
+            icon: "🐍",
+            sub: "Intro scripting & data tools",
+            lessons: ["Variables & Data Types", "Control Flow", "Functions", "Lists & Dicts",
+                      "File I/O", "Data Cleaning Basics", "Libraries (NumPy, Pandas)", "Error Handling",
+                      "OOP Basics", "Final Project"],
+            color: "#52C5F2",
+            colorLight: "#93e7ff"
+        },
+        cpp: {
+            label: "C++",
+            icon: "⚙️",
+            sub: "Advanced Data Structures",
+            lessons: ["Syntax Basics", "Functions & Scope", "Arrays & Strings", "Pointers",
+                      "Dynamic Memory", "Classes & Objects", "Inheritance", "Pointers and Memory",
+                      "Linked Lists", "Templates", "STL", "Final Project"],
+            color: "#F27D72",
+            colorLight: "#ffb5b0"
+        },
+        matlab: {
+            label: "MATLAB",
+            icon: "📐",
+            sub: "Control systems & modeling",
+            lessons: ["MATLAB Basics", "Vectors & Matrices", "Plotting", "Loops & Conditions",
+                      "Functions", "Laplace Transforms", "Transfer Functions", "State Feedback Models",
+                      "PID Control", "Final Project"],
+            color: "#f3c76d",
+            colorLight: "#f7dd9d"
+        },
+        ros2: {
+            label: "ROS2",
+            icon: "🤖",
+            sub: "Robotics middleware & workflows",
+            lessons: ["ROS2 Overview", "Installing & Workspace Setup", "Node Integration",
+                      "Topics & Messages", "Services & Clients", "Launch Files",
+                      "Parameters", "TF2 Transforms", "Navigation Stack", "Final Lab", "Integration Project"],
+            color: "#b88cf6",
+            colorLight: "#d8c5ff"
+        },
+        java: {
+            label: "Java",
+            icon: "☕",
+            sub: "Object-oriented programming",
+            lessons: ["Java Basics", "Classes & Objects", "Inheritance", "Interfaces",
+                      "Collections", "Exception Handling", "I/O Streams", "Generics", "Final Project"],
+            color: "#77d99a",
+            colorLight: "#b9efca"
+        },
+        javascript: {
+            label: "JavaScript",
+            icon: "⚡",
+            sub: "Web development & UI",
+            lessons: ["JS Basics", "DOM Manipulation", "Events", "Functions & Scope",
+                      "Arrays & Objects", "Fetch API", "Async/Await", "Modules", "Final Project"],
+            color: "#f3c76d",
+            colorLight: "#f7e0a0"
+        }
+    };
+
+    /* ─────────────────────────────────────────────────────────────
+       AUTH
+    ───────────────────────────────────────────────────────────── */
+    const CURRENT_USER_KEY = "codemap_current_user";
+
+    function getCurrentUser() {
+        const raw = sessionStorage.getItem(CURRENT_USER_KEY) || localStorage.getItem(CURRENT_USER_KEY);
+        if (!raw) return null;
+        try { return JSON.parse(raw); } catch { return null; }
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       HELPERS
+    ───────────────────────────────────────────────────────────── */
+    function pctToLesson(pct, totalLessons) {
+        // convert % completion to lesson number
+        return Math.max(1, Math.round((pct / 100) * totalLessons));
+    }
+
+    function daysAgoLabel(langKey) {
+        // Simulate "last visited" labels — in a real app this would be stored
+        const fake = { python: "yesterday", cpp: "2 days ago", matlab: "4 days ago", ros2: "1 week ago", java: "3 days ago", javascript: "5 days ago" };
+        return fake[langKey] || "recently";
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       RENDER
+    ───────────────────────────────────────────────────────────── */
+    function render(user) {
+        const progress = user.progress || {};
+        const firstName = user.firstName || "Student";
+        const main = document.getElementById("mainContent");
+
+        // Separate active (in progress) from complete (100%)
+        const active = [];
+        const complete = [];
+
+        Object.entries(progress).forEach(([key, val]) => {
+            const pct = Math.max(0, Math.min(100, Number(val)||0));
+            if (pct <= 0) return;
+            if (pct >= 100) complete.push({ key, pct });
+            else active.push({ key, pct });
+        });
+
+        // Sort active: highest progress first
+        active.sort((a, b) => b.pct - a.pct);
+
+        // ── EMPTY STATE
+        if (!active.length && !complete.length) {
+            main.innerHTML = `
+                <section class="intro">
+                    <h1>Continue where you left off.</h1>
+                    <p>Your in-progress lessons will appear here once you start a path.</p>
+                </section>
+                <div class="empty-wrap">
+                    <div class="emoji">📚</div>
+                    <h2>Nothing started yet</h2>
+                    <p>Head to the Learn page to pick a language and start your first lesson, ${firstName}.</p>
+                    <a href="learn.html" class="btn-outline">Browse Languages</a>
+                </div>
+            `;
+            return;
+        }
+
+        // ── ACTIVE LESSONS
+        const totalActive = active.reduce((s, l) => s + l.pct, 0);
+        const avgPct = active.length ? Math.round(totalActive / active.length) : 0;
+
+        const statsHTML = `
+            <div class="quick-stats">
+                <div class="stat-pill">${active.length} <span>language${active.length !== 1 ? "s" : ""} in progress</span></div>
+                <div class="stat-pill">${avgPct}% <span>average completion</span></div>
+                ${complete.length ? `<div class="stat-pill">${complete.length} <span>completed</span></div>` : ""}
+            </div>
+        `;
+
+        const activeCardsHTML = active.map(({ key, pct }) => {
+            const meta = LANG_META[key];
+            if (!meta) return "";
+
+            const totalLessons = meta.lessons.length;
+            const currentLesson = pctToLesson(pct, totalLessons);
+            const lessonName = meta.lessons[Math.min(currentLesson - 1, totalLessons - 1)];
+
+            return `
+                <article class="lesson-card" style="--card-color:${meta.color}; --card-color-light:${meta.colorLight}">
+                    <div class="lang-icon">${meta.icon}</div>
+                    <div class="lesson-body">
+                        <h3>${meta.label}</h3>
+                        <p class="sub">${meta.sub}</p>
+                        <div class="meta">
+                            <span>Last visited: ${daysAgoLabel(key)}</span>
+                            <span class="meta-dot"></span>
+                            <span>Lesson ${currentLesson} of ${totalLessons}</span>
+                            <span class="meta-dot"></span>
+                            <span>${lessonName}</span>
+                        </div>
+                        <div class="progress-wrap">
+                            <div class="progress-top">
+                                <span>Progress</span>
+                                <span class="pct">${pct}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="fill" style="width:${pct}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn" href="tutorial.html?lang=${encodeURIComponent(key)}">Resume</a>
+                </article>
+            `;
+        }).join("");
+
+        // ── COMPLETED COURSES
+        const completedHTML = complete.length ? `
+            <section class="completed-section">
+                <p class="section-label">Completed</p>
+                <div class="completed-list">
+                    ${complete.map(({ key }) => {
+                        const meta = LANG_META[key] || { label: key.toUpperCase(), icon: "✅", sub: "" };
+                        return `
+                            <div class="completed-card">
+                                <div class="completed-icon">${meta.icon}</div>
+                                <div>
+                                    <h3>${meta.label}</h3>
+                                    <p>✓ All lessons completed · 100%</p>
+                                </div>
+                            </div>
+                        `;
+                    }).join("")}
+                </div>
+            </section>
+        ` : "";
+
+        main.innerHTML = `
+            <section class="intro">
+                <h1>Continue where you left off, ${firstName}.</h1>
+                <p>Jump back into your most recent lessons. Your progress is saved automatically.</p>
+            </section>
+            ${statsHTML}
+            ${active.length ? `<p class="section-label">In Progress</p>` : ""}
+            <section class="list">${activeCardsHTML}</section>
+            ${completedHTML}
+        `;
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       INIT
+    ───────────────────────────────────────────────────────────── */
+    const user = getCurrentUser();
+    if (!user) {
+        // Not logged in — show demo data
+        render({
+            firstName: "Guest",
+            progress: { cpp: 78, python: 52, matlab: 41, ros2: 29 }
+        });
+    } else {
+        render(user);
+    }
+    </script>
 </body>
 </html>

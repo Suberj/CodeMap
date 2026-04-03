@@ -261,11 +261,11 @@
             <a href="learn.html" class="cta-button">Start Your Journey</a>
         </section>
 
-        <section class="continue-section">
-            <div class="continue-card">
+        <section class="continue-section" id="continueSection" style="display:none">
+            <div class="continue-card" id="continueCard" style="cursor:pointer" onclick="window.location.href='continue-lesson.html'">
                 <div class="continue-info">
-                    <h2>Continue: C++ Pointers</h2>
-                    <p>Current Lesson: Advanced Data Structures</p>
+                    <h2 id="continueTitle">Continue Learning</h2>
+                    <p id="continueSub">Pick up where you left off</p>
                 </div>
                 <a href="continue-lesson.html" class="resume-btn">Resume</a>
             </div>
@@ -298,6 +298,47 @@
     <footer>
         <p>&copy; 2026 CodeMap | Designed for Academic Success at RPI</p>
     </footer>
+
+
+    <script>
+    (function() {
+        const CURRENT_USER_KEY = "codemap_current_user";
+        const LANG_META = {
+            python: { label: "Python", icon: "🐍", sub: "Intro scripting & data tools" },
+            cpp:    { label: "C++",    icon: "⚙️", sub: "Advanced Data Structures" },
+            matlab: { label: "MATLAB", icon: "📐", sub: "Control systems & modeling" },
+            ros2:   { label: "ROS2",   icon: "🤖", sub: "Robotics middleware" },
+            java:   { label: "Java",   icon: "☕", sub: "Object-oriented programming" },
+            javascript: { label: "JavaScript", icon: "⚡", sub: "Web development & UI" }
+        };
+
+        const raw = sessionStorage.getItem(CURRENT_USER_KEY) || localStorage.getItem(CURRENT_USER_KEY);
+        if (!raw) return;
+        try {
+            const user = JSON.parse(raw);
+            const progress = user.progress || {};
+            const active = Object.entries(progress)
+                .filter(([,v]) => Number(v) > 0 && Number(v) < 100)
+                .sort(([,a],[,b]) => b - a);
+
+            if (!active.length) return;
+
+            const [topKey, topPct] = active[0];
+            const meta = LANG_META[topKey] || { label: topKey.toUpperCase(), icon: "📌", sub: "" };
+
+            document.getElementById("continueTitle").textContent = "Continue: " + meta.icon + " " + meta.label;
+            document.getElementById("continueSub").textContent = topPct + "% complete · " + meta.sub;
+            document.getElementById("continueSection").style.display = "";
+
+            // Update nav login link if logged in
+            const loginLink = document.querySelector('nav a[href="login-signup.html"]');
+            if (loginLink) {
+                loginLink.textContent = "Account";
+                loginLink.href = "account-page.html";
+            }
+        } catch(e) {}
+    })();
+    </script>
 
 </body>
 </html>

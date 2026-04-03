@@ -15,18 +15,25 @@
             --text-off-white: #F6F2E6;
             --muted: #AAB4C0;
             --success: #7fe0a2;
+            --warning: #f3c76d;
+            --danger: #f28a82;
         }
 
         * { box-sizing: border-box; }
 
+        html { scroll-behavior: smooth; }
+
         body {
             margin: 0;
-            background: var(--bg-dark);
+            background:
+                radial-gradient(circle at top left, rgba(82,197,242,0.08), transparent 18%),
+                radial-gradient(circle at bottom right, rgba(242,125,114,0.06), transparent 20%),
+                var(--bg-dark);
             color: var(--text-off-white);
             font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
         }
 
-        h1, h2, h3, .logo, .btn {
+        h1, h2, h3, .logo, .btn, .lesson-tag, .progress-chip, .mini-pill {
             font-family: "din-2014", sans-serif;
             font-weight: 700;
             text-transform: uppercase;
@@ -39,6 +46,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
         .logo {
@@ -58,39 +66,46 @@
             text-decoration: none;
         }
 
-        nav a:hover {
+        nav a:hover,
+        nav a.active {
             color: var(--primary-salmon);
         }
 
         .container {
-            width: min(1100px, 92vw);
+            width: min(1120px, 92vw);
             margin: 0 auto;
             padding: 3rem 0;
             display: grid;
-            gap: 1.8rem;
+            gap: 1.6rem;
+        }
+
+        .hero {
+            display: grid;
+            gap: 1rem;
         }
 
         .hero h1 {
-            margin: 0 0 0.8rem;
-            font-size: clamp(2.1rem, 4vw, 3.3rem);
+            margin: 0;
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
         }
 
         .hero p {
             margin: 0;
-            max-width: 64ch;
+            max-width: 68ch;
             color: var(--muted);
-            line-height: 1.7;
+            line-height: 1.75;
         }
 
         .panel {
-            background: linear-gradient(180deg, rgba(39,50,64,0.95), rgba(22,29,38,0.98));
+            background: linear-gradient(180deg, rgba(39,50,64,0.96), rgba(22,29,38,0.99));
             border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 1.5rem;
+            box-shadow: 0 14px 30px rgba(0,0,0,0.22);
         }
 
         .panel h2 {
-            margin-top: 0;
+            margin: 0 0 0.85rem;
             color: var(--primary-salmon);
         }
 
@@ -100,32 +115,217 @@
             line-height: 1.7;
         }
 
-        .video-placeholder,
-        .diagram-placeholder {
-            border: 1px dashed rgba(255,255,255,0.18);
-            border-radius: 14px;
-            padding: 2rem;
-            text-align: center;
-            color: #8d98a5;
-            background: rgba(255,255,255,0.02);
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 1.2rem;
+        }
+
+        .lesson-tag {
+            display: inline-flex;
+            width: fit-content;
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(82,197,242,0.1);
+            border: 1px solid rgba(82,197,242,0.18);
+            color: var(--primary-blue);
+            font-size: 0.78rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .mini-pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .mini-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.55rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-off-white);
+            font-size: 0.76rem;
+        }
+
+        .progress-panel {
+            background: linear-gradient(135deg, rgba(82,197,242,0.08), rgba(22,29,38,0.98));
+            border: 1px solid rgba(82,197,242,0.18);
+        }
+
+        .progress-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .progress-head h2 {
+            margin: 0;
+            color: var(--primary-blue);
+        }
+
+        .progress-chip {
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            color: var(--bg-dark);
+            background: var(--primary-blue);
+        }
+
+        .progress-track {
+            height: 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            overflow: hidden;
+            margin-bottom: 0.7rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #52C5F2, #93e7ff);
+            transition: width 0.5s ease;
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .roadmap {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .roadmap-card {
+            background: rgba(8,13,20,0.4);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1rem;
+        }
+
+        .roadmap-card h3 {
+            margin: 0 0 0.45rem;
+            color: var(--primary-blue);
+            font-size: 0.98rem;
+        }
+
+        .roadmap-card p {
+            margin: 0 0 0.7rem;
+            font-size: 0.9rem;
+        }
+
+        .roadmap-state {
+            font-size: 0.8rem;
+            color: var(--warning);
+        }
+
+        .roadmap-card.completed {
+            border-color: rgba(127,224,162,0.28);
+            background: linear-gradient(180deg, rgba(127,224,162,0.08), rgba(8,13,20,0.35));
+        }
+
+        .roadmap-card.completed .roadmap-state {
+            color: var(--success);
+        }
+
+        .lesson-section {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .lesson-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .lesson-head h2 {
+            margin-bottom: 0.25rem;
+        }
+
+        .section-badge {
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            background: rgba(243,199,109,0.12);
+            border: 1px solid rgba(243,199,109,0.18);
+            color: var(--warning);
+            white-space: nowrap;
+        }
+
+        .section-badge.completed {
+            background: rgba(127,224,162,0.12);
+            border-color: rgba(127,224,162,0.2);
+            color: var(--success);
+        }
+
+        .lesson-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.1rem;
+        }
+
+        .explain-box,
+        .practice-box,
+        .code-box,
+        .tip-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            padding: 1.1rem;
+        }
+
+        .explain-box h3,
+        .practice-box h3,
+        .code-box h3,
+        .tip-box h3 {
+            margin: 0 0 0.7rem;
+            color: var(--primary-blue);
+            font-size: 0.95rem;
+        }
+
+        .code-box pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: "Courier New", monospace;
+            font-size: 0.94rem;
+            line-height: 1.65;
+            color: var(--text-off-white);
         }
 
         .question-grid {
             display: grid;
-            gap: 1rem;
+            gap: 0.9rem;
         }
 
         .question {
             padding: 1rem;
             border-radius: 14px;
-            background: rgba(8,13,20,0.44);
+            background: rgba(8,13,20,0.45);
             border: 1px solid var(--border);
         }
 
         .question label {
             display: block;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.55rem;
             font-weight: 700;
+            color: var(--text-off-white);
         }
 
         .question input {
@@ -135,33 +335,153 @@
             border: 1px solid var(--border);
             background: rgba(255,255,255,0.04);
             color: var(--text-off-white);
+            font-size: 0.96rem;
+        }
+
+        .question input:focus {
+            outline: 2px solid rgba(82,197,242,0.3);
+            outline-offset: 2px;
+        }
+
+        .question.completed {
+            border-color: rgba(127,224,162,0.22);
+            background: rgba(127,224,162,0.06);
+        }
+
+        .answer-display {
+            display: none;
+            margin-top: 0.7rem;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(127,224,162,0.22);
+            background: rgba(127,224,162,0.08);
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .answer-display.show {
+            display: flex;
+        }
+
+        .answer-label {
+            color: var(--muted);
+            font-size: 0.82rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .answer-text {
+            color: var(--text-off-white);
+            font-weight: 700;
+            font-size: 1rem;
+            word-break: break-word;
+        }
+
+        .answer-check {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(127,224,162,0.12);
+            border: 1px solid rgba(127,224,162,0.22);
+            color: var(--success);
+            white-space: nowrap;
+            font-size: 0.78rem;
+            font-weight: 700;
         }
 
         .status {
-            margin-top: 0.75rem;
+            margin-top: 0.7rem;
             padding: 0.75rem 0.9rem;
             border-radius: 10px;
-            background: rgba(127,224,162,0.10);
-            border: 1px solid rgba(127,224,162,0.20);
-            color: var(--success);
             font-size: 0.92rem;
+            display: none;
+            border: 1px solid transparent;
+        }
+
+        .status.success {
+            background: rgba(127,224,162,0.1);
+            border-color: rgba(127,224,162,0.22);
+            color: var(--success);
+            display: block;
+        }
+
+        .status.error {
+            background: rgba(242,125,114,0.08);
+            border-color: rgba(242,125,114,0.22);
+            color: var(--danger);
+            display: block;
+        }
+
+        .status.neutral {
+            background: rgba(170,180,192,0.08);
+            border-color: rgba(170,180,192,0.2);
+            color: var(--muted);
+            display: block;
+        }
+
+        .section-score {
+            margin-top: 1rem;
+            padding: 0.95rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-off-white);
+            display: none;
+        }
+
+        .section-score.show { display: block; }
+
+        .study-list {
+            display: grid;
+            gap: 0.9rem;
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+
+        .study-note {
+            margin-top: 1rem;
+            padding: 1rem 1.1rem;
+            border-radius: 12px;
+            background: rgba(82,197,242,0.08);
+            border: 1px solid rgba(82,197,242,0.18);
+            color: var(--text-off-white);
+        }
+
+        .final-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .btn {
             display: inline-block;
-            margin-top: 1rem;
             padding: 0.9rem 1rem;
             border-radius: 12px;
             background: var(--primary-salmon);
             color: var(--bg-dark);
             text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.92rem;
         }
 
-        .resources a {
-            display: block;
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn[disabled] {
+            opacity: 0.7;
+            cursor: default;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
             color: var(--primary-blue);
-            text-decoration: none;
-            margin-bottom: 0.6rem;
+            border: 1px solid rgba(82,197,242,0.28);
         }
 
         footer {
@@ -169,6 +489,17 @@
             padding: 2rem 5%;
             color: #8a939d;
             border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        @media (max-width: 980px) {
+            .intro-grid,
+            .lesson-content {
+                grid-template-columns: 1fr;
+            }
+
+            .roadmap {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
 
         @media (max-width: 720px) {
@@ -181,6 +512,17 @@
             nav {
                 gap: 1rem;
             }
+
+            .roadmap {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-head,
+            .lesson-head,
+            .progress-meta {
+                align-items: flex-start;
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -189,70 +531,715 @@
         <a class="logo" href="index.html">CodeMap</a>
         <nav>
             <a href="index.html">Home</a>
-            <a href="learn.html">Learn</a>
+            <a href="learn.html" class="active">Learn</a>
             <a href="about.html">About</a>
             <a href="account-page.html">Account</a>
         </nav>
     </header>
 
     <main class="container">
+        <nav class="breadcrumb" style="display:flex;gap:0.5rem;align-items:center;color:var(--muted);font-size:0.88rem;">
+            <a href="learn.html" style="color:var(--primary-blue);text-decoration:none;">Learn</a>
+            <span>›</span>
+            <a href="language-page.html" style="color:var(--primary-blue);text-decoration:none;">Python</a>
+            <span>›</span>
+            <span>Variables &amp; Data Types</span>
+        </nav>
+
         <section class="hero">
+            <span class="lesson-tag">Python Tutorial</span>
             <h1>Python Variables and Data Types</h1>
             <p>
-                This lesson introduces variables, naming, and common data types.
-                Review the explanation, study the diagram, and answer the short questions below.
+                This tutorial is now broken into four mini lessons so students can move in smaller steps.
+                Each mini lesson teaches one idea, checks understanding, and adds to the overall completion bar.
             </p>
         </section>
 
-        <section class="panel">
-            <h2>Lesson Overview</h2>
-            <p>
-                Variables store values so your program can use and update them later.
-                Common beginner data types include integers, floating point numbers, strings, and booleans.
-            </p>
-        </section>
-
-        <section class="panel">
-            <h2>Video / Walkthrough</h2>
-            <div class="video-placeholder">Embedded video placeholder</div>
-        </section>
-
-        <section class="panel">
-            <h2>Diagram</h2>
-            <div class="diagram-placeholder">Concept diagram placeholder: variable name → value → data type</div>
-        </section>
-
-        <section class="panel">
-            <h2>Practice Questions</h2>
-            <div class="question-grid">
-                <div class="question">
-                    <label for="q1">1. What data type is the value 42?</label>
-                    <input id="q1" type="text" placeholder="Type your answer here" />
-                    <div class="status">Correct state example: integer</div>
-                </div>
-
-                <div class="question">
-                    <label for="q2">2. What data type is "hello"?</label>
-                    <input id="q2" type="text" placeholder="Type your answer here" />
-                </div>
-
-                <div class="question">
-                    <label for="q3">3. Write a variable name that stores a student's major.</label>
-                    <input id="q3" type="text" placeholder="Type your answer here" />
+        <section class="intro-grid">
+            <div class="panel">
+                <h2>What Students Will Learn</h2>
+                <p>
+                    Students will learn what variables do, how Python stores different kinds of data,
+                    how to name variables clearly, and how to read simple assignment statements.
+                </p>
+                <div class="mini-pill-row">
+                    <span class="mini-pill">1. Variable Basics</span>
+                    <span class="mini-pill">2. Data Types</span>
+                    <span class="mini-pill">3. Naming Rules</span>
+                    <span class="mini-pill">4. Reading Code</span>
                 </div>
             </div>
 
-            <a class="btn" href="#">Run / Check Answers</a>
+            <section class="panel progress-panel">
+                <div class="progress-head">
+                    <h2>Your Progress — Python</h2>
+                    <span class="progress-chip" id="lessonPctLabel">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="lessonProgressBar"></div>
+                </div>
+                <div class="progress-meta">
+                    <span id="lessonStatusMsg">Complete each mini lesson to build your progress.</span>
+                    <span id="completionCount">0 of 4 mini lessons complete</span>
+                </div>
+            </section>
         </section>
 
-        <section class="panel resources">
-            <h2>Supplemental Materials</h2>
-            <a href="#">Python official tutorial</a>
-            <a href="#">Variable naming rules cheat sheet</a>
-            <a href="#">Beginner debugging tips</a>
+        <section class="panel">
+            <h2>Lesson Path</h2>
+            <div class="roadmap">
+                <div class="roadmap-card" id="roadmap-lesson1">
+                    <h3>Mini Lesson 1</h3>
+                    <p>Understand what a variable is and how assignment works.</p>
+                    <div class="roadmap-state" id="roadmap-state-lesson1">In progress</div>
+                </div>
+                <div class="roadmap-card" id="roadmap-lesson2">
+                    <h3>Mini Lesson 2</h3>
+                    <p>Recognize integers, strings, floats, and booleans.</p>
+                    <div class="roadmap-state" id="roadmap-state-lesson2">In progress</div>
+                </div>
+                <div class="roadmap-card" id="roadmap-lesson3">
+                    <h3>Mini Lesson 3</h3>
+                    <p>Use readable variable names that follow Python rules.</p>
+                    <div class="roadmap-state" id="roadmap-state-lesson3">In progress</div>
+                </div>
+                <div class="roadmap-card" id="roadmap-lesson4">
+                    <h3>Mini Lesson 4</h3>
+                    <p>Read short lines of code and decide what they mean.</p>
+                    <div class="roadmap-state" id="roadmap-state-lesson4">In progress</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel lesson-section" id="lesson1">
+            <div class="lesson-head">
+                <div>
+                    <h2>Mini Lesson 1 — Variable Basics</h2>
+                    <p>A variable is a name that points to a value your program wants to remember and use later.</p>
+                </div>
+                <div class="section-badge" id="badge-lesson1">Not completed</div>
+            </div>
+            <div class="lesson-content">
+                <div class="explain-box">
+                    <h3>Key Idea</h3>
+                    <p>
+                        In Python, <code>score = 10</code> means the variable named <code>score</code> is storing the value <code>10</code>.
+                        The equals sign here is used for assignment, not for asking a question.
+                    </p>
+                    <div class="code-box" style="margin-top:1rem;">
+                        <h3>Example</h3>
+                        <pre>name = "Maya"
+age = 14
+score = 10</pre>
+                    </div>
+                </div>
+                <div class="practice-box">
+                    <h3>Quick Check</h3>
+                    <div class="question-grid">
+                        <div class="question">
+                            <label for="l1q1">1. What does a variable store?</label>
+                            <input id="l1q1" type="text" placeholder="Type your answer here" />
+                            <div class="answer-display" id="answer-l1q1"></div>
+                            <div class="status" id="status-l1q1"></div>
+                        </div>
+                        <div class="question">
+                            <label for="l1q2">2. Which symbol is used to assign a value in Python?</label>
+                            <input id="l1q2" type="text" placeholder="Type your answer here" />
+                            <div class="answer-display" id="answer-l1q2"></div>
+                            <div class="status" id="status-l1q2"></div>
+                        </div>
+                    </div>
+                    <button class="btn" id="btn-lesson1" type="button" onclick="checkSection('lesson1')">Check Mini Lesson 1</button>
+                    <div class="section-score" id="score-lesson1"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel lesson-section" id="lesson2">
+            <div class="lesson-head">
+                <div>
+                    <h2>Mini Lesson 2 — Common Data Types</h2>
+                    <p>Python treats numbers, text, and true-or-false values as different kinds of data.</p>
+                </div>
+                <div class="section-badge" id="badge-lesson2">Not completed</div>
+            </div>
+            <div class="lesson-content">
+                <div class="explain-box">
+                    <h3>Key Idea</h3>
+                    <p>
+                        Four beginner data types show up often: integers for whole numbers, floats for decimals,
+                        strings for text, and booleans for true-or-false values.
+                    </p>
+                    <div class="code-box" style="margin-top:1rem;">
+                        <h3>Example</h3>
+                        <pre>lives = 3        # integer
+price = 3.14     # float
+city = "Rome"    # string
+ready = False    # boolean</pre>
+                    </div>
+                </div>
+                <div class="practice-box">
+                    <h3>Quick Check</h3>
+                    <div class="question-grid">
+                        <div class="question">
+                            <label for="l2q1">1. What data type is 3.14?</label>
+                            <input id="l2q1" type="text" placeholder="Type your answer here" />
+                            <div class="answer-display" id="answer-l2q1"></div>
+                            <div class="status" id="status-l2q1"></div>
+                        </div>
+                        <div class="question">
+                            <label for="l2q2">2. What data type is False?</label>
+                            <input id="l2q2" type="text" placeholder="Type your answer here" />
+                            <div class="answer-display" id="answer-l2q2"></div>
+                            <div class="status" id="status-l2q2"></div>
+                        </div>
+                    </div>
+                    <button class="btn" id="btn-lesson2" type="button" onclick="checkSection('lesson2')">Check Mini Lesson 2</button>
+                    <div class="section-score" id="score-lesson2"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel lesson-section" id="lesson3">
+            <div class="lesson-head">
+                <div>
+                    <h2>Mini Lesson 3 — Naming Variables Clearly</h2>
+                    <p>Good variable names help readers understand the purpose of the value immediately.</p>
+                </div>
+                <div class="section-badge" id="badge-lesson3">Not completed</div>
+            </div>
+            <div class="lesson-content">
+                <div class="explain-box">
+                    <h3>Key Idea</h3>
+                    <p>
+                        Python variable names cannot start with a number and cannot include spaces.
+                        A common style is to use lowercase words joined with underscores.
+                    </p>
+                    <div class="code-box" style="margin-top:1rem;">
+                        <h3>Example</h3>
+                        <pre>student_name = "Ava"   # good
+2name = "Ava"          # not valid
+first name = "Ava"     # not valid</pre>
+                    </div>
+                </div>
+                <div class="practice-box">
+                    <h3>Quick Check</h3>
+                    <div class="question-grid">
+                        <div class="question">
+                            <label for="l3q1">1. Which name is valid: student_name, 2name, or first name?</label>
+                            <input id="l3q1" type="text" placeholder="Type your answer here" />
+                            <div class="answer-display" id="answer-l3q1"></div>
+                            <div class="status" id="status-l3q1"></div>
+                        </div>
+                        <div class="question">
+                            <label for="l3q2">2. Which character is often used to join words in Python variable names?</label>
+                            <input id="l3q2" type="text" placeholder="Type your answer here" />
+                            <div class="answer-display" id="answer-l3q2"></div>
+                            <div class="status" id="status-l3q2"></div>
+                        </div>
+                    </div>
+                    <button class="btn" id="btn-lesson3" type="button" onclick="checkSection('lesson3')">Check Mini Lesson 3</button>
+                    <div class="section-score" id="score-lesson3"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel lesson-section" id="lesson4">
+            <div class="lesson-head">
+                <div>
+                    <h2>Mini Lesson 4 — Reading Simple Code</h2>
+                    <p>Students should be able to look at a short line and explain the stored value and the type.</p>
+                </div>
+                <div class="section-badge" id="badge-lesson4">Not completed</div>
+            </div>
+            <div class="lesson-content">
+                <div class="explain-box">
+                    <h3>Key Idea</h3>
+                    <p>
+                        When you read code, identify the variable name first, then the value, then the type.
+                        This keeps students from guessing too fast.
+                    </p>
+                    <div class="code-box" style="margin-top:1rem;">
+                        <h3>Example</h3>
+                        <pre>score = 8
+city = "Rome"</pre>
+                    </div>
+                    <div class="tip-box" style="margin-top:1rem;">
+                        <h3>Reading Strategy</h3>
+                        <p>Ask three short questions: What is the variable called? What value is stored? What kind of value is it?</p>
+                    </div>
+                </div>
+                <div class="practice-box">
+                    <h3>Quick Check</h3>
+                    <div class="question-grid">
+                        <div class="question">
+                            <label for="l4q1">1. In the line score = 8, what value is stored in score?</label>
+                            <input id="l4q1" type="text" placeholder="Type your answer here" />
+                            <div class="answer-display" id="answer-l4q1"></div>
+                            <div class="status" id="status-l4q1"></div>
+                        </div>
+                        <div class="question">
+                            <label for="l4q2">2. In the line city = "Rome", what data type is the value?</label>
+                            <input id="l4q2" type="text" placeholder="Type your answer here" />
+                            <div class="answer-display" id="answer-l4q2"></div>
+                            <div class="status" id="status-l4q2"></div>
+                        </div>
+                    </div>
+                    <button class="btn" id="btn-lesson4" type="button" onclick="checkSection('lesson4')">Check Mini Lesson 4</button>
+                    <div class="section-score" id="score-lesson4"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Study Tips</h2>
+            <ul class="study-list">
+                <li>Have students say the variable name and value out loud before naming the data type.</li>
+                <li>Use very short examples first so students focus on meaning instead of syntax overload.</li>
+                <li>Compare two lines side by side so students can notice the difference between numbers and text.</li>
+                <li>Encourage students to rewrite unclear names into better ones such as <code>student_name</code> or <code>quiz_score</code>.</li>
+            </ul>
+            <div class="study-note">
+                Progress increases when an entire mini lesson is completed correctly. Each mini lesson is worth 25% of the overall tutorial.
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Finish Up</h2>
+            <p>
+                When all four mini lessons are complete, the tutorial reaches 100% and the Python progress saved on the site updates to match.
+            </p>
+            <div class="final-actions">
+                <a class="btn" href="documentation.html">Go to Documentation Guide</a>
+                <button class="btn btn-secondary" type="button" onclick="resetTutorialProgress()">Reset Tutorial Progress</button>
+            </div>
         </section>
     </main>
 
     <footer>&copy; 2026 CodeMap | Tutorial Page</footer>
+
+    <script>
+    const CURRENT_USER_KEY = "codemap_current_user";
+    const USERS_KEY = "codemap_users";
+    const LESSON_KEY = "python";
+    const LESSON_STATE_KEY = "python_variables_data_types";
+    const GUEST_STATE_KEY = "codemap_guest_python_variables_data_types";
+
+    const SECTION_ORDER = ["lesson1", "lesson2", "lesson3", "lesson4"];
+    const SECTION_QUESTION_IDS = {
+        lesson1: ["l1q1", "l1q2"],
+        lesson2: ["l2q1", "l2q2"],
+        lesson3: ["l3q1", "l3q2"],
+        lesson4: ["l4q1", "l4q2"]
+    };
+    const SECTION_BUTTON_LABELS = {
+        lesson1: "Check Mini Lesson 1",
+        lesson2: "Check Mini Lesson 2",
+        lesson3: "Check Mini Lesson 3",
+        lesson4: "Check Mini Lesson 4"
+    };
+    const FALLBACK_ANSWERS = {
+        l1q1: "A value",
+        l1q2: "=",
+        l2q1: "float",
+        l2q2: "boolean",
+        l3q1: "student_name",
+        l3q2: "underscore",
+        l4q1: "8",
+        l4q2: "string"
+    };
+
+    const defaultState = {
+        sections: {
+            lesson1: false,
+            lesson2: false,
+            lesson3: false,
+            lesson4: false
+        },
+        answers: {
+            lesson1: {},
+            lesson2: {},
+            lesson3: {},
+            lesson4: {}
+        }
+    };
+
+    function normalize(value) {
+        return String(value || "")
+            .trim()
+            .toLowerCase()
+            .replace(/["']/g, "");
+    }
+
+    function currentProgressPercentage(state) {
+        const completed = SECTION_ORDER.filter((section) => state.sections[section]).length;
+        return Math.round((completed / SECTION_ORDER.length) * 100);
+    }
+
+    function readCurrentUser() {
+        const sessionRaw = sessionStorage.getItem(CURRENT_USER_KEY);
+        if (sessionRaw) {
+            try {
+                return { user: JSON.parse(sessionRaw), inSession: true };
+            } catch (error) {
+                return null;
+            }
+        }
+
+        const localRaw = localStorage.getItem(CURRENT_USER_KEY);
+        if (localRaw) {
+            try {
+                return { user: JSON.parse(localRaw), inSession: false };
+            } catch (error) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    function saveUserRecord(user, inSession) {
+        if (inSession) {
+            sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+        } else {
+            localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+        }
+
+        const usersRaw = localStorage.getItem(USERS_KEY);
+        if (!usersRaw) return;
+
+        try {
+            const users = JSON.parse(usersRaw);
+            const idx = users.findIndex((entry) => entry.email === user.email);
+            if (idx >= 0) {
+                users[idx] = {
+                    ...users[idx],
+                    progress: user.progress || {},
+                    lessonState: user.lessonState || {}
+                };
+                localStorage.setItem(USERS_KEY, JSON.stringify(users));
+            }
+        } catch (error) {
+            // keep UI working even if stored users cannot be parsed
+        }
+    }
+
+    function persistState(state) {
+        const progressPct = currentProgressPercentage(state);
+        const session = readCurrentUser();
+
+        if (session && session.user) {
+            const user = session.user;
+            user.progress = user.progress || {};
+            user.lessonState = user.lessonState || {};
+            user.progress[LESSON_KEY] = progressPct;
+            user.lessonState[LESSON_STATE_KEY] = state;
+            saveUserRecord(user, session.inSession);
+        } else {
+            localStorage.setItem(GUEST_STATE_KEY, JSON.stringify(state));
+        }
+
+        updateProgressUI(state);
+    }
+
+    function loadSavedState() {
+        const session = readCurrentUser();
+        if (session && session.user) {
+            const lessonState = (session.user.lessonState || {})[LESSON_STATE_KEY];
+            if (lessonState && lessonState.sections) {
+                return {
+                    sections: {
+                        ...defaultState.sections,
+                        ...lessonState.sections
+                    },
+                    answers: {
+                        lesson1: { ...(defaultState.answers.lesson1), ...((lessonState.answers || {}).lesson1 || {}) },
+                        lesson2: { ...(defaultState.answers.lesson2), ...((lessonState.answers || {}).lesson2 || {}) },
+                        lesson3: { ...(defaultState.answers.lesson3), ...((lessonState.answers || {}).lesson3 || {}) },
+                        lesson4: { ...(defaultState.answers.lesson4), ...((lessonState.answers || {}).lesson4 || {}) }
+                    }
+                };
+            }
+
+            const progressValue = Number((session.user.progress || {})[LESSON_KEY] || 0);
+            if (progressValue > 0) {
+                const inferred = { ...defaultState.sections };
+                const sectionsToFill = Math.min(SECTION_ORDER.length, Math.floor(progressValue / 25));
+                for (let i = 0; i < sectionsToFill; i++) {
+                    inferred[SECTION_ORDER[i]] = true;
+                }
+                return {
+                    sections: inferred,
+                    answers: {
+                        lesson1: {},
+                        lesson2: {},
+                        lesson3: {},
+                        lesson4: {}
+                    }
+                };
+            }
+        }
+
+        const guestRaw = localStorage.getItem(GUEST_STATE_KEY);
+        if (guestRaw) {
+            try {
+                const guestState = JSON.parse(guestRaw);
+                if (guestState && guestState.sections) {
+                    return {
+                        sections: {
+                            ...defaultState.sections,
+                            ...guestState.sections
+                        },
+                        answers: {
+                            lesson1: { ...(defaultState.answers.lesson1), ...((guestState.answers || {}).lesson1 || {}) },
+                            lesson2: { ...(defaultState.answers.lesson2), ...((guestState.answers || {}).lesson2 || {}) },
+                            lesson3: { ...(defaultState.answers.lesson3), ...((guestState.answers || {}).lesson3 || {}) },
+                            lesson4: { ...(defaultState.answers.lesson4), ...((guestState.answers || {}).lesson4 || {}) }
+                        }
+                    };
+                }
+            } catch (error) {
+                // ignore malformed guest state
+            }
+        }
+
+        return JSON.parse(JSON.stringify(defaultState));
+    }
+
+    let tutorialState = loadSavedState();
+
+    function setStatus(id, type, message) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.className = "status " + type;
+        el.textContent = message;
+    }
+
+    function setSectionScore(sectionId, message, success) {
+        const el = document.getElementById("score-" + sectionId);
+        if (!el) return;
+        el.classList.add("show");
+        el.textContent = message;
+        el.style.borderColor = success ? "rgba(127,224,162,0.22)" : "rgba(242,125,114,0.22)";
+        el.style.background = success ? "rgba(127,224,162,0.08)" : "rgba(242,125,114,0.08)";
+        el.style.color = success ? "#7fe0a2" : "#f28a82";
+    }
+
+    function getStoredAnswer(sectionId, questionId) {
+        const sectionAnswers = (tutorialState.answers || {})[sectionId] || {};
+        return (sectionAnswers[questionId] || FALLBACK_ANSWERS[questionId] || "").trim();
+    }
+
+    function collectSectionAnswers(sectionId) {
+        const result = {};
+        (SECTION_QUESTION_IDS[sectionId] || []).forEach((questionId) => {
+            const input = document.getElementById(questionId);
+            result[questionId] = String(input && input.value ? input.value : "").trim();
+        });
+        return result;
+    }
+
+    function renderCompletedQuestion(questionId, sectionId, isComplete) {
+        const input = document.getElementById(questionId);
+        const answerBox = document.getElementById("answer-" + questionId);
+        const status = document.getElementById("status-" + questionId);
+        if (!input || !answerBox) return;
+
+        const questionCard = input.closest(".question");
+        if (!questionCard) return;
+
+        if (isComplete) {
+            const answerText = getStoredAnswer(sectionId, questionId);
+            input.style.display = "none";
+            questionCard.classList.add("completed");
+            answerBox.classList.add("show");
+            answerBox.innerHTML = '<div><div class="answer-label">Student answer</div><div class="answer-text"></div></div><span class="answer-check">✓ Correct</span>';
+            const answerTextEl = answerBox.querySelector(".answer-text");
+            if (answerTextEl) answerTextEl.textContent = answerText;
+            if (status) {
+                status.className = "status";
+                status.textContent = "";
+            }
+        } else {
+            input.style.display = "block";
+            questionCard.classList.remove("completed");
+            answerBox.classList.remove("show");
+            answerBox.innerHTML = "";
+        }
+    }
+
+    function updateSectionCompletionView(sectionId, isComplete) {
+        (SECTION_QUESTION_IDS[sectionId] || []).forEach((questionId) => {
+            renderCompletedQuestion(questionId, sectionId, isComplete);
+        });
+
+        const button = document.getElementById("btn-" + sectionId);
+        if (button) {
+            button.disabled = isComplete;
+            button.textContent = isComplete ? "Mini Lesson Complete" : SECTION_BUTTON_LABELS[sectionId];
+        }
+    }
+
+    function validateSection(sectionId) {
+        if (sectionId === "lesson1") {
+            const answer1 = normalize(document.getElementById("l1q1").value);
+            const answer2 = normalize(document.getElementById("l1q2").value);
+
+            const ok1 = answer1.includes("value") || answer1.includes("data") || answer1.includes("information");
+            const ok2 = answer2 === "=" || answer2.includes("equals") || answer2.includes("assignment");
+
+            setStatus("status-l1q1", answer1 ? (ok1 ? "success" : "error") : "neutral", ok1 ? "✓ Correct! A variable stores data or a value." : (answer1 ? "✗ Try again. A variable stores a value or piece of data." : "Please type an answer first."));
+            setStatus("status-l1q2", answer2 ? (ok2 ? "success" : "error") : "neutral", ok2 ? "✓ Correct! Python uses = to assign a value." : (answer2 ? "✗ Try again. Python uses the equals sign = for assignment." : "Please type an answer first."));
+
+            return ok1 && ok2;
+        }
+
+        if (sectionId === "lesson2") {
+            const answer1 = normalize(document.getElementById("l2q1").value);
+            const answer2 = normalize(document.getElementById("l2q2").value);
+
+            const ok1 = answer1 === "float" || answer1 === "floating point" || answer1 === "decimal";
+            const ok2 = answer2 === "boolean" || answer2 === "bool" || answer2 === "true/false";
+
+            setStatus("status-l2q1", answer1 ? (ok1 ? "success" : "error") : "neutral", ok1 ? "✓ Correct! 3.14 is a float." : (answer1 ? "✗ Not quite. 3.14 is a float because it has a decimal." : "Please type an answer first."));
+            setStatus("status-l2q2", answer2 ? (ok2 ? "success" : "error") : "neutral", ok2 ? "✓ Correct! False is a boolean (bool)." : (answer2 ? "✗ Not quite. False is a boolean value." : "Please type an answer first."));
+
+            return ok1 && ok2;
+        }
+
+        if (sectionId === "lesson3") {
+            const answer1 = normalize(document.getElementById("l3q1").value);
+            const answer2 = normalize(document.getElementById("l3q2").value);
+
+            const ok1 = answer1 === "student_name";
+            const ok2 = answer2 === "underscore" || answer2 === "_" || answer2.includes("underscore");
+
+            setStatus("status-l3q1", answer1 ? (ok1 ? "success" : "error") : "neutral", ok1 ? "✓ Correct! student_name follows Python naming rules." : (answer1 ? "✗ Try again. student_name is the valid option." : "Please type an answer first."));
+            setStatus("status-l3q2", answer2 ? (ok2 ? "success" : "error") : "neutral", ok2 ? "✓ Correct! Words are often joined with an underscore." : (answer2 ? "✗ Try again. The common character is an underscore (_)." : "Please type an answer first."));
+
+            return ok1 && ok2;
+        }
+
+        if (sectionId === "lesson4") {
+            const answer1 = normalize(document.getElementById("l4q1").value);
+            const answer2 = normalize(document.getElementById("l4q2").value);
+
+            const ok1 = answer1 === "8" || answer1 === "eight";
+            const ok2 = answer2 === "string" || answer2 === "str" || answer2 === "text";
+
+            setStatus("status-l4q1", answer1 ? (ok1 ? "success" : "error") : "neutral", ok1 ? "✓ Correct! The stored value is 8." : (answer1 ? "✗ Try again. score stores the value 8." : "Please type an answer first."));
+            setStatus("status-l4q2", answer2 ? (ok2 ? "success" : "error") : "neutral", ok2 ? "✓ Correct! " + '"Rome"' + " is a string." : (answer2 ? "✗ Not quite. Because the value is inside quotation marks, it is a string." : "Please type an answer first."));
+
+            return ok1 && ok2;
+        }
+
+        return false;
+    }
+
+    function updateProgressUI(state) {
+        const completedCount = SECTION_ORDER.filter((section) => state.sections[section]).length;
+        const progressPct = currentProgressPercentage(state);
+
+        const bar = document.getElementById("lessonProgressBar");
+        const label = document.getElementById("lessonPctLabel");
+        const statusMsg = document.getElementById("lessonStatusMsg");
+        const completionCount = document.getElementById("completionCount");
+
+        bar.style.width = progressPct + "%";
+        label.textContent = progressPct + "%";
+        completionCount.textContent = completedCount + " of 4 mini lessons complete";
+
+        if (progressPct === 100) {
+            statusMsg.textContent = "✓ Full tutorial completed. Python progress is now 100%.";
+            statusMsg.style.color = "#7fe0a2";
+        } else if (progressPct > 0) {
+            statusMsg.textContent = "Good progress. Complete the remaining mini lessons to finish the tutorial.";
+            statusMsg.style.color = "#AAB4C0";
+        } else {
+            statusMsg.textContent = "Complete each mini lesson to build your progress.";
+            statusMsg.style.color = "#AAB4C0";
+        }
+
+        SECTION_ORDER.forEach((section) => {
+            const badge = document.getElementById("badge-" + section);
+            const roadmapCard = document.getElementById("roadmap-" + section);
+            const roadmapState = document.getElementById("roadmap-state-" + section);
+            const isComplete = !!state.sections[section];
+
+            if (isComplete) {
+                badge.textContent = "Completed";
+                badge.classList.add("completed");
+                roadmapCard.classList.add("completed");
+                roadmapState.textContent = "Completed";
+            } else {
+                badge.textContent = "Not completed";
+                badge.classList.remove("completed");
+                roadmapCard.classList.remove("completed");
+                roadmapState.textContent = "In progress";
+            }
+
+            updateSectionCompletionView(section, isComplete);
+        });
+    }
+
+    function checkSection(sectionId) {
+        const passed = validateSection(sectionId);
+
+        if (passed) {
+            tutorialState.sections[sectionId] = true;
+            tutorialState.answers[sectionId] = collectSectionAnswers(sectionId);
+            setSectionScore(sectionId, "Mini lesson completed. 25% has been added to the overall tutorial progress.", true);
+        } else {
+            setSectionScore(sectionId, "This mini lesson is not complete yet. Fix the answers above and try again.", false);
+        }
+
+        persistState(tutorialState);
+    }
+
+    function resetTutorialProgress() {
+        tutorialState = JSON.parse(JSON.stringify(defaultState));
+
+        const inputIds = ["l1q1", "l1q2", "l2q1", "l2q2", "l3q1", "l3q2", "l4q1", "l4q2"];
+        const statusIds = ["status-l1q1", "status-l1q2", "status-l2q1", "status-l2q2", "status-l3q1", "status-l3q2", "status-l4q1", "status-l4q2"];
+        const scoreIds = ["score-lesson1", "score-lesson2", "score-lesson3", "score-lesson4"];
+        const answerIds = ["answer-l1q1", "answer-l1q2", "answer-l2q1", "answer-l2q2", "answer-l3q1", "answer-l3q2", "answer-l4q1", "answer-l4q2"];
+
+        inputIds.forEach((id) => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.value = "";
+                input.style.display = "block";
+            }
+        });
+
+        statusIds.forEach((id) => {
+            const status = document.getElementById(id);
+            if (status) {
+                status.className = "status";
+                status.textContent = "";
+            }
+        });
+
+        answerIds.forEach((id) => {
+            const answer = document.getElementById(id);
+            if (answer) {
+                answer.className = "answer-display";
+                answer.innerHTML = "";
+            }
+        });
+
+        scoreIds.forEach((id) => {
+            const score = document.getElementById(id);
+            if (score) {
+                score.className = "section-score";
+                score.textContent = "";
+            }
+        });
+
+        persistState(tutorialState);
+    }
+
+    updateProgressUI(tutorialState);
+    </script>
 </body>
 </html>

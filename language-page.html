@@ -69,10 +69,12 @@
 
         .hero {
             margin-bottom: 2rem;
+            display: grid;
+            gap: 0.75rem;
         }
 
         .hero h1 {
-            margin: 0 0 0.7rem;
+            margin: 0;
             font-size: clamp(2.2rem, 4vw, 3.5rem);
         }
 
@@ -81,6 +83,19 @@
             max-width: 62ch;
             color: var(--muted);
             line-height: 1.7;
+        }
+
+        .crumbs {
+            color: var(--muted);
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+        }
+
+        .crumbs a {
+            color: var(--primary-blue);
+            text-decoration: none;
         }
 
         .overview {
@@ -177,8 +192,15 @@
 
     <main class="container">
         <section class="hero">
-            <h1>Python Learning Hub</h1>
-            <p>
+            <div class="crumbs">
+                <a href="index.html">Home</a>
+                <span>&rsaquo;</span>
+                <a href="learn.html">Learn</a>
+                <span>&rsaquo;</span>
+                <span id="crumbCurrent">Language</span>
+            </div>
+            <h1 id="heroTitle">Programming Language Hub</h1>
+            <p id="heroText">
                 Choose how you want to learn this language: set up your environment,
                 work through guided tutorials, or learn how to read documentation more effectively.
             </p>
@@ -186,42 +208,49 @@
 
         <section class="overview">
             <h2>Recommended for</h2>
-            <p>
-                Students in intro programming, data analysis, automation, and engineering workflows
-                who need a structured path from installation to practical application.
-            </p>
+            <p id="recommendedText"></p>
         </section>
 
-        <section class="grid">
-            <article class="card">
-                <h3>Installation</h3>
-                <p>
-                    Step-by-step setup guidance for the language, required tools, package managers,
-                    and environment verification.
-                </p>
-                <a class="btn" href="installation.html">Open Installation</a>
-            </article>
-
-            <article class="card">
-                <h3>Tutorial</h3>
-                <p>
-                    Guided explanations, practice questions, and interactive examples that help
-                    students build real understanding.
-                </p>
-                <a class="btn" href="tutorial.html">Open Tutorial</a>
-            </article>
-
-            <article class="card">
-                <h3>Documentation</h3>
-                <p>
-                    Learn how official documentation is structured, what to focus on, and how to
-                    use it without getting overwhelmed.
-                </p>
-                <a class="btn" href="documentation.html">Open Documentation</a>
-            </article>
-        </section>
+        <section class="grid" id="cardGrid"></section>
     </main>
 
     <footer>&copy; 2026 CodeMap | Programming Language Page</footer>
+
+    <script src="language-data.js"></script>
+    <script>
+    (function() {
+        const all = window.CODEMAP_LANGUAGES || {};
+        const params = new URLSearchParams(window.location.search);
+        const savedLang = localStorage.getItem('codemap_last_lang');
+        const requested = (params.get('lang') || savedLang || 'python').toLowerCase();
+        const key = all[requested] ? requested : 'python';
+        const lang = all[key];
+        localStorage.setItem('codemap_last_lang', key);
+
+        function pageLink(page) {
+            return page + '?lang=' + encodeURIComponent(key);
+        }
+
+        document.title = 'CodeMap | ' + lang.label;
+        document.getElementById('heroTitle').textContent = lang.hubTitle || (lang.label + ' Learning Hub');
+        document.getElementById('heroText').textContent = lang.hubIntro || '';
+        document.getElementById('recommendedText').textContent = lang.recommendedFor || '';
+        document.getElementById('crumbCurrent').textContent = lang.label;
+
+        const cards = [
+            { title: 'Installation', copy: lang.cards?.installation || '', href: pageLink('installation.html'), label: 'Open Installation' },
+            { title: 'Tutorial', copy: lang.cards?.tutorial || '', href: pageLink('tutorial.html'), label: 'Open Tutorial' },
+            { title: 'Documentation', copy: lang.cards?.documentation || '', href: pageLink('documentation.html'), label: 'Open Documentation' }
+        ];
+
+        document.getElementById('cardGrid').innerHTML = cards.map((card) => `
+            <article class="card">
+                <h3>${card.title}</h3>
+                <p>${card.copy}</p>
+                <a class="btn" href="${card.href}">${card.label}</a>
+            </article>
+        `).join('');
+    })();
+    </script>
 </body>
 </html>

@@ -8,22 +8,31 @@
         :root {
             --bg-dark: #161D26;
             --bg-accent: #273240;
+            --panel: #1d2632;
+            --border: rgba(255,255,255,0.08);
             --primary-blue: #52C5F2;
             --primary-salmon: #F27D72;
             --text-off-white: #F6F2E6;
+            --muted: #AAB4C0;
+            --shadow: 0 16px 36px rgba(0,0,0,0.24);
         }
+
+        * { box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-off-white);
-            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
             margin: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(82,197,242,0.08), transparent 20%),
+                radial-gradient(circle at bottom right, rgba(242,125,114,0.06), transparent 22%),
+                var(--bg-dark);
+            color: var(--text-off-white);
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
         }
 
-        h1, h2, h3, .logo, .cta-button, .resume-btn {
+        h1, h2, h3, .logo, .cta-button, .card-button, .resume-btn {
             font-family: "din-2014", sans-serif;
             font-weight: 700;
             text-transform: uppercase;
@@ -31,314 +40,694 @@
         }
 
         header {
-            padding: 1.5rem 5%;
+            padding: 1.4rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: var(--bg-accent);
+            background: var(--bg-accent);
+            border-bottom: 1px solid var(--border);
         }
 
         .logo {
-            font-size: 1.8rem;
             color: var(--primary-blue);
             text-decoration: none;
+            font-size: 1.8rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.75rem;
+            flex-wrap: wrap;
+            align-items: center;
         }
 
         nav a {
             color: var(--text-off-white);
             text-decoration: none;
-            margin-left: 2rem;
-            font-weight: 500;
-            transition: color 0.3s;
         }
 
-        nav a:hover {
+        nav a:hover,
+        nav a.active {
             color: var(--primary-salmon);
+        }
+
+        .page {
+            width: min(1180px, 92vw);
+            margin: 0 auto;
+            padding: 2.5rem 0 4rem;
+            display: grid;
+            gap: 1.8rem;
+            flex: 1;
+        }
+
+        .hero,
+        .continue-card,
+        .search-card,
+        .lang-card {
+            background: linear-gradient(180deg, rgba(39,50,64,0.96), rgba(22,29,38,0.98));
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: var(--shadow);
         }
 
         .hero {
-            padding: 4rem 5% 2rem 5%;
-            text-align: left;
-            max-width: 800px;
+            padding: 1.7rem 1.9rem;
+            display: grid;
+            gap: 0.7rem;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            width: fit-content;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(82,197,242,0.10);
+            border: 1px solid rgba(82,197,242,0.18);
+            color: var(--primary-blue);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
         }
 
         .hero h1 {
-            font-size: 3.2rem;
-            margin-bottom: 1rem;
-            line-height: 1.1;
-            color: var(--text-off-white);
+            margin: 0;
+            font-size: clamp(1.95rem, 4vw, 3rem);
+            line-height: 1.05;
+            max-width: 13ch;
         }
 
         .hero p {
-            font-size: 1.25rem;
-            color: #ccc;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-        }
-
-        .continue-section {
-            padding: 2rem 5%;
-            margin-bottom: 1rem;
-        }
-
-        .continue-card {
-            background: linear-gradient(90deg, var(--bg-accent), #2c3a4d);
-            border-left: 5px solid var(--primary-blue);
-            padding: 1.5rem;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 600px;
-        }
-
-        .continue-info h2 {
             margin: 0;
-            font-size: 1.1rem;
-            color: var(--primary-blue);
+            max-width: 56ch;
+            color: #d6dde6;
+            font-size: 0.98rem;
+            line-height: 1.65;
         }
 
-        .continue-info p {
-            margin: 5px 0 0 0;
-            font-size: 0.9rem;
-            color: #bbb;
-            font-family: "proxima-nova", sans-serif;
-            text-transform: none;
-            letter-spacing: normal;
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.25rem;
         }
 
+        .cta-button,
+        .card-button,
         .resume-btn {
-            background-color: transparent;
-            color: var(--primary-salmon);
-            border: 2px solid var(--primary-salmon);
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
             text-decoration: none;
-            font-size: 0.85rem;
-            transition: 0.3s;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.18s ease;
         }
 
-        .resume-btn:hover {
-            background-color: var(--primary-salmon);
+        .cta-button,
+        .card-button,
+        .resume-btn {
+            background: var(--primary-salmon);
             color: var(--bg-dark);
         }
 
         .cta-button {
-            background-color: var(--primary-salmon);
-            color: var(--bg-dark);
-            padding: 1rem 2.2rem;
+            padding: 0.85rem 1.15rem;
+            min-width: 165px;
+            font-size: 0.86rem;
+        }
+
+        .secondary-link {
+            color: var(--primary-blue);
             text-decoration: none;
-            border-radius: 5px;
+            align-self: center;
+            font-weight: 600;
+        }
+
+        .cta-button:hover,
+        .card-button:hover,
+        .resume-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .continue-card {
+            display: none;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1.4rem 1.5rem;
+        }
+
+        .continue-card h2 {
+            margin: 0 0 0.35rem;
             font-size: 1.1rem;
-            display: inline-block;
-            transition: transform 0.2s;
         }
 
-        .cta-button:hover {
-            transform: scale(1.05);
+        .continue-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
         }
 
-        .search-container {
-            padding: 1rem 5%;
+        .resume-btn {
+            padding: 0.9rem 1.15rem;
+            min-width: 150px;
+            font-size: 0.84rem;
+        }
+
+        .search-card {
+            padding: 1.5rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .search-card h2 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .search-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 60ch;
         }
 
         .search-form {
-            width: 100%;
-            max-width: 500px;
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .search-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.8rem;
         }
 
         .search-box {
             width: 100%;
-            max-width: 500px;
-            padding: 0.9rem 1.2rem;
-            border-radius: 25px;
-            border: none;
-            background-color: var(--bg-accent);
-            color: white;
+            padding: 1rem 1.1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(8,13,20,0.42);
+            color: var(--text-off-white);
             font-size: 1rem;
-            font-family: "proxima-nova", sans-serif;
-        }
-
-        .search-box::placeholder {
-            color: #bbb;
         }
 
         .search-box:focus {
-            outline: 2px solid var(--primary-blue);
-            outline-offset: 2px;
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(82,197,242,0.12);
+        }
+
+        .search-submit {
+            border: none;
+            border-radius: 14px;
+            background: var(--primary-salmon);
+            color: var(--bg-dark);
+            padding: 0 1.2rem;
+            cursor: pointer;
+            font-family: "din-2014", sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .search-results {
+            display: none;
+            gap: 0.8rem;
+        }
+
+        .search-results.show {
+            display: grid;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.1rem;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .result-item h3 {
+            margin: 0 0 0.2rem;
+            font-size: 0.95rem;
+        }
+
+        .result-item p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+
+        .result-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .empty-search {
+            color: var(--muted);
+            padding: 0.4rem 0;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 1rem;
+        }
+
+        .section-head h2 {
+            margin: 0 0 0.35rem;
+            font-size: 1.35rem;
+        }
+
+        .section-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 58ch;
         }
 
         .language-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            padding: 3rem 5%;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.4rem;
         }
 
         .lang-card {
-            background-color: var(--bg-accent);
-            padding: 2.5rem 2rem;
-            border-radius: 10px;
-            text-align: center;
-            border-bottom: 4px solid transparent;
-            transition: 0.3s;
-            cursor: pointer;
-            text-decoration: none;
-            color: var(--text-off-white);
-            display: block;
+            padding: 1.6rem;
+            display: grid;
+            gap: 1rem;
         }
 
         .lang-card h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.3rem;
+            margin: 0;
+            font-size: 1.55rem;
         }
 
         .lang-card p {
             margin: 0;
-            font-size: 0.95rem;
-            color: #bbb;
+            color: var(--muted);
+            line-height: 1.7;
+            min-height: 5.5em;
         }
 
-        .lang-card:hover {
-            border-bottom: 4px solid var(--primary-blue);
-            background-color: #313d4d;
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(82,197,242,0.10);
+            border: 1px solid rgba(82,197,242,0.18);
+            color: var(--primary-blue);
+            font-size: 0.76rem;
+            font-weight: 700;
+        }
+
+        .card-button {
+            width: 100%;
+            padding: 0.95rem 1rem;
+            font-size: 0.86rem;
+            margin-top: 0.2rem;
         }
 
         footer {
-            margin-top: auto;
-            padding: 3rem 5%;
+            border-top: 1px solid var(--border);
+            padding: 2rem 5%;
+            color: #8a939d;
             text-align: center;
-            font-size: 0.85rem;
-            border-top: 1px solid var(--bg-accent);
-            color: #888;
+            font-size: 0.88rem;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 860px) {
+            header,
+            .continue-card,
+            .search-row,
+            .section-head {
+                grid-template-columns: 1fr;
+            }
+
             header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 1rem;
             }
 
-            nav a {
-                margin-left: 0;
-                margin-right: 1.5rem;
-            }
-
-            .continue-card {
-                flex-direction: column;
-                align-items: flex-start;
+            nav {
                 gap: 1rem;
             }
 
-            .hero h1 {
-                font-size: 2.6rem;
+            .continue-card {
+                display: none;
             }
 
-            .hero p {
-                font-size: 1.1rem;
+            .continue-card.show {
+                display: grid;
+            }
+
+            .search-row {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .result-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero h1 {
+                max-width: none;
             }
         }
     </style>
 </head>
 <body>
-
     <header>
         <a href="index.html" class="logo">CodeMap</a>
         <nav>
-            <a href="index.html">Home</a>
+            <a href="index.html" class="active">Home</a>
             <a href="learn.html">Learn</a>
             <a href="about.html">About</a>
             <a href="account-page.html">Account</a>
-            <a href="login-signup.html">Login</a>
+            <a href="login-signup.html" id="navLoginLink">Login</a>
         </nav>
     </header>
 
-    <main>
+    <main class="page">
         <section class="hero">
-            <h1>Master the languages of your degree.</h1>
-            <p>CodeMap bridges the gap between classroom theory and practical coding proficiency for RPI students.</p>
-            <a href="learn.html" class="cta-button">Start Your Journey</a>
-        </section>
-
-        <section class="continue-section" id="continueSection" style="display:none">
-            <div class="continue-card" id="continueCard" style="cursor:pointer" onclick="window.location.href='continue-lesson.html'">
-                <div class="continue-info">
-                    <h2 id="continueTitle">Continue Learning</h2>
-                    <p id="continueSub">Pick up where you left off</p>
-                </div>
-                <a href="continue-lesson.html" class="resume-btn">Resume</a>
+            <span class="eyebrow">Coursework-focused coding support</span>
+            <h1>Learn the languages behind your degree.</h1>
+            <p id="heroSubtitle">CodeMap gives students one place for installation help, guided tutorials, documentation support, and saved progress across the languages they use in class.</p>
+            <div class="hero-actions">
+                <a href="learn.html" class="cta-button">Start Learning</a>
+                <a href="continue-lesson.html" class="secondary-link">Continue where you left off</a>
             </div>
         </section>
 
-        <section class="search-container">
-            <form class="search-form" action="learn.html" method="get">
-                <input type="text" name="q" class="search-box" placeholder="Search for a tutorial or function...">
+        <section class="continue-card" id="continueCard">
+            <div>
+                <h2 id="continueTitle">Continue Learning</h2>
+                <p id="continueCopy">Pick up where you left off with your most active language path.</p>
+            </div>
+            <a href="continue-lesson.html" class="resume-btn" id="continueLink">Resume Path</a>
+        </section>
+
+        <section class="search-card">
+            <div>
+                <h2>Search CodeMap</h2>
+                <p>Search for a language, tutorial, installation guide, documentation help, or a topic like variables, loops, plotting, classes, or ROS2 workspace.</p>
+            </div>
+
+            <form class="search-form" id="searchForm" autocomplete="off">
+                <div class="search-row">
+                    <input type="text" id="searchInput" class="search-box" placeholder="Search Python tutorial, Java classes, ROS2 workspace, MATLAB plotting..." aria-label="Search CodeMap resources">
+                    <button class="search-submit" type="submit">Search</button>
+                </div>
+                <div class="search-results" id="searchResults"></div>
             </form>
         </section>
 
-        <section class="language-grid">
-            <a href="language-page.html" class="lang-card">
-                <h3>Python</h3>
-                <p>Curated for CS1 and Data Science</p>
-            </a>
-
-            <a href="language-page.html" class="lang-card">
-                <h3>C++</h3>
-                <p>Advanced Data Structures support</p>
-            </a>
-
-            <a href="language-page.html" class="lang-card">
-                <h3>MATLAB</h3>
-                <p>Engineered for Control Systems</p>
-            </a>
+        <section class="section-head">
+            <div>
+                <h2>Choose a language path</h2>
+                <p>Each language follows the same simple structure: installation, tutorial, and documentation.</p>
+            </div>
         </section>
+
+        <section class="language-grid" id="languageGrid"></section>
     </main>
 
     <footer>
-        <p>&copy; 2026 CodeMap | Designed for Academic Success at RPI</p>
+        © 2026 CodeMap | Built for academic coding support
     </footer>
-
 
     <script>
     (function() {
         const CURRENT_USER_KEY = "codemap_current_user";
-        const LANG_META = {
-            python: { label: "Python", icon: "🐍", sub: "Intro scripting & data tools" },
-            cpp:    { label: "C++",    icon: "⚙️", sub: "Advanced Data Structures" },
-            matlab: { label: "MATLAB", icon: "📐", sub: "Control systems & modeling" },
-            ros2:   { label: "ROS2",   icon: "🤖", sub: "Robotics middleware" },
-            java:   { label: "Java",   icon: "☕", sub: "Object-oriented programming" },
-            javascript: { label: "JavaScript", icon: "⚡", sub: "Web development & UI" }
-        };
+        const LANGUAGES = [
+            {
+                key: "python",
+                label: "Python",
+                description: "Curated for intro programming, scripting, automation, and data analysis workflows.",
+                tags: ["CS1", "Data Science", "Automation"]
+            },
+            {
+                key: "cpp",
+                label: "C++",
+                description: "Support for pointers, memory, object-oriented programming, and performance-focused coursework.",
+                tags: ["Data Structures", "Systems", "Debugging"]
+            },
+            {
+                key: "matlab",
+                label: "MATLAB",
+                description: "Built for modeling, simulation, controls, linear algebra, and engineering analysis.",
+                tags: ["Controls", "Signals", "Modeling"]
+            },
+            {
+                key: "ros2",
+                label: "ROS2",
+                description: "Guided support for robotics middleware, nodes, topics, packages, and lab workflows.",
+                tags: ["Robotics", "Nodes", "CLI"]
+            },
+            {
+                key: "java",
+                label: "Java",
+                description: "Object-oriented concepts, class structure, and practical programming exercises for coursework.",
+                tags: ["OOP", "Projects", "Foundations"]
+            },
+            {
+                key: "javascript",
+                label: "JavaScript",
+                description: "Front-end fundamentals for websites, interfaces, and interactive academic projects.",
+                tags: ["Web Dev", "UI", "Projects"]
+            }
+        ];
 
-        const raw = sessionStorage.getItem(CURRENT_USER_KEY) || localStorage.getItem(CURRENT_USER_KEY);
-        if (!raw) return;
-        try {
-            const user = JSON.parse(raw);
+        function hubLink(key) {
+            return "language-page.html?lang=" + encodeURIComponent(key);
+        }
+
+        function tutorialLink(key) {
+            return "tutorial.html?lang=" + encodeURIComponent(key);
+        }
+
+        function installationLink(key) {
+            return "installation.html?lang=" + encodeURIComponent(key);
+        }
+
+        function docsLink(key) {
+            return "documentation.html?lang=" + encodeURIComponent(key);
+        }
+
+        const SEARCH_INDEX = [
+            { title: "Python Learning Hub", description: "Overview of the Python path.", keywords: ["python", "hub", "path", "learn"], url: hubLink("python") },
+            { title: "Python Tutorial", description: "Guided Python mini lessons.", keywords: ["python", "tutorial", "variables", "loops", "data types"], url: tutorialLink("python") },
+            { title: "Python Installation", description: "Set up Python and verify your environment.", keywords: ["python", "installation", "install", "setup", "pip"], url: installationLink("python") },
+            { title: "Python Documentation", description: "Learn how to read Python docs.", keywords: ["python", "documentation", "docs", "reference", "functions"], url: docsLink("python") },
+
+            { title: "C++ Learning Hub", description: "Overview of the C++ path.", keywords: ["c++", "cpp", "hub", "path", "learn"], url: hubLink("cpp") },
+            { title: "C++ Tutorial", description: "Foundations for variables, input, conditionals, and loops.", keywords: ["c++", "cpp", "tutorial", "loops", "conditionals", "pointers"], url: tutorialLink("cpp") },
+            { title: "C++ Installation", description: "Set up a compiler and build a first file.", keywords: ["c++", "cpp", "install", "compiler", "g++", "setup"], url: installationLink("cpp") },
+            { title: "C++ Documentation", description: "Read C++ headers, signatures, and examples.", keywords: ["c++", "cpp", "documentation", "docs", "header", "reference"], url: docsLink("cpp") },
+
+            { title: "MATLAB Learning Hub", description: "Overview of the MATLAB path.", keywords: ["matlab", "hub", "path", "learn"], url: hubLink("matlab") },
+            { title: "MATLAB Tutorial", description: "Learn variables, matrices, scripts, and plotting.", keywords: ["matlab", "tutorial", "plotting", "matrices", "vectors"], url: tutorialLink("matlab") },
+            { title: "MATLAB Installation", description: "Launch MATLAB and run a first script.", keywords: ["matlab", "install", "setup", "script", "launch"], url: installationLink("matlab") },
+            { title: "MATLAB Documentation", description: "Understand syntax blocks, inputs, outputs, and examples.", keywords: ["matlab", "documentation", "docs", "functions", "plot"], url: docsLink("matlab") },
+
+            { title: "ROS2 Learning Hub", description: "Overview of the ROS2 path.", keywords: ["ros2", "hub", "path", "learn", "robotics"], url: hubLink("ros2") },
+            { title: "ROS2 Tutorial", description: "Learn workspaces, nodes, topics, and commands.", keywords: ["ros2", "tutorial", "workspace", "nodes", "topics", "robotics"], url: tutorialLink("ros2") },
+            { title: "ROS2 Installation", description: "Source your environment and build a workspace.", keywords: ["ros2", "install", "setup", "workspace", "colcon", "source"], url: installationLink("ros2") },
+            { title: "ROS2 Documentation", description: "Learn how to read ROS2 commands and package docs.", keywords: ["ros2", "documentation", "docs", "commands", "topics"], url: docsLink("ros2") },
+
+            { title: "Java Learning Hub", description: "Overview of the Java path.", keywords: ["java", "hub", "path", "learn"], url: hubLink("java") },
+            { title: "Java Tutorial", description: "Learn variables, classes, methods, and loops.", keywords: ["java", "tutorial", "classes", "methods", "oop"], url: tutorialLink("java") },
+            { title: "Java Installation", description: "Set up the JDK and compile a first class.", keywords: ["java", "install", "setup", "jdk", "javac"], url: installationLink("java") },
+            { title: "Java Documentation", description: "Read Java API pages more clearly.", keywords: ["java", "documentation", "docs", "api", "class", "methods"], url: docsLink("java") },
+
+            { title: "JavaScript Learning Hub", description: "Overview of the JavaScript path.", keywords: ["javascript", "js", "hub", "path", "learn"], url: hubLink("javascript") },
+            { title: "JavaScript Tutorial", description: "Learn variables, functions, DOM, events, and conditionals.", keywords: ["javascript", "js", "tutorial", "dom", "events", "functions"], url: tutorialLink("javascript") },
+            { title: "JavaScript Installation", description: "Run JavaScript with the browser or Node.js.", keywords: ["javascript", "js", "install", "setup", "node", "browser"], url: installationLink("javascript") },
+            { title: "JavaScript Documentation", description: "Learn how to read language and browser API docs.", keywords: ["javascript", "js", "documentation", "docs", "dom", "api"], url: docsLink("javascript") }
+        ];
+
+        function normalize(text) {
+            return String(text || "").trim().toLowerCase();
+        }
+
+        function getCurrentUser() {
+            const raw = sessionStorage.getItem(CURRENT_USER_KEY) || localStorage.getItem(CURRENT_USER_KEY);
+            if (!raw) return null;
+            try {
+                return JSON.parse(raw);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function renderLanguageCards() {
+            const grid = document.getElementById("languageGrid");
+            grid.innerHTML = LANGUAGES.map(function(lang) {
+                return `
+                    <article class="lang-card">
+                        <h3>${lang.label}</h3>
+                        <p>${lang.description}</p>
+                        <div class="tag-row">
+                            ${lang.tags.map(function(tag) { return `<span class="tag">${tag}</span>`; }).join("")}
+                        </div>
+                        <a class="card-button" href="${hubLink(lang.key)}">Explore ${lang.label}</a>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        function scoreItem(item, query) {
+            const q = normalize(query);
+            if (!q) return 0;
+
+            const title = normalize(item.title);
+            const description = normalize(item.description);
+            const keywordBlob = normalize(item.keywords.join(" "));
+            let score = 0;
+
+            if (title === q) score += 12;
+            if (title.includes(q)) score += 8;
+            if (keywordBlob.includes(q)) score += 6;
+            if (description.includes(q)) score += 4;
+
+            const parts = q.split(/\s+/).filter(Boolean);
+            parts.forEach(function(part) {
+                if (title.includes(part)) score += 3;
+                if (keywordBlob.includes(part)) score += 2;
+                if (description.includes(part)) score += 1;
+            });
+
+            return score;
+        }
+
+        function runSearch(query) {
+            const q = normalize(query);
+            if (!q) return [];
+
+            return SEARCH_INDEX
+                .map(function(item) {
+                    return { item: item, score: scoreItem(item, q) };
+                })
+                .filter(function(entry) {
+                    return entry.score > 0;
+                })
+                .sort(function(a, b) {
+                    return b.score - a.score;
+                })
+                .slice(0, 5)
+                .map(function(entry) {
+                    return entry.item;
+                });
+        }
+
+        function renderSearchResults(results, query) {
+            const container = document.getElementById("searchResults");
+            if (!query.trim()) {
+                container.classList.remove("show");
+                container.innerHTML = "";
+                return;
+            }
+
+            container.classList.add("show");
+
+            if (!results.length) {
+                container.innerHTML = `<div class="empty-search">No direct matches for "${query}". Try a language name like Python, Java, or ROS2, or a topic like installation, documentation, loops, or plotting.</div>`;
+                return;
+            }
+
+            container.innerHTML = results.map(function(result) {
+                return `
+                    <div class="result-item">
+                        <div>
+                            <h3>${result.title}</h3>
+                            <p>${result.description}</p>
+                        </div>
+                        <a class="result-link" href="${result.url}">Open</a>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function setupSearch() {
+            const form = document.getElementById("searchForm");
+            const input = document.getElementById("searchInput");
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+                renderSearchResults(runSearch(input.value), input.value);
+            });
+
+            input.addEventListener("input", function() {
+                const q = input.value.trim();
+                if (q.length < 2) {
+                    renderSearchResults([], "");
+                    return;
+                }
+                renderSearchResults(runSearch(q), q);
+            });
+        }
+
+        function setupAccountState() {
+            const user = getCurrentUser();
+            const navLoginLink = document.getElementById("navLoginLink");
+            const heroSubtitle = document.getElementById("heroSubtitle");
+            const continueCard = document.getElementById("continueCard");
+            const continueTitle = document.getElementById("continueTitle");
+            const continueCopy = document.getElementById("continueCopy");
+
+            if (!user) return;
+
+            if (navLoginLink) {
+                navLoginLink.textContent = "Account";
+                navLoginLink.href = "account-page.html";
+            }
+
+            const name = user.firstName ? user.firstName : "Student";
+            heroSubtitle.textContent = "Welcome back, " + name + ". CodeMap keeps your learning paths organized so you can return to the right language without starting over.";
+
             const progress = user.progress || {};
             const active = Object.entries(progress)
-                .filter(([,v]) => Number(v) > 0 && Number(v) < 100)
-                .sort(([,a],[,b]) => b - a);
+                .filter(function(entry) {
+                    const pct = Number(entry[1]) || 0;
+                    return pct > 0 && pct < 100;
+                })
+                .sort(function(a, b) {
+                    return Number(b[1]) - Number(a[1]);
+                });
 
             if (!active.length) return;
 
-            const [topKey, topPct] = active[0];
-            const meta = LANG_META[topKey] || { label: topKey.toUpperCase(), icon: "📌", sub: "" };
+            const topKey = active[0][0];
+            const topPct = Math.round(Number(active[0][1]) || 0);
+            const lang = LANGUAGES.find(function(entry) { return entry.key === topKey; });
+            const label = lang ? lang.label : topKey.toUpperCase();
 
-            document.getElementById("continueTitle").textContent = "Continue: " + meta.icon + " " + meta.label;
-            document.getElementById("continueSub").textContent = topPct + "% complete · " + meta.sub;
-            document.getElementById("continueSection").style.display = "";
+            continueTitle.textContent = "Continue " + label;
+            continueCopy.textContent = topPct + "% complete. Jump back into your most active language path.";
+            continueCard.style.display = "grid";
+        }
 
-            // Update nav login link if logged in
-            const loginLink = document.querySelector('nav a[href="login-signup.html"]');
-            if (loginLink) {
-                loginLink.textContent = "Account";
-                loginLink.href = "account-page.html";
-            }
-        } catch(e) {}
+        renderLanguageCards();
+        setupSearch();
+        setupAccountState();
     })();
     </script>
-
 </body>
 </html>

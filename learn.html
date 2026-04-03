@@ -189,6 +189,7 @@
                 gap: 1rem;
             }
         }
+
     </style>
 </head>
 <body>
@@ -214,16 +215,15 @@
 
         <section class="toolbar">
             <input class="search-box" type="text" placeholder="Search for Python, pointers, ROS2, control systems, debugging..." />
-            <select class="filter-select">
-                <option>Filter by tag</option>
-                <option>Beginner Friendly</option>
-                <option>Course Support</option>
-                <option>Robotics</option>
-                <option>Data Science</option>
-                <option>Systems</option>
-                <option>Control Systems</option>
+            <select class="filter-select" id="filter-menu">
+                <option value = 'Filter by tag'>Filter by tag</option>
+                <option value = 'Beginner Friendly'>Beginner Friendly</option>
+                <option value = 'Course Support'>Course Support</option>
+                <option value = 'Robotics'>Robotics</option>
+                <option value = 'Data Science'>Data Science</option>
+                <option value = 'Systems'>Systems</option>
+                <option value = 'Control Systems'>Control Systems</option>
             </select>
-
             <div class="tag-row">
                 <span class="tag">Beginner Friendly</span>
                 <span class="tag">Course Support</span>
@@ -234,8 +234,8 @@
             </div>
         </section>
 
-        <section class="grid">
-            <article class="card">
+        <section class="grid" id = "default-grid">
+            <article class="card" id="python-card">
                 <h3>Python</h3>
                 <p>Curated for intro programming, scripting, automation, and data analysis workflows.</p>
                 <div class="meta">
@@ -246,7 +246,7 @@
                 <a class="btn" href="language-page.html">Explore Python</a>
             </article>
 
-            <article class="card">
+            <article class="card" id="c++-card">
                 <h3>C++</h3>
                 <p>Support for pointers, memory, object-oriented programming, and performance-focused coursework.</p>
                 <div class="meta">
@@ -257,7 +257,7 @@
                 <a class="btn" href="language-page.html">Explore C++</a>
             </article>
 
-            <article class="card">
+            <article class="card" id="matlab-card">
                 <h3>MATLAB</h3>
                 <p>Built for modeling, simulation, controls, linear algebra, and engineering analysis.</p>
                 <div class="meta">
@@ -268,7 +268,7 @@
                 <a class="btn" href="language-page.html">Explore MATLAB</a>
             </article>
 
-            <article class="card">
+            <article class="card" id="ros2-card">
                 <h3>ROS2</h3>
                 <p>Guided support for robotics middleware, nodes, topics, packages, and lab workflows.</p>
                 <div class="meta">
@@ -279,7 +279,7 @@
                 <a class="btn" href="language-page.html">Explore ROS2</a>
             </article>
 
-            <article class="card">
+            <article class="card" id="java-card">
                 <h3>Java</h3>
                 <p>Object-oriented concepts, class structure, and practical programming exercises for coursework.</p>
                 <div class="meta">
@@ -290,7 +290,7 @@
                 <a class="btn" href="language-page.html">Explore Java</a>
             </article>
 
-            <article class="card">
+            <article class="card" id="js-card">
                 <h3>JavaScript</h3>
                 <p>Front-end fundamentals for websites, interfaces, and interactive academic projects.</p>
                 <div class="meta">
@@ -304,5 +304,71 @@
     </main>
 
     <footer>&copy; 2026 CodeMap | Learn Page</footer>
+    <script>
+        //We attempt to add functionality to reflect the change in filter bar
+        var selectEle = document.getElementById('filter-menu');
+        selectEle.addEventListener('change', function(){
+            if (this.value == 'Filter by tag'){
+                //We need to rearrange certain categories
+                document.getElementById('ros2-card').style.display="grid";
+                document.getElementById('c++-card').style.display="grid";
+                document.getElementById('python-card').style.display="grid";
+                document.getElementById('js-card').style.display="grid";
+                document.getElementById('java-card').style.display="grid";
+                document.getElementById('matlab-card').style.display="grid";
+            }
+            if (this.value == 'Beginner Friendly'){
+                //We need to rearrange certain categories
+                document.getElementById('python-card').style.display="grid";
+                document.getElementById('ros2-card').style.display="none";
+                document.getElementById('c++-card').style.display="none";
+                document.getElementById('js-card').style.display="grid";
+                document.getElementById('java-card').style.display="none";
+                document.getElementById('matlab-card').style.display="none";
+            }
+            if (this.value == 'Course Support') {
+                document.getElementById('ros2-card').style.display='grid';
+                document.getElementById('c++-card').style.display='grid';
+                document.getElementById('python-card').style.display="grid";
+                document.getElementById('js-card').style.display="grid";
+                document.getElementById('java-card').style.display="grid";
+                document.getElementById('matlab-card').style.display="grid";
+            }
+            if (this.value == 'Robotics') {
+                document.getElementById('ros2-card').style.display="grid";
+                document.getElementById('c++-card').style.display="grid";
+                document.getElementById('python-card').style.display="none";
+                document.getElementById('js-card').style.display="none";
+                document.getElementById('java-card').style.display="none";
+                document.getElementById('matlab-card').style.display="none";
+            }
+            if (this.value == 'Data Science') {
+                document.getElementById('ros2-card').style.display="none";
+                document.getElementById('c++-card').style.display="none";
+                document.getElementById('python-card').style.display="grid";
+                document.getElementById('js-card').style.display="none";
+                document.getElementById('java-card').style.display="none";
+                document.getElementById('matlab-card').style.display="none";
+            }
+            if (this.value == 'Systems') {
+                document.getElementById('ros2-card').style.display="none";
+                document.getElementById('c++-card').style.display="grid";
+                document.getElementById('python-card').style.display="grid";
+                document.getElementById('js-card').style.display="none";
+                document.getElementById('java-card').style.display="none";
+                document.getElementById('matlab-card').style.display="grid";
+                    
+            }
+            if (this.value == 'Control Systems') {
+                document.getElementById('ros2-card').style.display="none";
+                document.getElementById('c++-card').style.display="grid";
+                document.getElementById('python-card').style.display="none";
+                document.getElementById('js-card').style.display="none";
+                document.getElementById('java-card').style.display="none";
+                document.getElementById('matlab-card').style.display="none";
+            }
+
+        });
+    </script>
 </body>
 </html>

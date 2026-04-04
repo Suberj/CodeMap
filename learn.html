@@ -95,7 +95,7 @@
         .toolbar {
             display: grid;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
 
         .search-box,
@@ -109,6 +109,13 @@
             font-size: 1rem;
         }
 
+        .search-box:focus,
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(82,197,242,0.12);
+        }
+
         .tag-row {
             display: flex;
             flex-wrap: wrap;
@@ -118,12 +125,28 @@
         .tag {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             padding: 0.6rem 0.9rem;
             border-radius: 999px;
             background: rgba(82,197,242,0.10);
             border: 1px solid rgba(82,197,242,0.20);
             color: var(--primary-blue);
             font-size: 0.78rem;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .tag:hover,
+        .tag.active {
+            background: rgba(82,197,242,0.18);
+            border-color: rgba(82,197,242,0.45);
+            color: var(--text-off-white);
+        }
+
+        .results-meta {
+            margin: 0 0 1.2rem;
+            color: var(--muted);
+            font-size: 0.92rem;
         }
 
         .grid {
@@ -169,6 +192,25 @@
             border-radius: 12px;
             background: var(--primary-salmon);
             color: var(--bg-dark);
+            transition: transform 0.18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .empty-state {
+            display: none;
+            padding: 1.3rem 1.4rem;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.06);
+            background: linear-gradient(180deg, rgba(39,50,64,0.95), rgba(22,29,38,0.98));
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .empty-state.show {
+            display: block;
         }
 
         footer {
@@ -189,7 +231,6 @@
                 gap: 1rem;
             }
         }
-
     </style>
 </head>
 <body>
@@ -214,161 +255,199 @@
         </section>
 
         <section class="toolbar">
-            <input class="search-box" type="text" placeholder="Search for Python, pointers, ROS2, control systems, debugging..." />
-            <select class="filter-select" id="filter-menu">
-                <option value = 'Filter by tag'>Filter by tag</option>
-                <option value = 'Beginner Friendly'>Beginner Friendly</option>
-                <option value = 'Course Support'>Course Support</option>
-                <option value = 'Robotics'>Robotics</option>
-                <option value = 'Data Science'>Data Science</option>
-                <option value = 'Systems'>Systems</option>
-                <option value = 'Control Systems'>Control Systems</option>
+            <input
+                class="search-box"
+                id="searchBox"
+                type="text"
+                placeholder="Search for Python, pointers, ROS2, control systems, debugging..."
+                autocomplete="off"
+            />
+            <select class="filter-select" id="filterMenu">
+                <option value="">Filter by tag</option>
+                <option value="Beginner Friendly">Beginner Friendly</option>
+                <option value="Course Support">Course Support</option>
+                <option value="Robotics">Robotics</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Systems">Systems</option>
+                <option value="Control Systems">Control Systems</option>
             </select>
-            <div class="tag-row">
-                <span class="tag">Beginner Friendly</span>
-                <span class="tag">Course Support</span>
-                <span class="tag">Systems</span>
-                <span class="tag">Data Science</span>
-                <span class="tag">Robotics</span>
-                <span class="tag">Control Systems</span>
+            <div class="tag-row" id="tagRow">
+                <button class="tag" type="button" data-tag="Beginner Friendly">Beginner Friendly</button>
+                <button class="tag" type="button" data-tag="Course Support">Course Support</button>
+                <button class="tag" type="button" data-tag="Systems">Systems</button>
+                <button class="tag" type="button" data-tag="Data Science">Data Science</button>
+                <button class="tag" type="button" data-tag="Robotics">Robotics</button>
+                <button class="tag" type="button" data-tag="Control Systems">Control Systems</button>
             </div>
         </section>
 
-        <section class="grid" id = "default-grid">
-            <article class="card" id="python-card">
-                <h3>Python</h3>
-                <p>Curated for intro programming, scripting, automation, and data analysis workflows.</p>
-                <div class="meta">
-                    <span>CS1</span>
-                    <span>Data Science</span>
-                    <span>Automation</span>
-                </div>
-                <a class="btn" href="language-page.html">Explore Python</a>
-            </article>
+        <p class="results-meta" id="resultsMeta">Showing all language paths.</p>
 
-            <article class="card" id="c++-card">
-                <h3>C++</h3>
-                <p>Support for pointers, memory, object-oriented programming, and performance-focused coursework.</p>
-                <div class="meta">
-                    <span>Data Structures</span>
-                    <span>Systems</span>
-                    <span>Debugging</span>
-                </div>
-                <a class="btn" href="language-page.html">Explore C++</a>
-            </article>
-
-            <article class="card" id="matlab-card">
-                <h3>MATLAB</h3>
-                <p>Built for modeling, simulation, controls, linear algebra, and engineering analysis.</p>
-                <div class="meta">
-                    <span>Controls</span>
-                    <span>Signals</span>
-                    <span>Modeling</span>
-                </div>
-                <a class="btn" href="language-page.html">Explore MATLAB</a>
-            </article>
-
-            <article class="card" id="ros2-card">
-                <h3>ROS2</h3>
-                <p>Guided support for robotics middleware, nodes, topics, packages, and lab workflows.</p>
-                <div class="meta">
-                    <span>Robotics</span>
-                    <span>Nodes</span>
-                    <span>CLI</span>
-                </div>
-                <a class="btn" href="language-page.html">Explore ROS2</a>
-            </article>
-
-            <article class="card" id="java-card">
-                <h3>Java</h3>
-                <p>Object-oriented concepts, class structure, and practical programming exercises for coursework.</p>
-                <div class="meta">
-                    <span>OOP</span>
-                    <span>Projects</span>
-                    <span>Foundations</span>
-                </div>
-                <a class="btn" href="language-page.html">Explore Java</a>
-            </article>
-
-            <article class="card" id="js-card">
-                <h3>JavaScript</h3>
-                <p>Front-end fundamentals for websites, interfaces, and interactive academic projects.</p>
-                <div class="meta">
-                    <span>Web Dev</span>
-                    <span>UI</span>
-                    <span>Projects</span>
-                </div>
-                <a class="btn" href="language-page.html">Explore JavaScript</a>
-            </article>
-        </section>
+        <section class="grid" id="languageGrid"></section>
+        <div class="empty-state" id="emptyState">
+            No language paths match that search yet. Try a language name like Python or Java, or a topic like systems, robotics, documentation, or controls.
+        </div>
     </main>
 
     <footer>&copy; 2026 CodeMap | Learn Page</footer>
+
     <script>
-        //We attempt to add functionality to reflect the change in filter bar
-        var selectEle = document.getElementById('filter-menu');
-        selectEle.addEventListener('change', function(){
-            if (this.value == 'Filter by tag'){
-                //We need to rearrange certain categories
-                document.getElementById('ros2-card').style.display="grid";
-                document.getElementById('c++-card').style.display="grid";
-                document.getElementById('python-card').style.display="grid";
-                document.getElementById('js-card').style.display="grid";
-                document.getElementById('java-card').style.display="grid";
-                document.getElementById('matlab-card').style.display="grid";
-            }
-            if (this.value == 'Beginner Friendly'){
-                //We need to rearrange certain categories
-                document.getElementById('python-card').style.display="grid";
-                document.getElementById('ros2-card').style.display="none";
-                document.getElementById('c++-card').style.display="none";
-                document.getElementById('js-card').style.display="grid";
-                document.getElementById('java-card').style.display="none";
-                document.getElementById('matlab-card').style.display="none";
-            }
-            if (this.value == 'Course Support') {
-                document.getElementById('ros2-card').style.display='grid';
-                document.getElementById('c++-card').style.display='grid';
-                document.getElementById('python-card').style.display="grid";
-                document.getElementById('js-card').style.display="grid";
-                document.getElementById('java-card').style.display="grid";
-                document.getElementById('matlab-card').style.display="grid";
-            }
-            if (this.value == 'Robotics') {
-                document.getElementById('ros2-card').style.display="grid";
-                document.getElementById('c++-card').style.display="grid";
-                document.getElementById('python-card').style.display="none";
-                document.getElementById('js-card').style.display="none";
-                document.getElementById('java-card').style.display="none";
-                document.getElementById('matlab-card').style.display="none";
-            }
-            if (this.value == 'Data Science') {
-                document.getElementById('ros2-card').style.display="none";
-                document.getElementById('c++-card').style.display="none";
-                document.getElementById('python-card').style.display="grid";
-                document.getElementById('js-card').style.display="none";
-                document.getElementById('java-card').style.display="none";
-                document.getElementById('matlab-card').style.display="none";
-            }
-            if (this.value == 'Systems') {
-                document.getElementById('ros2-card').style.display="none";
-                document.getElementById('c++-card').style.display="grid";
-                document.getElementById('python-card').style.display="grid";
-                document.getElementById('js-card').style.display="none";
-                document.getElementById('java-card').style.display="none";
-                document.getElementById('matlab-card').style.display="grid";
-                    
-            }
-            if (this.value == 'Control Systems') {
-                document.getElementById('ros2-card').style.display="none";
-                document.getElementById('c++-card').style.display="grid";
-                document.getElementById('python-card').style.display="none";
-                document.getElementById('js-card').style.display="none";
-                document.getElementById('java-card').style.display="none";
-                document.getElementById('matlab-card').style.display="none";
+        (function() {
+            const LANGUAGES = [
+                {
+                    key: 'python',
+                    title: 'Python',
+                    description: 'Curated for intro programming, scripting, automation, and data analysis workflows.',
+                    tags: ['Beginner Friendly', 'Course Support', 'Data Science'],
+                    meta: ['CS1', 'Data Science', 'Automation'],
+                    keywords: ['python', 'scripting', 'automation', 'data', 'analysis', 'variables', 'intro programming']
+                },
+                {
+                    key: 'cpp',
+                    title: 'C++',
+                    description: 'Support for pointers, memory, object-oriented programming, and performance-focused coursework.',
+                    tags: ['Course Support', 'Systems', 'Robotics'],
+                    meta: ['Data Structures', 'Systems', 'Debugging'],
+                    keywords: ['c++', 'cpp', 'pointers', 'memory', 'oop', 'performance', 'debugging']
+                },
+                {
+                    key: 'matlab',
+                    title: 'MATLAB',
+                    description: 'Built for modeling, simulation, controls, linear algebra, and engineering analysis.',
+                    tags: ['Course Support', 'Control Systems'],
+                    meta: ['Controls', 'Signals', 'Modeling'],
+                    keywords: ['matlab', 'controls', 'control systems', 'signals', 'simulation', 'linear algebra', 'modeling']
+                },
+                {
+                    key: 'ros2',
+                    title: 'ROS2',
+                    description: 'Guided support for robotics middleware, nodes, topics, packages, and lab workflows.',
+                    tags: ['Course Support', 'Robotics'],
+                    meta: ['Robotics', 'Nodes', 'CLI'],
+                    keywords: ['ros2', 'robotics', 'nodes', 'topics', 'packages', 'middleware', 'cli']
+                },
+                {
+                    key: 'java',
+                    title: 'Java',
+                    description: 'Object-oriented concepts, class structure, and practical programming exercises for coursework.',
+                    tags: ['Beginner Friendly', 'Course Support'],
+                    meta: ['OOP', 'Projects', 'Foundations'],
+                    keywords: ['java', 'object oriented', 'oop', 'classes', 'projects', 'foundations']
+                },
+                {
+                    key: 'javascript',
+                    title: 'JavaScript',
+                    description: 'Front-end fundamentals for websites, interfaces, and interactive academic projects.',
+                    tags: ['Beginner Friendly', 'Course Support'],
+                    meta: ['Web Dev', 'UI', 'Projects'],
+                    keywords: ['javascript', 'js', 'web', 'frontend', 'ui', 'browser', 'interactive']
+                }
+            ];
+
+            const searchBox = document.getElementById('searchBox');
+            const filterMenu = document.getElementById('filterMenu');
+            const tagButtons = Array.from(document.querySelectorAll('.tag'));
+            const languageGrid = document.getElementById('languageGrid');
+            const resultsMeta = document.getElementById('resultsMeta');
+            const emptyState = document.getElementById('emptyState');
+
+            function normalize(value) {
+                return String(value || '').trim().toLowerCase();
             }
 
-        });
+            function pageLink(langKey) {
+                return 'language-page.html?lang=' + encodeURIComponent(langKey);
+            }
+
+            function rememberLanguage(langKey) {
+                localStorage.setItem('codemap_last_lang', langKey);
+            }
+
+            function renderCards(items) {
+                languageGrid.innerHTML = items.map(function(item) {
+                    return `
+                        <article class="card">
+                            <h3>${item.title}</h3>
+                            <p>${item.description}</p>
+                            <div class="meta">
+                                ${item.meta.map(function(entry) { return '<span>' + entry + '</span>'; }).join('')}
+                            </div>
+                            <a class="btn" href="${pageLink(item.key)}" data-lang="${item.key}">Explore ${item.title}</a>
+                        </article>
+                    `;
+                }).join('');
+
+                Array.from(languageGrid.querySelectorAll('.btn')).forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        rememberLanguage(link.dataset.lang);
+                    });
+                });
+            }
+
+            function updateTagButtons(activeTag) {
+                tagButtons.forEach(function(button) {
+                    if (button.dataset.tag === activeTag) {
+                        button.classList.add('active');
+                    } else {
+                        button.classList.remove('active');
+                    }
+                });
+            }
+
+            function updateResultsMeta(count, query, tag) {
+                const parts = [];
+                if (query) {
+                    parts.push('search "' + query + '"');
+                }
+                if (tag) {
+                    parts.push('tag "' + tag + '"');
+                }
+
+                if (!parts.length) {
+                    resultsMeta.textContent = 'Showing all language paths.';
+                    return;
+                }
+
+                resultsMeta.textContent = 'Showing ' + count + ' result' + (count === 1 ? '' : 's') + ' for ' + parts.join(' and ') + '.';
+            }
+
+            function applyFilters() {
+                const query = normalize(searchBox.value);
+                const selectedTag = filterMenu.value;
+
+                const filtered = LANGUAGES.filter(function(item) {
+                    const matchesTag = !selectedTag || item.tags.indexOf(selectedTag) !== -1;
+                    const haystack = normalize([
+                        item.title,
+                        item.description,
+                        item.tags.join(' '),
+                        item.meta.join(' '),
+                        item.keywords.join(' ')
+                    ].join(' '));
+                    const matchesQuery = !query || haystack.indexOf(query) !== -1;
+                    return matchesTag && matchesQuery;
+                });
+
+                renderCards(filtered);
+                updateTagButtons(selectedTag);
+                updateResultsMeta(filtered.length, searchBox.value.trim(), selectedTag);
+                emptyState.classList.toggle('show', filtered.length === 0);
+            }
+
+            filterMenu.addEventListener('change', applyFilters);
+            searchBox.addEventListener('input', applyFilters);
+
+            tagButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const tag = button.dataset.tag;
+                    filterMenu.value = filterMenu.value === tag ? '' : tag;
+                    applyFilters();
+                });
+            });
+
+            renderCards(LANGUAGES);
+            applyFilters();
+        })();
     </script>
 </body>
 </html>

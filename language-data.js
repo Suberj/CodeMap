@@ -26,7 +26,7 @@ window.CODEMAP_LANGUAGES = {
       heroTitle: 'Python Documentation Guide',
       heroText: 'Python documentation can look dense at first, but students can learn to scan it in a consistent order and find exactly what they need.',
       overviewTitle: 'Why documentation matters',
-      overviewText: 'Documentation is where students confirm syntax, find examples, check what a function returns, and see which inputs are allowed.',
+      overviewText: 'Documentation is where students confirm syntax, find examples, check what a function returns, and see which inputs are allowed. Some programming language may already offer build-in function that provides specific solution that one might need, eliminating the need to implement their own.',
       structure: [
         { title: 'Function name', text: 'Start by identifying the tool or function the page is describing.' },
         { title: 'Parameters', text: 'Look at what inputs the function accepts and whether any are optional.' },
@@ -45,20 +45,26 @@ window.CODEMAP_LANGUAGES = {
         ]
       },
       strategy: [
+        'Check what libraries need to be imported to use this function. Sometimes there may be more than the library this function is from.',
         'Read the page title and first sentence before looking at examples.',
-        'Underline or highlight the input and output information.',
+        'Underline or highlight the input and output information. Pay close attention to the types of the input and output.',
         'Compare the documentation example to your own code.',
-        'Test one small example instead of changing everything at once.'
+        'Test one small example instead of changing your implementation completely.',
+        'If the library is more complex, pay attention to if it used any explicit type definition. While Python is a dynamically typed language where data types usually do not need to be specified, sometimes explicit type definitions are in place to ensure the code works correctly.',
       ],
       mistakes: [
+        'Did not import all the libary for this functions',
         'Skipping the parameter list and guessing the syntax.',
         'Copying an example without checking what it returns.',
-        'Ignoring whether the page is for a method, function, or module.'
+        'Ignoring whether the page is for a method, function, or module.',
+        'Did not pay attention to whether the input directly, leading to problems like aliasing.'
       ],
       checklist: [
+        'What library is this function from?',
         'What is the function or topic called?',
         'What inputs does it expect?',
         'What does it return?',
+        'How to call this function?',
         'Which example looks closest to my task?'
       ]
     },
@@ -168,18 +174,26 @@ window.CODEMAP_LANGUAGES = {
         'Read the header and function or method signature first.',
         'Find out whether the page is about a free function, class, or class method.',
         'Notice the return type before copying the example.',
-        'Translate one line of the example into plain English.'
+        'Some functions only take in input with keyword "const". Ensure the input you want to use for this function matches the criteria.', 
+        'Translate one line of the example into plain English. This can help you understand what the example is trying to accomplish if it is not immediately apparent.',
+        'Be careful of how an input is passed in. Some C++ value may be passed by reference. Certain copying in C++ may be done from shallow copy, which can change the value in another structure it is referenced to.',
+        'Pay attention to the use of dynamic memory. If the example included "new" as a keyword, you would need to handle deallocating the memory.',
+        'C++ has some functions that are legacy from C, they may not be memory safe. It is a good idea to use --leak-check=full to check for memory leak.'
       ],
       mistakes: [
         'Ignoring the header and wondering why the compiler cannot find the feature.',
         'Mixing up an object method with a standalone function.',
-        'Reading only the example and not the return type.'
+        'Reading only the example and not the return type.',
+        'Did not focus on whether inputs are passed by value or passed by reference.', 
+        'Skipping over whether the example uses any templated class or explicit type definitions.', 
+        'Mishandle the dynamic memory usage for functions that require dynamic memory.'
       ],
       checklist: [
         'What header do I need?',
         'What type or namespace does this belong to?',
         'What does it return?',
-        'Which example looks closest to my code?'
+        'Which example looks closest to my code?',
+        'Does this function uses correct access of memory?'
       ]
     },
     tutorial: {

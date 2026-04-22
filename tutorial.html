@@ -79,13 +79,53 @@
     .progress-track { height:12px; border-radius:999px; background:rgba(255,255,255,0.08); overflow:hidden; margin-bottom:0.7rem; }
     .progress-fill { height:100%; width:0%; border-radius:inherit; background:linear-gradient(90deg,#52C5F2,#93e7ff); transition:width 0.5s ease; }
     .progress-meta { display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; color:var(--muted); font-size:0.88rem; }
+    .progress-callout {
+      margin-top: 1rem;
+      padding: 1rem 1.1rem;
+      border-radius: 16px;
+      border: 1px solid rgba(82,197,242,0.18);
+      background: rgba(82,197,242,0.08);
+      display: grid;
+      gap: 0.35rem;
+    }
+    .progress-callout.success {
+      border-color: rgba(127,224,162,0.24);
+      background: rgba(127,224,162,0.1);
+    }
+    .progress-callout.error {
+      border-color: rgba(242,138,130,0.22);
+      background: rgba(242,138,130,0.08);
+    }
+    .progress-callout-title {
+      color: var(--text-off-white);
+      font-weight: 700;
+      font-size: 0.96rem;
+    }
+    .progress-callout-copy {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+    .progress-callout-link {
+      color: var(--primary-blue);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.84rem;
+    }
+    .path-copy {
+      margin: -0.15rem 0 1rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
     .roadmap { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; }
-    .roadmap-card { background:rgba(8,13,20,0.4); border:1px solid var(--border); border-radius:16px; padding:1rem; }
+    .roadmap-card { background:rgba(8,13,20,0.4); border:1px solid var(--border); border-radius:16px; padding:1rem; transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
     .roadmap-card h3 { margin:0 0 0.45rem; color:var(--primary-blue); font-size:0.98rem; }
     .roadmap-card p { margin:0 0 0.7rem; font-size:0.9rem; }
     .roadmap-state { font-size:0.8rem; color:var(--warning); }
     .roadmap-card.completed { border-color:rgba(127,224,162,0.28); background:linear-gradient(180deg, rgba(127,224,162,0.08), rgba(8,13,20,0.35)); }
     .roadmap-card.completed .roadmap-state { color:var(--success); }
+    .roadmap-card.next { border-color: rgba(82,197,242,0.28); box-shadow: 0 10px 20px rgba(0,0,0,0.14); transform: translateY(-1px); }
+    .roadmap-card.next .roadmap-state { color: var(--primary-blue); }
     .lesson-section { display:grid; gap:1rem; }
     .lesson-head { display:flex; justify-content:space-between; align-items:start; gap:1rem; flex-wrap:wrap; }
     .lesson-head h2 { margin-bottom:0.25rem; }
@@ -110,8 +150,12 @@
     .status.success { background:rgba(127,224,162,0.1); border-color:rgba(127,224,162,0.22); color:var(--success); display:block; }
     .status.error { background:rgba(242,125,114,0.08); border-color:rgba(242,125,114,0.22); color:var(--danger); display:block; }
     .status.neutral { background:rgba(170,180,192,0.08); border-color:rgba(170,180,192,0.2); color:var(--muted); display:block; }
-    .section-score { margin-top:1rem; padding:0.95rem 1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--text-off-white); display:none; }
+    .section-score { margin-top:1rem; padding:1rem 1.05rem; border-radius:14px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--text-off-white); display:none; }
     .section-score.show { display:block; }
+    .section-score.success { border-color: rgba(127,224,162,0.24); background: rgba(127,224,162,0.1); }
+    .section-score.error { border-color: rgba(242,138,130,0.22); background: rgba(242,138,130,0.08); }
+    .section-score-title { display:block; font-weight:700; color:var(--text-off-white); margin-bottom:0.25rem; }
+    .section-score-copy { color:var(--muted); line-height:1.55; font-size:0.92rem; }
     .study-list { display:grid; gap:0.9rem; margin:0; padding-left:1.2rem; }
     .study-note { margin-top:1rem; padding:1rem 1.1rem; border-radius:12px; background:rgba(82,197,242,0.08); border:1px solid rgba(82,197,242,0.18); color:var(--text-off-white); }
     .final-actions { display:flex; gap:1rem; flex-wrap:wrap; }
@@ -187,11 +231,17 @@
           <span id="completionCount">0 of 4 mini lessons complete</span>
           <span id="lessonStatusMsg">Complete each mini lesson to build your progress.</span>
         </div>
+        <div class="progress-callout" id="progressUpdate">
+          <div class="progress-callout-title">No progress saved yet</div>
+          <div class="progress-callout-copy">When you complete a mini lesson, this panel will confirm that your work was saved and that your badge progress updated.</div>
+          <a class="progress-callout-link" href="account-page.html">View badges on your account page</a>
+        </div>
       </div>
     </section>
 
     <section class="panel" id="pathSection">
       <h2>Lesson Path</h2>
+      <p class="path-copy">Each completed mini lesson updates this path, your saved progress, and the badge progress shown on the Account page.</p>
       <div class="roadmap" id="roadmap"></div>
     </section>
 
@@ -232,6 +282,7 @@
       const CURRENT_USER_KEY = 'codemap_current_user';
       const USERS_KEY = 'codemap_users';
       const GUEST_PROGRESS_KEY = 'codemap_guest_progress';
+      const RECENT_BADGE_KEY = 'codemap_recent_badge';
       const all = window.CODEMAP_LANGUAGES || {};
       const params = new URLSearchParams(window.location.search);
       const savedLang = localStorage.getItem('codemap_last_lang');
@@ -434,9 +485,31 @@
       function setSectionScore(sectionId, message, success) {
         const score = document.getElementById('score-' + sectionId);
         if (!score) return;
-        score.className = 'section-score show';
-        score.textContent = message;
-        score.style.borderColor = success ? 'rgba(127,224,162,0.22)' : 'rgba(242,125,114,0.22)';
+        const title = success ? '✓ Mini lesson completed' : 'Mini lesson still needs work';
+        score.className = 'section-score show ' + (success ? 'success' : 'error');
+        score.innerHTML = '<span class="section-score-title">' + title + '</span><span class="section-score-copy">' + escapeHtml(message) + '</span>';
+      }
+
+      function showProgressUpdate(sectionId, success) {
+        const callout = document.getElementById('progressUpdate');
+        if (!callout) return;
+        const lesson = LANG.lessons.find((item) => item.id === sectionId);
+        const progressPct = currentProgressPercentage(tutorialState);
+        if (!lesson) return;
+        callout.className = 'progress-callout ' + (success ? 'success' : 'error');
+        if (success) {
+          callout.innerHTML = `
+            <div class="progress-callout-title">✓ ${escapeHtml(lesson.title)} saved</div>
+            <div class="progress-callout-copy">Your correct answers were saved, tutorial progress is now <strong>${progressPct}%</strong>, and badge progress has been updated for this language.</div>
+            <a class="progress-callout-link" href="account-page.html">Go to Account to view badges</a>
+          `;
+        } else {
+          callout.innerHTML = `
+            <div class="progress-callout-title">Try this mini lesson again</div>
+            <div class="progress-callout-copy">Review the key idea and example, then fix the answers above. Progress will update once the full mini lesson is correct.</div>
+            <a class="progress-callout-link" href="#${sectionId}">Return to this mini lesson</a>
+          `;
+        }
       }
 
       function collectSectionAnswers(sectionId) {
@@ -539,17 +612,22 @@
           statusMsg.textContent = 'Complete each mini lesson to build your progress.';
           statusMsg.style.color = '#AAB4C0';
         }
+        const nextSectionId = SECTION_ORDER.find((section) => !state.sections[section]) || null;
         SECTION_ORDER.forEach((sectionId) => {
           const badge = document.getElementById('badge-' + sectionId);
           const roadmapCard = document.getElementById('roadmap-' + sectionId);
           const roadmapState = document.getElementById('roadmap-state-' + sectionId);
           const isComplete = !!state.sections[sectionId];
+          const isNext = !isComplete && sectionId === nextSectionId;
           if (badge) {
-            badge.textContent = isComplete ? 'Completed' : 'Not completed';
+            badge.textContent = isComplete ? 'Completed' : (isNext ? 'Up next' : 'Not completed');
             badge.classList.toggle('completed', isComplete);
           }
-          if (roadmapCard) roadmapCard.classList.toggle('completed', isComplete);
-          if (roadmapState) roadmapState.textContent = isComplete ? 'Completed' : 'In progress';
+          if (roadmapCard) {
+            roadmapCard.classList.toggle('completed', isComplete);
+            roadmapCard.classList.toggle('next', isNext);
+          }
+          if (roadmapState) roadmapState.textContent = isComplete ? 'Completed' : (isNext ? 'Up next' : 'Still to do');
           updateSectionCompletionView(sectionId, isComplete);
         });
       }
@@ -606,14 +684,19 @@
         if (passed) {
           tutorialState.sections[sectionId] = true;
           tutorialState.answers[sectionId] = collectSectionAnswers(sectionId);
-          setSectionScore(sectionId, 'Mini lesson completed. Progress has been added to the overall tutorial.', true);
+          setSectionScore(sectionId, 'This mini lesson was completed successfully. Your progress and badge tracking were updated.', true);
         } else {
           setSectionScore(sectionId, 'This mini lesson is not complete yet. Fix the answers above and try again.', false);
         }
         persistState(tutorialState);
+        showProgressUpdate(sectionId, passed);
         const afterUser = buildBadgeContext(currentProgressPercentage(tutorialState));
         const afterBadges = earnedBadgeIdsFor(afterUser);
         const newBadges = afterBadges.filter((id) => !beforeBadges.has(id)).map((id) => badgeById(id)).filter(Boolean);
+        if (newBadges.length) {
+          const newestBadge = newBadges[newBadges.length - 1];
+          localStorage.setItem(RECENT_BADGE_KEY, JSON.stringify({ id: newestBadge.id, lang: LANG_KEY, at: Date.now() }));
+        }
         enqueueBadges(newBadges);
       }
 
@@ -643,9 +726,13 @@
           if (score) {
             score.className = 'section-score';
             score.textContent = '';
-            score.style.borderColor = 'rgba(255,255,255,0.08)';
           }
         });
+        const callout = document.getElementById('progressUpdate');
+        if (callout) {
+          callout.className = 'progress-callout';
+          callout.innerHTML = '<div class="progress-callout-title">Progress reset</div><div class="progress-callout-copy">Mini lesson answers were cleared. Complete a mini lesson again to update progress and badges.</div><a class="progress-callout-link" href="account-page.html">View badges on your account page</a>';
+        }
       }
 
       function renderPage() {
@@ -744,6 +831,13 @@
 
       renderPage();
       updateProgressUI(tutorialState);
+      if (currentProgressPercentage(tutorialState) > 0) {
+        const callout = document.getElementById('progressUpdate');
+        if (callout) {
+          callout.className = 'progress-callout success';
+          callout.innerHTML = '<div class="progress-callout-title">Progress already saved</div><div class="progress-callout-copy">This tutorial remembers your completed mini lessons. Continue where you left off and watch badge progress update on the Account page.</div><a class="progress-callout-link" href="account-page.html">Go to Account to view badges</a>';
+        }
+      }
 
       LANG.lessons.forEach((lesson) => {
         const savedSectionAnswers = tutorialState.answers?.[lesson.id] || {};

@@ -184,6 +184,103 @@
 
         .stat-card span { color: var(--muted); font-size: 0.88rem; }
 
+        /* ── BADGE SPOTLIGHT STRIP ── */
+        .achievement-strip {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 1.2rem;
+        }
+
+        .spotlight-card {
+            background: linear-gradient(180deg, rgba(39,50,64,0.92), rgba(22,29,38,0.97));
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1.5rem;
+            display: grid;
+            gap: 0.95rem;
+        }
+
+        .spotlight-eyebrow {
+            display: inline-flex;
+            width: fit-content;
+            padding: 0.4rem 0.72rem;
+            border-radius: 999px;
+            background: rgba(82,197,242,0.08);
+            border: 1px solid rgba(82,197,242,0.18);
+            color: var(--primary-blue);
+            font-family: "din-2014", sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .spotlight-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .spotlight-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: rgba(243,199,109,0.12);
+            border: 1px solid rgba(243,199,109,0.28);
+            flex-shrink: 0;
+        }
+
+        .spotlight-title {
+            margin: 0;
+            font-family: "din-2014", sans-serif;
+            font-size: 1.15rem;
+            color: var(--text-off-white);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .spotlight-subtitle {
+            margin: 0.2rem 0 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .spotlight-copy {
+            color: var(--muted);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        .spotlight-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .goal-progress-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .goal-progress-card {
+            padding: 0.9rem 1rem;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .goal-progress-card .progress-bar {
+            margin-top: 0.55rem;
+        }
+
         /* ── MAIN GRID ── */
         .main-grid {
             display: grid;
@@ -286,6 +383,12 @@
         }
 
         .badges-summary span { color: var(--gold); font-weight: 700; }
+
+        .badges-location-note {
+            margin: -0.7rem 0 1.2rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
 
         .badges-categories { display: grid; gap: 1.6rem; }
 
@@ -500,6 +603,7 @@
         /* ── RESPONSIVE ── */
         @media (max-width: 1024px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .achievement-strip { grid-template-columns: 1fr; }
             .main-grid { grid-template-columns: 1fr; }
         }
 
@@ -545,6 +649,7 @@
 
             <div class="hero-actions">
                 <a href="continue-lesson.html" class="btn btn-primary">Continue Learning</a>
+                <a href="#badgeAnchor" class="btn btn-outline">View Badges</a>
                 <a href="login-signup.html" class="btn btn-outline" id="logoutBtn">Log Out</a>
             </div>
         </section>
@@ -569,6 +674,11 @@
             </div>
         </section>
 
+        <section class="achievement-strip">
+            <div class="spotlight-card" id="recentBadgeSpotlight"></div>
+            <div class="spotlight-card" id="nextBadgeGoal"></div>
+        </section>
+
         <!-- SAVED TUTORIALS + PROGRESS -->
         <section class="main-grid">
             <div class="content-card">
@@ -583,11 +693,12 @@
         </section>
 
         <!-- BADGES -->
-        <section class="content-card badges-section">
+        <section class="content-card badges-section" id="badgeAnchor">
             <div class="badges-header">
                 <h2 class="section-title">Badges</h2>
                 <p class="badges-summary"><span id="earnedCount">0</span> of <span id="totalCount">0</span> earned</p>
             </div>
+            <p class="badges-location-note">All earned badges appear on this account page. Participants who were unsure where badges would live can now find them immediately here.</p>
             <div class="badges-categories" id="badgesCategoriesContainer"></div>
         </section>
 
@@ -756,6 +867,7 @@
        AUTH HELPERS
     ───────────────────────────────────────────────────────────── */
     const CURRENT_USER_KEY = "codemap_current_user";
+    const RECENT_BADGE_KEY = "codemap_recent_badge";
 
     function getCurrentUser() {
         const raw = sessionStorage.getItem(CURRENT_USER_KEY) || localStorage.getItem(CURRENT_USER_KEY);
@@ -774,9 +886,117 @@
         return ((first||"").charAt(0) + (last||"").charAt(0)).toUpperCase() || "CM";
     }
 
+    function badgeById(id) {
+        return BADGE_CATALOG.find((badge) => badge.id === id) || null;
+    }
+
+    function getEarnedBadges(user) {
+        return BADGE_CATALOG.filter((badge) => {
+            try { return badge.earn(user); } catch (error) { return false; }
+        });
+    }
+
     /* ─────────────────────────────────────────────────────────────
        RENDER FUNCTIONS
     ───────────────────────────────────────────────────────────── */
+    function renderAchievementStrip(user) {
+        const earnedBadges = getEarnedBadges(user);
+        const recentEl = document.getElementById("recentBadgeSpotlight");
+        const nextEl = document.getElementById("nextBadgeGoal");
+
+        let recentBadge = null;
+        try {
+            const stored = JSON.parse(localStorage.getItem(RECENT_BADGE_KEY) || "null");
+            if (stored && stored.id) {
+                const candidate = badgeById(stored.id);
+                if (candidate && earnedBadges.some((badge) => badge.id === candidate.id)) {
+                    recentBadge = candidate;
+                }
+            }
+        } catch (error) {}
+        if (!recentBadge && earnedBadges.length) {
+            recentBadge = earnedBadges[earnedBadges.length - 1];
+        }
+
+        if (recentBadge) {
+            recentEl.innerHTML = `
+                <span class="spotlight-eyebrow">Recently Earned Badge</span>
+                <div class="spotlight-row">
+                    <div class="spotlight-icon">${recentBadge.icon}</div>
+                    <div>
+                        <h2 class="spotlight-title">${recentBadge.name}</h2>
+                        <p class="spotlight-subtitle">${recentBadge.desc}</p>
+                    </div>
+                </div>
+                <p class="spotlight-copy">Badges are stored on this account page so students can quickly confirm what they unlocked after completing tutorial work.</p>
+                <a class="spotlight-link" href="#badgeAnchor">Jump to all badges</a>
+            `;
+        } else {
+            recentEl.innerHTML = `
+                <span class="spotlight-eyebrow">Badge Location</span>
+                <div class="spotlight-row">
+                    <div class="spotlight-icon">🏅</div>
+                    <div>
+                        <h2 class="spotlight-title">Your first badge will appear here</h2>
+                        <p class="spotlight-subtitle">Complete a mini lesson to unlock a badge and then return to this account page.</p>
+                    </div>
+                </div>
+                <p class="spotlight-copy">This makes the badge location clearer for first-time users who may expect achievements to appear somewhere inside the tutorial.</p>
+                <a class="spotlight-link" href="learn.html">Start a lesson</a>
+            `;
+        }
+
+        const lockedBadges = BADGE_CATALOG
+            .filter((badge) => !earnedBadges.some((earned) => earned.id === badge.id))
+            .map((badge) => {
+                const current = badge.progressKey ? Math.max(0, Math.min(100, Number((user.progress||{})[badge.progressKey] || 0))) : 0;
+                const target = badge.progressTarget || 100;
+                const ratio = badge.progressKey ? (current / target) : -1;
+                return { badge, current, target, ratio };
+            })
+            .sort((a, b) => b.ratio - a.ratio);
+
+        const nextGoal = lockedBadges[0] || null;
+        if (nextGoal) {
+            const meta = nextGoal.badge.progressKey ? (LANG_META[nextGoal.badge.progressKey] || { label: nextGoal.badge.progressKey.toUpperCase() }) : null;
+            const progressWidth = Math.max(0, Math.min(100, Math.round((nextGoal.current / nextGoal.target) * 100)));
+            nextEl.innerHTML = `
+                <span class="spotlight-eyebrow">Next Badge Goal</span>
+                <div class="spotlight-row">
+                    <div class="spotlight-icon">${nextGoal.badge.icon}</div>
+                    <div>
+                        <h2 class="spotlight-title">${nextGoal.badge.name}</h2>
+                        <p class="spotlight-subtitle">${nextGoal.badge.desc}</p>
+                    </div>
+                </div>
+                <div class="goal-progress-card">
+                    <div class="goal-progress-meta">
+                        <span>${meta ? meta.label + ' progress' : 'Progress requirement'}</span>
+                        <span>${nextGoal.current} / ${nextGoal.target}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:${progressWidth}%"></div>
+                    </div>
+                </div>
+                <p class="spotlight-copy">This card connects tutorial completion with badge progress so the next achievement is easier to understand.</p>
+                <a class="spotlight-link" href="continue-lesson.html">Continue learning</a>
+            `;
+        } else {
+            nextEl.innerHTML = `
+                <span class="spotlight-eyebrow">Mastery</span>
+                <div class="spotlight-row">
+                    <div class="spotlight-icon">✨</div>
+                    <div>
+                        <h2 class="spotlight-title">All visible goals complete</h2>
+                        <p class="spotlight-subtitle">You have earned every currently tracked badge in this prototype.</p>
+                    </div>
+                </div>
+                <p class="spotlight-copy">The dashboard now clearly shows that there are no remaining badge goals for this account.</p>
+                <a class="spotlight-link" href="#badgeAnchor">Review badge collection</a>
+            `;
+        }
+    }
+
     function renderSavedTutorials(list) {
         const el = document.getElementById("savedTutorialsList");
         if (!list || !list.length) {
@@ -955,6 +1175,7 @@
         document.getElementById("avgProgress").textContent = avgPct + "%";
 
         // Sections
+        renderAchievementStrip(user);
         renderSavedTutorials(saved);
         renderProgress(progress);
         renderBadges(user);
